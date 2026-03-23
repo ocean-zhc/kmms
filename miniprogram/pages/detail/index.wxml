@@ -1,0 +1,48 @@
+<view class="page-detail">
+  <!-- Loading -->
+  <view class="container" wx:if="{{loading}}">
+    <view class="skeleton skeleton-card" style="height: 140rpx;"></view>
+    <view class="skeleton skeleton-card" style="height: 300rpx;"></view>
+    <view class="skeleton skeleton-card" style="height: 160rpx;"></view>
+  </view>
+
+  <!-- Empty -->
+  <view class="empty-state" wx:elif="{{!hasData}}">
+    <text class="empty-emoji">🔍</text>
+    <text class="empty-title">食谱不存在</text>
+    <text class="empty-desc">该周食谱可能尚未发布</text>
+  </view>
+
+  <!-- Content -->
+  <view class="container fade-in" wx:else>
+    <!-- Week Header -->
+    <view class="detail-header card">
+      <view class="detail-header-bg"></view>
+      <view class="detail-header-content">
+        <text class="detail-title">{{weekTitle}}</text>
+        <view class="detail-meta">
+          <view class="tag tag-green">已发布</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Menu Grid -->
+    <view class="section">
+      <view class="section-title">
+        <text class="emoji">🍽</text>
+        <text>每日食谱</text>
+      </view>
+      <menu-grid items="{{weekData.items}}" start-date="{{weekData.start_date}}" />
+    </view>
+
+    <!-- Nutrition -->
+    <view class="section">
+      <nutrition-chart week-id="{{weekId}}" />
+    </view>
+
+    <!-- AI Summary -->
+    <view class="section">
+      <ai-summary week-id="{{weekId}}" />
+    </view>
+  </view>
+</view>

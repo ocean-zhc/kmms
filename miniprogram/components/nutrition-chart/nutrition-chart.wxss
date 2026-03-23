@@ -1,0 +1,204 @@
+.nutrition {
+  margin-top: 24rpx;
+}
+
+.nutrition-card {
+  border: 2rpx solid var(--blue-light);
+}
+
+/* ===== Header ===== */
+.nutrition-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 28rpx 32rpx;
+  background: linear-gradient(135deg, #e6f7ff, #d6ecff);
+}
+
+.nutrition-icon {
+  font-size: 36rpx;
+}
+
+.nutrition-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #096dd9;
+}
+
+/* ===== Chart Row ===== */
+.nutrition-body {
+  padding: 32rpx;
+}
+
+.chart-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32rpx;
+}
+
+/* ===== Donut (CSS) ===== */
+.donut-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.donut {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.donut-center {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10rpx rgba(0,0,0,0.05);
+}
+
+.score-num {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 18rpx;
+  color: var(--text-hint);
+  margin-top: 4rpx;
+}
+
+/* ===== Legend ===== */
+.legend {
+  margin-top: 16rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  margin-bottom: 6rpx;
+}
+
+.legend-dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 4rpx;
+}
+
+/* ===== Micro Bars ===== */
+.micro-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding-top: 8rpx;
+}
+
+.micro-item {}
+
+.micro-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  margin-bottom: 8rpx;
+}
+
+.micro-val {
+  font-weight: 600;
+  font-size: 22rpx;
+}
+
+.progress-track {
+  width: 100%;
+  height: 14rpx;
+  background: var(--border);
+  border-radius: 7rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 7rpx;
+  transition: width 0.6s ease;
+}
+
+.fill-cyan { background: linear-gradient(90deg, #87e8de, #13c2c2); }
+.fill-purple { background: linear-gradient(90deg, #d3adf7, #722ed1); }
+.fill-pink { background: linear-gradient(90deg, #ffadd2, #eb2f96); }
+
+/* ===== Categories ===== */
+.category-section {
+  margin-top: 28rpx;
+  padding-top: 24rpx;
+  border-top: 2rpx solid var(--border);
+}
+
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.category-tag {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 10rpx 20rpx;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 24rpx;
+}
+
+.cat-emoji {
+  font-size: 28rpx;
+}
+
+.cat-name {
+  color: var(--text-secondary);
+}
+
+.cat-count {
+  font-weight: 700;
+  color: var(--primary);
+  margin-left: 4rpx;
+}
+
+/* ===== Summary ===== */
+.nutrition-summary {
+  margin-top: 24rpx;
+  padding: 20rpx 24rpx;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== Footer ===== */
+.nutrition-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 32rpx 24rpx;
+}
+
+.gen-time {
+  font-size: 22rpx;
+  color: var(--text-hint);
+}

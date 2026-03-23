@@ -1,0 +1,60 @@
+<view class="page-history">
+  <!-- Loading -->
+  <view class="container" wx:if="{{loading}}">
+    <view class="skeleton skeleton-card"></view>
+    <view class="skeleton skeleton-card"></view>
+    <view class="skeleton skeleton-card"></view>
+  </view>
+
+  <!-- Empty -->
+  <view class="empty-state" wx:elif="{{weeks.length === 0}}">
+    <text class="empty-emoji">📅</text>
+    <text class="empty-title">暂无历史食谱</text>
+    <text class="empty-desc">食谱发布后会在这里展示</text>
+  </view>
+
+  <!-- Week List -->
+  <view class="container" wx:else>
+    <view class="history-header">
+      <text class="history-title">历史食谱</text>
+      <text class="history-count">共 {{total}} 周</text>
+    </view>
+
+    <view class="week-list">
+      <view
+        class="week-card card fade-in"
+        wx:for="{{weeks}}"
+        wx:key="id"
+        style="animation-delay: {{index * 0.05}}s"
+        bindtap="goDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="week-card-left">
+          <view class="week-num-badge">
+            <text class="week-num">{{item.week_number}}</text>
+            <text class="week-num-label">周</text>
+          </view>
+        </view>
+        <view class="week-card-content">
+          <view class="week-card-title">{{item.year}}年 第{{item.week_number}}周</view>
+          <view class="week-card-date">📅 {{item.dateRange}}</view>
+        </view>
+        <view class="week-card-arrow">›</view>
+      </view>
+    </view>
+
+    <!-- Load More -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <view class="loading-dots" wx:if="{{loadingMore}}">
+        <view class="dot"></view>
+        <view class="dot"></view>
+        <view class="dot"></view>
+      </view>
+      <text class="load-more-text" wx:else>上拉加载更多</text>
+    </view>
+
+    <view class="load-end" wx:elif="{{weeks.length > 0}}">
+      <text class="load-end-text">— 已加载全部 —</text>
+    </view>
+  </view>
+</view>

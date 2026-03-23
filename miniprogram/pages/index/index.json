@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "本周食谱",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "menu-grid": "/components/menu-grid/menu-grid",
+    "ai-summary": "/components/ai-summary/ai-summary",
+    "nutrition-chart": "/components/nutrition-chart/nutrition-chart"
+  }
+}

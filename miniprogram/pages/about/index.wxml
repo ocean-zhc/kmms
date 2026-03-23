@@ -1,0 +1,94 @@
+<view class="page-about">
+  <view class="container">
+    <!-- Logo Section -->
+    <view class="about-hero">
+      <view class="about-logo">🍱</view>
+      <view class="about-name">宝宝食谱</view>
+      <view class="about-subtitle">幼儿园每周食谱管理系统</view>
+      <view class="about-version">v{{version}}</view>
+    </view>
+
+    <!-- Info Cards -->
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">🏫</text>
+          <text>关于我们</text>
+        </view>
+        <view class="about-text">
+          本小程序为幼儿园家长提供每周食谱查询服务。您可以在这里查看宝宝在园期间的每日餐食安排，了解营养搭配情况。
+        </view>
+      </view>
+    </view>
+
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">✨</text>
+          <text>功能特色</text>
+        </view>
+        <view class="feature-list">
+          <view class="feature-item">
+            <text class="feature-icon">📋</text>
+            <view class="feature-info">
+              <text class="feature-name">每周食谱</text>
+              <text class="feature-desc">实时查看本周食谱安排</text>
+            </view>
+          </view>
+          <view class="feature-item">
+            <text class="feature-icon">📅</text>
+            <view class="feature-info">
+              <text class="feature-name">历史回顾</text>
+              <text class="feature-desc">浏览过往每周食谱记录</text>
+            </view>
+          </view>
+          <view class="feature-item">
+            <text class="feature-icon">🤖</text>
+            <view class="feature-info">
+              <text class="feature-name">AI 营养分析</text>
+              <text class="feature-desc">智能评估每周营养搭配</text>
+            </view>
+          </view>
+          <view class="feature-item">
+            <text class="feature-icon">📊</text>
+            <view class="feature-info">
+              <text class="feature-name">营养图表</text>
+              <text class="feature-desc">直观展示营养素占比</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Visit Stats -->
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">👀</text>
+          <text>访问统计</text>
+        </view>
+        <view class="stats-row">
+          <view class="stat-item">
+            <text class="stat-num">{{stats.total}}</text>
+            <text class="stat-label">累计访问</text>
+          </view>
+          <view class="stat-divider"></view>
+          <view class="stat-item">
+            <text class="stat-num">{{stats.week}}</text>
+            <text class="stat-label">本周访问</text>
+          </view>
+          <view class="stat-divider"></view>
+          <view class="stat-item">
+            <text class="stat-num">{{stats.today}}</text>
+            <text class="stat-label">今日访问</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Footer -->
+    <view class="about-footer">
+      <text class="footer-text">用心呵护每一餐 ❤️</text>
+    </view>
+  </view>
+</view>
