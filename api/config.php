@@ -13,16 +13,16 @@ if (!function_exists('env')) {
 return [
     // 数据库配置
     'db' => [
-        'host' => env('DB_HOST', '192.168.1.3'),
+        'host' => env('DB_HOST', '127.0.0.1'),
         'port' => env('DB_PORT', 5432),
         'dbname' => env('DB_NAME', 'kmms'),
         'user' => env('DB_USER', 'postgres'),
-        'password' => env('DB_PASSWORD', '123456'),
+        'password' => env('DB_PASSWORD', ''),
     ],
 
     // JWT配置
     'jwt' => [
-        'secret' => env('JWT_SECRET', 'kmms_jwt_secret_key_2026'),
+        'secret' => env('JWT_SECRET', 'change-me'),
         'expire' => 86400 * 7,
         'issuer' => 'kmms',
     ],
