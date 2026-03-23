@@ -10,12 +10,18 @@
 
   <!-- Content -->
   <view class="nutrition-card card fade-in" wx:elif="{{hasData}}">
-    <view class="nutrition-header">
-      <text class="nutrition-icon">📊</text>
-      <text class="nutrition-title">营养分析</text>
+    <view class="nutrition-header" bindtap="toggleExpand">
+      <view class="nutrition-header-left">
+        <text class="nutrition-icon">📊</text>
+        <text class="nutrition-title">营养分析</text>
+        <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
+      </view>
+      <view class="nutrition-expand-icon {{expanded ? 'expanded' : ''}}">
+        <text>›</text>
+      </view>
     </view>
 
-    <view class="nutrition-body">
+    <view class="nutrition-body {{expanded ? 'show' : 'collapsed'}}">
       <!-- 环形图 + 评分 -->
       <view class="chart-row">
         <view class="donut-wrap">
@@ -89,11 +95,9 @@
       <view class="nutrition-summary" wx:if="{{summary}}">
         <text>{{summary}}</text>
       </view>
-    </view>
-
-    <view class="nutrition-footer" wx:if="{{generatedAt}}">
-      <text class="gen-time">生成于 {{generatedAt}}</text>
-      <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
+      <view class="nutrition-footer" wx:if="{{generatedAt}}">
+        <text class="gen-time">生成于 {{generatedAt}}</text>
+      </view>
     </view>
   </view>
 </view>

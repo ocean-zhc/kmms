@@ -46,28 +46,36 @@
   margin-right: 24rpx;
 }
 
-.week-num-badge {
+.calendar-icon {
   width: 90rpx;
   height: 90rpx;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-light), #d9f7be);
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(82, 196, 26, 0.15);
   display: flex;
   flex-direction: column;
+  border: 1px solid #e8e8e8;
+}
+
+.calendar-month {
+  background: var(--primary);
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: 600;
+  text-align: center;
+  padding: 4rpx 0;
+  line-height: 1.3;
+}
+
+.calendar-day {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.week-num {
-  font-size: 34rpx;
+  font-size: 38rpx;
   font-weight: 800;
-  color: var(--primary-dark);
-  line-height: 1;
-}
-
-.week-num-label {
-  font-size: 18rpx;
-  color: var(--primary);
-  margin-top: 2rpx;
+  color: var(--text);
+  background: #fff;
 }
 
 .week-card-content {

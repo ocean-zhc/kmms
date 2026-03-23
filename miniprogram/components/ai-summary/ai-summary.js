@@ -27,15 +27,15 @@ Component({
       this.setData({ loading: true, hasData: false });
       try {
         const data = await api.getAiSummary(weekId);
-        if (!data || !data.content) {
+        if (!data || !data.summary || data.content) {
           this.setData({ loading: false, hasData: false });
           return;
         }
-        const nodes = highlightText(data.content);
+        const nodes = highlightText(data.summary || data.content);
         this.setData({
           loading: false,
           hasData: true,
-          content: data.content,
+          content: data.summary || data.content,
           nodes,
           cached: !!data.cached,
           generatedAt: data.generated_at || '',

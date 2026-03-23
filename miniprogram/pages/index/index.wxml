@@ -37,7 +37,7 @@
         <text class="emoji">🍽</text>
         <text>每日食谱</text>
       </view>
-      <menu-grid items="{{weekData.items}}" start-date="{{weekData.start_date}}" />
+      <menu-grid items="{{weekData.items}}" start-date="{{weekData.week_start}}" />
     </view>
 
     <!-- Nutrition -->

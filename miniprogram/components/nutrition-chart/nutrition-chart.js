@@ -14,6 +14,7 @@ Component({
   data: {
     loading: true,
     hasData: false,
+    expanded: false,
     score: 0,
     summary: '',
     cached: false,
@@ -91,6 +92,10 @@ Component({
       } catch (e) {
         this.setData({ loading: false, hasData: false });
       }
+    },
+
+    toggleExpand() {
+      this.setData({ expanded: !this.data.expanded });
     },
   },
 });

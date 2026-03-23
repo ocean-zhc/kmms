@@ -23,7 +23,7 @@ const parseDishes = (content) => {
 
 const getWeekTitle = (data) => {
   if (!data) return '';
-  const range = formatDateRange(data.start_date, data.end_date);
+  const range = formatDateRange(data.week_start || data.start_date, data.week_end || data.end_date);
   return `${data.year}年第${data.week_number}周（${range}）`;
 };
 

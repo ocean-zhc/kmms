@@ -30,14 +30,14 @@
         data-id="{{item.id}}"
       >
         <view class="week-card-left">
-          <view class="week-num-badge">
-            <text class="week-num">{{item.week_number}}</text>
-            <text class="week-num-label">周</text>
+          <view class="calendar-icon">
+            <view class="calendar-month">{{item.startMonth}}</view>
+            <view class="calendar-day">{{item.startDay}}</view>
           </view>
         </view>
         <view class="week-card-content">
           <view class="week-card-title">{{item.year}}年 第{{item.week_number}}周</view>
-          <view class="week-card-date">📅 {{item.dateRange}}</view>
+          <view class="week-card-date">{{item.dateRange}}</view>
         </view>
         <view class="week-card-arrow">›</view>
       </view>

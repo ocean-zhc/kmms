@@ -1,4 +1,4 @@
-const BASE_URL = 'https://your-domain.com/api';
+const BASE_URL = 'https://kmms.ocean-zhc.com.cn/api';
 
 const request = (url, options = {}) => {
   return new Promise((resolve, reject) => {

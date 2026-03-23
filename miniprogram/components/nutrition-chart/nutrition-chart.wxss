@@ -10,9 +10,26 @@
 .nutrition-header {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  justify-content: space-between;
   padding: 28rpx 32rpx;
   background: linear-gradient(135deg, #e6f7ff, #d6ecff);
+}
+
+.nutrition-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.nutrition-expand-icon {
+  font-size: 36rpx;
+  color: var(--text-hint);
+  transition: transform 0.3s ease;
+  transform: rotate(0deg);
+}
+
+.nutrition-expand-icon.expanded {
+  transform: rotate(90deg);
 }
 
 .nutrition-icon {
@@ -27,6 +44,20 @@
 
 /* ===== Chart Row ===== */
 .nutrition-body {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+  padding: 32rpx;
+}
+
+.nutrition-body.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 32rpx;
+}
+
+.nutrition-body.show {
+  max-height: 3000rpx;
+  opacity: 1;
   padding: 32rpx;
 }
 
