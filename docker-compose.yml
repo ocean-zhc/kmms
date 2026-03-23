@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  api:
+    image: 2192059462/kmms-api:latest
+    container_name: kmms-api
+    restart: unless-stopped
+    # host网络，直接访问NAS上的PG（127.0.0.1:5432）
+    network_mode: host
+    environment:
+      - TZ=Asia/Shanghai
+
+  web:
+    image: 2192059462/kmms-web:latest
+    container_name: kmms-web
+    restart: unless-stopped
+    # host网络，直接监听NAS的8000端口，反代API走127.0.0.1:80
+    network_mode: host
+    depends_on:
+      - api
+    environment:
+      - TZ=Asia/Shanghai

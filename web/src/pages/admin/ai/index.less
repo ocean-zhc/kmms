@@ -1,0 +1,189 @@
+.ai-config-page {
+  .page-header {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .check-result-bar {
+    display: flex;
+    gap: 16px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+
+    .check-item {
+      font-size: 13px;
+      &.ok { color: #52c41a; }
+      &.fail { color: #ff4d4f; }
+    }
+  }
+
+  .readonly-banner {
+    background: linear-gradient(135deg, #fff7e6 0%, #fff1d6 100%);
+    border: 1px solid #ffe1a8;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    color: #ad6800;
+    font-size: 13px;
+  }
+
+  .config-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .config-card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    }
+  }
+
+  .config-row .config-card {
+    flex: 1;
+    min-width: 0;
+  }
+
+  // 三种卡片色系
+  .card-ai {
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 60%);
+    border: 1px solid #d6e8fa;
+
+    .card-header {
+      border-bottom-color: #e6f0fb;
+    }
+
+    .card-title span:first-child {
+      color: #1677ff;
+    }
+  }
+
+  .card-ocr {
+    background: linear-gradient(135deg, #f0faf0 0%, #ffffff 60%);
+    border: 1px solid #cfe8cf;
+
+    .card-header {
+      border-bottom-color: #dff0df;
+    }
+
+    .card-title span:first-child {
+      color: #52c41a;
+    }
+  }
+
+  .card-cache {
+    background: linear-gradient(135deg, #fdf6ef 0%, #ffffff 60%);
+    border: 1px solid #f0dfca;
+
+    .card-header {
+      border-bottom-color: #f5e8d8;
+    }
+
+    .card-title span:first-child {
+      color: #fa8c16;
+    }
+  }
+
+  .card-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.15s;
+
+    &:hover {
+      filter: brightness(0.98);
+    }
+  }
+
+  .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .toggle-icon {
+    font-size: 12px;
+    color: #bbb;
+    transition: transform 0.2s;
+  }
+
+  .card-body {
+    padding: 20px 20px 24px;
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  .cache-count {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+  }
+
+  .config-form {
+    max-width: 480px;
+
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
+  }
+
+  .field-hint {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 16px;
+    margin-top: 4px;
+  }
+
+  .cache-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+
+    .filter-result {
+      font-size: 13px;
+      color: #888;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 900px) {
+  .ai-config-page {
+    .config-row {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+web/node_modules
+web/src/.umi
+web/src/.umi-production
+api/node_modules
+api/.umi
+api/.umi-production
+api/Dockerfile
+api/.dockerignore
+api/dist
+.git
+*.md

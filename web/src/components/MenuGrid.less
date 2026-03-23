@@ -1,0 +1,198 @@
+.menu-grid-wrapper {
+  .menu-grid-date {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+
+  .meal-content {
+    text-align: left;
+    padding: 6px;
+    min-height: 40px;
+
+    .dish-item {
+      display: block;
+      margin-bottom: 6px;
+      padding: 5px 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      border-radius: 6px;
+      color: #333;
+      transition: transform 0.15s, box-shadow 0.15s;
+
+      &:last-child { margin-bottom: 0; }
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      }
+
+      &:nth-child(4n+1) {
+        background: linear-gradient(135deg, #f6ffed, #e8fce0);
+        border: 1px solid #d9f7be;
+      }
+      &:nth-child(4n+2) {
+        background: linear-gradient(135deg, #fff7e6, #fff0cc);
+        border: 1px solid #ffe7ba;
+      }
+      &:nth-child(4n+3) {
+        background: linear-gradient(135deg, #e6f7ff, #d6efff);
+        border: 1px solid #bae7ff;
+      }
+      &:nth-child(4n+4) {
+        background: linear-gradient(135deg, #fff0f6, #ffe0ee);
+        border: 1px solid #ffd6e7;
+      }
+    }
+  }
+
+  .empty-text {
+    color: #ccc;
+    font-style: italic;
+    font-size: 12px;
+  }
+}
+
+// PC端表格
+.menu-grid-table {
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(82, 196, 26, 0.1);
+  border: 1px solid #d9f7be;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  th, td {
+    border: 1px solid #e8e8e8;
+    padding: 10px 8px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  // 左上角
+  .corner-cell {
+    background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+    width: 100px;
+    border-color: #52c41a;
+
+    .corner-icon {
+      display: block;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .corner-text {
+      display: block;
+      color: rgba(255,255,255,0.9);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+  }
+
+  // 星期表头
+  .day-header {
+    background: linear-gradient(180deg, #52c41a 0%, #46a816 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 6px;
+    border-color: #52c41a;
+
+    .day-icon {
+      display: block;
+      font-size: 18px;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .day-text {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+  }
+
+  // 餐次标签
+  .meal-label {
+    font-weight: 600;
+    font-size: 14px;
+    border-left: 4px solid;
+    min-width: 100px;
+    vertical-align: middle;
+    line-height: 1.6;
+
+    .meal-icon {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .meal-text {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .meal-cell {
+    min-height: 100px;
+    background: #fefffe;
+    vertical-align: top;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #f9fff5;
+    }
+  }
+}
+
+// 移动端卡片
+.menu-grid-mobile {
+  display: none;
+
+  .day-card {
+    margin-bottom: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(82, 196, 26, 0.1);
+
+    :global(.ant-card-head) {
+      background: linear-gradient(135deg, #52c41a, #73d13d);
+      color: #fff;
+      min-height: 36px;
+
+      :global(.ant-card-head-title) {
+        font-size: 15px;
+        padding: 6px 0;
+      }
+    }
+  }
+
+  .mobile-meal-section {
+    margin-bottom: 12px;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .mobile-meal-label {
+    font-weight: 600;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-left: 3px solid;
+    margin-bottom: 6px;
+    border-radius: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menu-grid-table { display: none; }
+  .menu-grid-mobile { display: block; }
+}
