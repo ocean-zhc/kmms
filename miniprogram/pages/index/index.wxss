@@ -10,18 +10,45 @@
   margin-bottom: 32rpx;
 }
 
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -100rpx;
+  right: -100rpx;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  filter: blur(40px);
+  z-index: 1;
+}
+
+.hero-card::after {
+  content: '';
+  position: absolute;
+  bottom: -50rpx;
+  left: -50rpx;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(30px);
+  z-index: 1;
+}
+
 .hero-bg {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #52c41a, #73d13d, #95de64);
+  background: linear-gradient(135deg, #52c41a 0%, #73d13d 50%, #237804 100%);
   opacity: 0.95;
 }
 
 .hero-content {
   position: relative;
+  z-index: 2;
   padding: 40rpx 36rpx;
   color: #fff;
 }
@@ -30,12 +57,13 @@
   display: inline-flex;
   align-items: center;
   gap: 8rpx;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   padding: 8rpx 20rpx;
-  border-radius: 20rpx;
+  border-radius: 30rpx;
   font-size: 24rpx;
   margin-bottom: 20rpx;
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .hero-badge-text {
@@ -47,7 +75,7 @@
   font-weight: 800;
   line-height: 1.3;
   margin-bottom: 16rpx;
-  text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+  text-shadow: 0 4rpx 12rpx rgba(0,0,0,0.15);
 }
 
 .hero-status {
