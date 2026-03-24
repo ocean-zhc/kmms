@@ -57,77 +57,82 @@
 }
 
 .meal-section {
-  margin-bottom: 20rpx;
-  padding: 8rpx 8rpx 8rpx 20rpx;
-  border-left: 8rpx solid var(--primary);
-  background: linear-gradient(90deg, var(--primary-light) 0%, transparent 40%);
-  border-radius: 4rpx;
+  margin-bottom: 24rpx;
 }
 
 .meal-section:last-child {
   margin-bottom: 0;
 }
 
-.meal-section.meal-snack {
-  border-left-color: var(--orange);
-  background: linear-gradient(90deg, var(--orange-light) 0%, transparent 40%);
-}
-
 .meal-label {
   display: flex;
   align-items: center;
-  margin-bottom: 12rpx;
+  gap: 8rpx;
+  margin-bottom: 16rpx;
 }
 
-.meal-emoji {
-  font-size: 28rpx;
-  margin-right: 8rpx;
+.meal-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+.meal-snack .meal-dot {
+  background: var(--orange);
 }
 
 .meal-name {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #8a9a8e;
+  letter-spacing: 1rpx;
+}
+
+.meal-emoji {
+  display: none;
 }
 
 /* ===== Dish Pills ===== */
 .dish-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 12rpx;
 }
 
 .dish-pill {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8rpx;
-  padding: 10rpx 20rpx 10rpx 10rpx;
-  border-radius: 32rpx;
-  font-size: 26rpx;
+  gap: 12rpx;
+  padding: 16rpx 24rpx;
+  border-radius: 36rpx;
+  font-size: 28rpx;
   font-weight: 600;
+  color: #2d3a2e;
   transition: all 0.2s ease;
 }
 
 .dish-pill:active {
-  transform: scale(0.96);
+  transform: translateX(8rpx);
 }
 
 .dish-emoji-badge {
-  width: 40rpx;
-  height: 40rpx;
+  width: 48rpx;
+  height: 48rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 24rpx;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+  font-size: 28rpx;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
 }
 
 .dish-name {
-  line-height: 1.3;
-  white-space: nowrap;
+  flex: 1;
+  line-height: 1.4;
 }
 
 .dish-color-0 {

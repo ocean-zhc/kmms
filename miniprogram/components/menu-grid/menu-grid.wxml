@@ -15,7 +15,7 @@
         <block wx:for="{{item.meals}}" wx:for-item="meal" wx:key="type">
           <view class="meal-section meal-{{meal.type}}">
             <view class="meal-label">
-              <text class="meal-emoji">{{meal.emoji}}</text>
+              <view class="meal-dot"></view>
               <text class="meal-name">{{meal.label}}</text>
             </view>
             <view class="dish-list">
