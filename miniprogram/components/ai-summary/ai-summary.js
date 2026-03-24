@@ -18,7 +18,7 @@ Component({
     nodes: [],
     cached: false,
     generatedAt: '',
-    expanded: false,
+    expanded: true,
     hasData: false,
   },
 
@@ -39,7 +39,7 @@ Component({
           nodes,
           cached: !!data.cached,
           generatedAt: trimMs(data.generated_at || ''),
-          expanded: false,
+          expanded: true,
         });
       } catch (e) {
         this.setData({ loading: false, hasData: false });

@@ -15,7 +15,7 @@ Component({
   data: {
     loading: true,
     hasData: false,
-    expanded: false,
+    expanded: true,
     score: 0,
     summary: '',
     cached: false,
