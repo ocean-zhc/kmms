@@ -54,11 +54,23 @@ page {
 
 .section-title {
   font-size: 34rpx;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
-  margin-bottom: 24rpx;
+  margin: 16rpx 0 28rpx;
   display: flex;
   align-items: center;
+  padding-left: 24rpx;
+  position: relative;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 8rpx;
+  height: 34rpx;
+  background: linear-gradient(180deg, var(--primary), #a0d995);
+  border-radius: 4rpx;
 }
 
 .section-title .emoji {

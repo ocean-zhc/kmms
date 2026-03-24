@@ -16,13 +16,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #2d8c1f 0%, #45a825 40%, #6abf4e 100%);
+  background: linear-gradient(135deg, #f0faf0 0%, #e8f5e9 40%, #fffde7 100%);
 }
 
 .detail-header-content {
   position: relative;
   padding: 36rpx;
-  color: #fff;
+  color: var(--text);
 }
 
 .detail-title {
@@ -38,8 +38,8 @@
 }
 
 .detail-meta .tag-green {
-  background: rgba(255,255,255,0.2);
-  color: #fff;
+  background: rgba(82, 196, 26, 0.12);
+  color: var(--primary-dark);
 }
 
 .section {

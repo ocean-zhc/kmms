@@ -13,26 +13,24 @@
 .hero-card::before {
   content: '';
   position: absolute;
-  top: -100rpx;
-  right: -100rpx;
-  width: 300rpx;
-  height: 300rpx;
+  top: -60rpx;
+  right: -60rpx;
+  width: 280rpx;
+  height: 280rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  filter: blur(40px);
+  background: rgba(82, 196, 26, 0.08);
   z-index: 1;
 }
 
 .hero-card::after {
   content: '';
   position: absolute;
-  bottom: -50rpx;
-  left: -50rpx;
+  bottom: -40rpx;
+  left: -40rpx;
   width: 200rpx;
   height: 200rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  filter: blur(30px);
+  background: rgba(255, 193, 7, 0.06);
   z-index: 1;
 }
 
@@ -42,40 +40,40 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #2d8c1f 0%, #45a825 40%, #6abf4e 100%);
-  opacity: 0.95;
+  background: linear-gradient(135deg, #f0faf0 0%, #e8f5e9 40%, #fffde7 100%);
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
   padding: 40rpx 36rpx;
-  color: #fff;
+  color: var(--text);
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8rpx;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(10px);
+  background: #fff;
   padding: 8rpx 20rpx;
   border-radius: 30rpx;
   font-size: 24rpx;
   margin-bottom: 20rpx;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(82, 196, 26, 0.15);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 
 .hero-badge-text {
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--primary-dark);
 }
 
 .hero-title {
-  font-size: 36rpx;
-  font-weight: 800;
+  font-size: 38rpx;
+  font-weight: 900;
   line-height: 1.3;
-  margin-bottom: 16rpx;
-  text-shadow: 0 4rpx 12rpx rgba(0,0,0,0.15);
+  margin-bottom: 12rpx;
+  color: #1a3a2a;
 }
 
 .hero-status {
@@ -88,8 +86,8 @@
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;
-  background: #b7eb8f;
-  box-shadow: 0 0 8rpx rgba(183,235,143,0.8);
+  background: var(--primary);
+  box-shadow: 0 0 12rpx rgba(82, 196, 26, 0.5);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -100,12 +98,12 @@
 
 .status-text {
   font-size: 24rpx;
-  opacity: 0.9;
+  color: var(--text-hint);
 }
 
 .hero-subtitle {
   font-size: 24rpx;
-  opacity: 0.8;
+  color: var(--text-secondary);
   margin-bottom: 16rpx;
   line-height: 1.5;
 }
@@ -113,7 +111,7 @@
 .hero-decor {
   position: absolute;
   font-size: 56rpx;
-  opacity: 0.15;
+  opacity: 0.35;
   z-index: 2;
   animation: floatDecor 4s ease-in-out infinite;
   pointer-events: none;

@@ -177,8 +177,8 @@
   align-items: center;
   justify-content: center;
   gap: 8rpx;
-  padding: 14rpx 0;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  padding: 16rpx 0;
+  background: linear-gradient(135deg, #FFB74D, #FF8A65);
 }
 
 .today-banner-icon {
