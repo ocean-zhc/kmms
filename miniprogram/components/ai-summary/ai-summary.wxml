@@ -33,7 +33,7 @@
         </block>
       </view>
       <view class="ai-footer" wx:if="{{generatedAt || cached}}">
-        <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
+        <view class="cache-pill" wx:if="{{cached}}">已缓存</view>
         <text class="ai-time" wx:if="{{generatedAt}}">生成于 {{generatedAt}}</text>
       </view>
     </view>

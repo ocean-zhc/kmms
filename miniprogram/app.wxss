@@ -102,6 +102,17 @@ page {
   color: var(--orange);
 }
 
+/* ===== Cache Pill ===== */
+.cache-pill {
+  display: inline-block;
+  background: rgba(82, 196, 26, 0.08);
+  color: #52c41a;
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
 /* ===== Skeleton Loading ===== */
 .skeleton {
   background: linear-gradient(110deg, #f0f0f0 30%, #f8f8f8 50%, #f0f0f0 70%);
