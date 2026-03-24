@@ -1,17 +1,19 @@
 .nutrition-card {
-  margin-top: 16px;
-  border: 1px solid #d9f7be;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #f6ffed 0%, #fcffe6 100%);
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff 0%, #ecfdf5 100%);
+  box-shadow: 0 8px 24px rgba(82, 196, 26, 0.06);
+  animation: fadeInUp 0.5s ease-out backwards;
 
   :global(.ant-card-head) {
-    border-bottom: 1px solid #d9f7be;
+    border-bottom: 1px dashed rgba(82, 196, 26, 0.18);
     background: transparent;
   }
 
   .nutrition-title {
-    color: #52c41a;
-    font-weight: 600;
+    color: #3f6212;
+    font-weight: 800;
     font-size: 15px;
   }
 
@@ -41,12 +43,11 @@
 
 .section-label {
   font-size: 13px;
-  font-weight: 600;
-  color: #555;
+  font-weight: 700;
+  color: #3f6212;
   margin-bottom: 12px;
 }
 
-// 左侧环形图
 .donut-section {
   flex: 0 0 200px;
   text-align: center;
@@ -57,7 +58,6 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 16px;
-
     .section-label { width: 100%; }
   }
 }
@@ -122,7 +122,6 @@
   display: inline-block;
 }
 
-// 右侧详情
 .detail-section {
   flex: 1;
   min-width: 0;
@@ -142,9 +141,7 @@
       text-align: right;
     }
 
-    :global(.ant-progress) {
-      flex: 1;
-    }
+    :global(.ant-progress) { flex: 1; }
   }
 }
 
@@ -157,7 +154,7 @@
 .nutrition-footer {
   margin-top: 16px;
   padding-top: 12px;
-  border-top: 1px dashed #d9f7be;
+  border-top: 1px dashed rgba(82, 196, 26, 0.18);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Spin, Empty, Typography } from 'antd';
+import { Spin, Empty } from 'antd';
 import MenuGrid from '@/components/MenuGrid';
 import AiSummary from '@/components/AiSummary';
 import NutritionAnalysis from '@/components/NutritionAnalysis';
 import { getCurrentWeek, getPublicDishes } from '@/services/api';
 import './index.less';
-
-const { Title } = Typography;
 
 const PublicIndex: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -57,19 +55,28 @@ const PublicIndex: React.FC = () => {
 
   return (
     <div className="public-index">
-      <div className="week-title">
-        <Title level={3}>
-          {weekData.year}年 第{weekData.week_number}周 宝宝食谱
-        </Title>
-      </div>
+      <section className="hero-section">
+        <span className="hero-badge">Health & Joy</span>
+        <h1 className="hero-title">
+          <span className="year-tag">{weekData.year}年</span>
+          第{weekData.week_number}周
+          <span className="highlight">精心食谱</span>
+        </h1>
+        <p className="hero-subtitle">用心挑选每一份食材，守护宝宝舌尖上的幸福</p>
+        <div className="hero-decor decor-1">🍎</div>
+        <div className="hero-decor decor-2">🥦</div>
+        <div className="hero-decor decor-3">🥕</div>
+      </section>
       <MenuGrid
         items={weekData.items || []}
         weekStart={weekData.week_start}
         weekEnd={weekData.week_end}
         dishes={dishes}
       />
-      <NutritionAnalysis weekId={weekData.id} />
-      <AiSummary weekId={weekData.id} />
+      <div className="analysis-grid">
+        <NutritionAnalysis weekId={weekData.id} />
+        <AiSummary weekId={weekData.id} />
+      </div>
     </div>
   );
 };

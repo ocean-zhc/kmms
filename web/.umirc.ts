@@ -5,7 +5,16 @@ export default defineConfig({
   title: '幼儿园食谱管理系统',
   favicons: ['/favicon.svg'],
   plugins: ['@umijs/plugins/dist/antd'],
-  antd: {},
+  antd: {
+    configProvider: {
+      theme: {
+        token: {
+          colorPrimary: '#52c41a',
+          borderRadius: 14,
+        },
+      },
+    },
+  },
   proxy: {
     '/api': {
       target: 'http://0.0.0.0:8080',
@@ -39,7 +48,4 @@ export default defineConfig({
       ],
     },
   ],
-  theme: {
-    'primary-color': '#52c41a',
-  },
 });

@@ -1,17 +1,19 @@
 .ai-summary-card {
-  margin-top: 16px;
-  border: 1px solid #d9f7be;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #f6ffed 0%, #fcffe6 100%);
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff 0%, #f7fee7 100%);
+  box-shadow: 0 8px 24px rgba(82, 196, 26, 0.06);
+  animation: fadeInUp 0.5s ease-out 0.1s backwards;
 
   :global(.ant-card-head) {
-    border-bottom: 1px solid #d9f7be;
+    border-bottom: 1px dashed rgba(82, 196, 26, 0.18);
     background: transparent;
   }
 
   .ai-title {
-    color: #52c41a;
-    font-weight: 600;
+    color: #3f6212;
+    font-weight: 800;
     font-size: 15px;
   }
 
@@ -32,7 +34,7 @@
     .summary-text {
       font-size: 14px;
       line-height: 2;
-      color: #333;
+      color: #3f4f45;
       white-space: pre-line;
       margin-bottom: 8px;
     }
@@ -45,72 +47,30 @@
       color: #aaa;
 
       .cache-tag {
-        background: #f0f0f0;
-        padding: 1px 6px;
-        border-radius: 4px;
+        background: rgba(82, 196, 26, 0.08);
+        color: #52c41a;
+        padding: 1px 8px;
+        border-radius: 10px;
+        font-weight: 500;
       }
     }
   }
 }
 
-// 关键词高亮
+// Keyword highlights
 .ai-highlight {
   padding: 1px 5px;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 500;
   white-space: nowrap;
 }
 
-.hl-protein {
-  background: #f6ffed;
-  color: #389e0d;
-  border: 1px solid #b7eb8f;
-}
-
-.hl-carbs {
-  background: #e6f7ff;
-  color: #0958d9;
-  border: 1px solid #91caff;
-}
-
-.hl-fat {
-  background: #fff7e6;
-  color: #d46b08;
-  border: 1px solid #ffd591;
-}
-
-.hl-vitamin {
-  background: #fffbe6;
-  color: #d4b106;
-  border: 1px solid #ffe58f;
-}
-
-.hl-fiber {
-  background: #f6ffed;
-  color: #52c41a;
-  border: 1px solid #d9f7be;
-}
-
-.hl-mineral {
-  background: #fff0f6;
-  color: #c41d7f;
-  border: 1px solid #ffadd2;
-}
-
-.hl-veg {
-  background: #f6ffed;
-  color: #237804;
-  border: 1px solid #95de64;
-}
-
-.hl-fruit {
-  background: #fff2e8;
-  color: #d4380d;
-  border: 1px solid #ffbb96;
-}
-
-.hl-balance {
-  background: linear-gradient(135deg, #f6ffed, #e6f7ff);
-  color: #08979c;
-  border: 1px solid #87e8de;
-}
+.hl-protein { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+.hl-carbs { background: #e6f7ff; color: #0958d9; border: 1px solid #91caff; }
+.hl-fat { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+.hl-vitamin { background: #fffbe6; color: #d4b106; border: 1px solid #ffe58f; }
+.hl-fiber { background: #f6ffed; color: #52c41a; border: 1px solid #d9f7be; }
+.hl-mineral { background: #fff0f6; color: #c41d7f; border: 1px solid #ffadd2; }
+.hl-veg { background: #f6ffed; color: #237804; border: 1px solid #95de64; }
+.hl-fruit { background: #fff2e8; color: #d4380d; border: 1px solid #ffbb96; }
+.hl-balance { background: linear-gradient(135deg, #f6ffed, #e6f7ff); color: #08979c; border: 1px solid #87e8de; }

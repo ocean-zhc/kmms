@@ -3,32 +3,77 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(82, 196, 26, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(115, 209, 61, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(250, 219, 20, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, #f0faf0 0%, #fafff5 50%, #fffef5 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '🥦🍎🥕🍚🧁🌽🍇🥬';
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.04;
+    white-space: nowrap;
+    letter-spacing: 40px;
+    transform: rotate(-12deg);
+    top: 20%;
+    left: -10%;
+    pointer-events: none;
+  }
 
   .login-card {
-    width: 400px;
+    width: 420px;
     max-width: 90vw;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    animation: fadeInScale 0.5s ease-out;
+
+    :global(.ant-input-affix-wrapper) {
+      border-radius: 14px;
+      padding: 10px 14px;
+      border-color: #e8f5e0;
+
+      &:hover, &:focus-within {
+        border-color: #52c41a;
+        box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.08);
+      }
+    }
+
+    :global(.ant-btn-primary) {
+      height: 48px;
+      font-weight: 700;
+      border-radius: 14px;
+      font-size: 16px;
+      box-shadow: 0 4px 16px rgba(82, 196, 26, 0.3);
+    }
   }
 
   .login-header {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 
     .login-logo {
-      font-size: 48px;
+      font-size: 52px;
       margin-bottom: 8px;
+      animation: float 3s ease-in-out infinite;
     }
 
     h3 {
       margin: 0 0 4px 0;
-      color: #333;
+      color: #1a3a2a;
+      font-weight: 800;
     }
 
     .login-subtitle {
-      color: #999;
+      color: #94a3b8;
       margin: 0;
+      font-size: 14px;
     }
   }
 }
