@@ -69,12 +69,12 @@ Component({
         }
       }
 
-      // 今日排最前
-      const allDays = Object.values(dayMap);
+      // 过滤无食谱的天，今日排最前
+      const allDays = Object.values(dayMap).filter(d => d.meals.length > 0);
       if (todayWd > 0) {
         const todayItem = allDays.find(d => d.weekday === todayWd);
         const rest = allDays.filter(d => d.weekday !== todayWd);
-        this.setData({ days: [todayItem, ...rest], todayWeekday: todayWd });
+        this.setData({ days: todayItem ? [todayItem, ...rest] : allDays, todayWeekday: todayWd });
       } else {
         this.setData({ days: allDays, todayWeekday: 0 });
       }
