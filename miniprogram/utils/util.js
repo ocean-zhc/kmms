@@ -1,8 +1,8 @@
 const WEEKDAY_NAMES = ['', '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 const WEEKDAY_EMOJIS = ['', '🌟', '🌈', '⭐', '🎨', '🎉', '🌻', '🍀'];
 const MEAL_MAP = {
-  lunch: { label: '午餐', emoji: '🍚' },
-  snack: { label: '点心', emoji: '🍰' },
+  lunch: { label: '营养午餐', emoji: '🍚' },
+  snack: { label: '快乐午点', emoji: '🧁' },
 };
 
 const formatDate = (dateStr) => {
