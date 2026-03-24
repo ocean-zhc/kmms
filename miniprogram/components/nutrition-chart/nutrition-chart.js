@@ -1,4 +1,5 @@
 const api = require('../../utils/api');
+const { trimMs } = require('../../utils/util');
 
 Component({
   properties: {
@@ -80,7 +81,7 @@ Component({
           score: data.score || 0,
           summary: data.summary || '',
           cached: !!data.cached,
-          generatedAt: data.generated_at || '',
+          generatedAt: trimMs(data.generated_at || ''),
           protein: pPct,
           carbs: cPct,
           fat: fPct,

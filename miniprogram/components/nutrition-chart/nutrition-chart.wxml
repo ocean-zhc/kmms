@@ -95,8 +95,9 @@
       <view class="nutrition-summary" wx:if="{{summary}}">
         <text>{{summary}}</text>
       </view>
-      <view class="nutrition-footer" wx:if="{{generatedAt}}">
-        <text class="gen-time">生成于 {{generatedAt}}</text>
+      <view class="nutrition-footer" wx:if="{{generatedAt || cached}}">
+        <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
+        <text class="gen-time" wx:if="{{generatedAt}}">生成于 {{generatedAt}}</text>
       </view>
     </view>
   </view>

@@ -33,4 +33,5 @@ module.exports = {
   recordVisit: (path) =>
     request('/public/visit', { method: 'POST', data: { path } }),
   getVisitStats: () => request('/public/visit/stats'),
+  getNotices: () => request('/public/notices'),
 };

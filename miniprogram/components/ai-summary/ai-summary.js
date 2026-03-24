@@ -1,5 +1,5 @@
 const api = require('../../utils/api');
-const { highlightText } = require('../../utils/util');
+const { highlightText, trimMs } = require('../../utils/util');
 
 Component({
   properties: {
@@ -38,7 +38,7 @@ Component({
           content: data.summary || data.content,
           nodes,
           cached: !!data.cached,
-          generatedAt: data.generated_at || '',
+          generatedAt: trimMs(data.generated_at || ''),
           expanded: false,
         });
       } catch (e) {

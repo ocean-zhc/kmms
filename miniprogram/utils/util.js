@@ -120,6 +120,8 @@ const highlightText = (text) => {
   return nodes;
 };
 
+const trimMs = (ts) => ts ? ts.replace(/\.\d+$/, '') : '';
+
 module.exports = {
   WEEKDAY_NAMES,
   WEEKDAY_EMOJIS,
@@ -131,4 +133,5 @@ module.exports = {
   getWeekdayDate,
   getDishEmoji,
   highlightText,
+  trimMs,
 };

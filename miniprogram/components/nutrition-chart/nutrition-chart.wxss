@@ -227,7 +227,7 @@
 .nutrition-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16rpx;
   padding: 16rpx 32rpx 24rpx;
 }
 
