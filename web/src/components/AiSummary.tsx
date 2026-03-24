@@ -125,7 +125,7 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId }) => {
           <div className="ai-footer">
             {cached && <span className="cache-tag">已缓存</span>}
             {generatedAt && (
-              <span className="gen-time">生成于 {generatedAt}</span>
+              <span className="gen-time">生成于 {generatedAt.replace(/\.\d+$/, '')}</span>
             )}
           </div>
         </div>

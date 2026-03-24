@@ -169,7 +169,7 @@ const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
               <div className="nutrition-meta">
                 {data.cached && <span className="cache-tag">已缓存</span>}
                 {data.generated_at && (
-                  <span className="gen-time">生成于 {data.generated_at}</span>
+                  <span className="gen-time">生成于 {data.generated_at.replace(/\.\d+$/, '')}</span>
                 )}
               </div>
             </div>
