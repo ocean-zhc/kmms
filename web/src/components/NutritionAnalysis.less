@@ -156,13 +156,8 @@
   padding-top: 12px;
   border-top: 1px dashed rgba(82, 196, 26, 0.18);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
+  gap: 10px;
 
   .summary-text {
     font-size: 13px;
@@ -170,9 +165,24 @@
     line-height: 1.6;
   }
 
-  .gen-time {
-    font-size: 11px;
-    color: #bbb;
-    white-space: nowrap;
+  .nutrition-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .cache-tag {
+      background: rgba(82, 196, 26, 0.08);
+      color: #52c41a;
+      padding: 1px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .gen-time {
+      font-size: 11px;
+      color: #bbb;
+      white-space: nowrap;
+    }
   }
 }
