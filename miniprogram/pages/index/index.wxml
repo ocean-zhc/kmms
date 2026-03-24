@@ -18,12 +18,16 @@
     <!-- Hero Card -->
     <view class="hero-card card">
       <view class="hero-bg"></view>
+      <view class="hero-decor decor-1">🍎</view>
+      <view class="hero-decor decor-2">🥦</view>
+      <view class="hero-decor decor-3">🥕</view>
       <view class="hero-content">
         <view class="hero-badge">
           <text>🍱</text>
           <text class="hero-badge-text">本周食谱</text>
         </view>
         <view class="hero-title">{{weekTitle}}</view>
+        <view class="hero-subtitle">用心挑选每一份食材，守护宝宝舌尖上的幸福</view>
         <view class="hero-status">
           <view class="status-dot"></view>
           <text class="status-text">已发布</text>

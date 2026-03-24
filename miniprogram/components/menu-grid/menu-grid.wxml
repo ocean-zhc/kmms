@@ -18,10 +18,11 @@
               <text class="meal-emoji">{{meal.emoji}}</text>
               <text class="meal-name">{{meal.label}}</text>
             </view>
-            <view class="dish-tags">
+            <view class="dish-list">
               <block wx:for="{{meal.dishes}}" wx:for-item="dish" wx:key="name">
-                <view class="dish-tag dish-color-{{dish.colorIndex}}">
-                  {{dish.name}}
+                <view class="dish-pill dish-color-{{dish.colorIndex}}">
+                  <view class="dish-emoji-badge">{{dish.emoji}}</view>
+                  <text class="dish-name">{{dish.name}}</text>
                 </view>
               </block>
             </view>

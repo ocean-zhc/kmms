@@ -36,10 +36,12 @@
   align-items: center;
   padding: 28rpx;
   transition: transform 0.2s;
+  border: 2rpx solid rgba(82, 196, 26, 0.06);
 }
 
 .week-card:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
+  box-shadow: 0 4rpx 24rpx rgba(82, 196, 26, 0.12);
 }
 
 .week-card-left {

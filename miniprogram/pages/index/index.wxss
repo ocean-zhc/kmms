@@ -103,6 +103,31 @@
   opacity: 0.9;
 }
 
+.hero-subtitle {
+  font-size: 24rpx;
+  opacity: 0.8;
+  margin-bottom: 16rpx;
+  line-height: 1.5;
+}
+
+.hero-decor {
+  position: absolute;
+  font-size: 56rpx;
+  opacity: 0.15;
+  z-index: 2;
+  animation: floatDecor 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.decor-1 { top: 20rpx; right: 40rpx; }
+.decor-2 { bottom: 20rpx; left: 30rpx; animation-delay: -1.5s; }
+.decor-3 { top: 50%; right: 20%; animation-delay: -3s; font-size: 44rpx; }
+
+@keyframes floatDecor {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12rpx); }
+}
+
 /* ===== Section ===== */
 .section {
   margin-bottom: 8rpx;

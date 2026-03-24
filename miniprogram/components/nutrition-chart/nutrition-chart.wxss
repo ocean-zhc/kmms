@@ -3,7 +3,8 @@
 }
 
 .nutrition-card {
-  border: 2rpx solid var(--blue-light);
+  border: none;
+  box-shadow: 0 8rpx 32rpx rgba(24, 144, 255, 0.06);
 }
 
 /* ===== Header ===== */
@@ -12,7 +13,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 28rpx 32rpx;
-  background: linear-gradient(135deg, #e6f7ff, #d6ecff);
+  background: linear-gradient(135deg, #e6f7ff, #dbeafe);
+  border-bottom: 2rpx dashed rgba(24, 144, 255, 0.15);
 }
 
 .nutrition-header-left {

@@ -34,6 +34,32 @@ const getWeekdayDate = (startDate, weekday) => {
   return `${d.getMonth() + 1}/${d.getDate()}`;
 };
 
+// 食物 emoji 自动识别规则
+const FOOD_EMOJI_RULES = [
+  [/饭|米/, '🍚'],
+  [/面|粉|饼/, '🍜'],
+  [/汤|羹/, '🍲'],
+  [/粥/, '🥣'],
+  [/包|馒|卷|饺|馄/, '🥟'],
+  [/鱼|虾|蟹/, '🐟'],
+  [/鸡/, '🍗'],
+  [/肉|排骨|牛|猪|鸭/, '🥩'],
+  [/蛋|卵/, '🥚'],
+  [/豆|腐/, '🫘'],
+  [/奶|酸奶|牛乳/, '🥛'],
+  [/果|苹|梨|蕉|橙|莓|桃|瓜(?!肉|鸡|骨)/, '🍎'],
+  [/菜|菠|芹|萝卜|白菜|青|蔬|藕|笋|茄|椒|花菜|木耳|香菇|蘑/, '🥬'],
+  [/糕|饼干|面包|蛋糕|琪玛/, '🍰'],
+  [/玉米/, '🌽'],
+];
+
+const getDishEmoji = (name) => {
+  for (const [pattern, emoji] of FOOD_EMOJI_RULES) {
+    if (pattern.test(name)) return emoji;
+  }
+  return '🍽';
+};
+
 // AI 点评关键词高亮规则
 const HIGHLIGHT_RULES = [
   { pattern: /蛋白质?|优质蛋白/g, color: '#52c41a', bg: '#f6ffed' },
@@ -96,5 +122,6 @@ module.exports = {
   parseDishes,
   getWeekTitle,
   getWeekdayDate,
+  getDishEmoji,
   highlightText,
 };

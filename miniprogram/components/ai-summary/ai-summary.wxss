@@ -3,7 +3,8 @@
 }
 
 .ai-card {
-  border: 2rpx solid #e8fce0;
+  border: none;
+  box-shadow: 0 8rpx 32rpx rgba(82, 196, 26, 0.06);
 }
 
 /* ===== Header ===== */
@@ -12,7 +13,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 28rpx 32rpx;
-  background: linear-gradient(135deg, #f6ffed, #e8fce0);
+  background: linear-gradient(135deg, #f6ffed, #ecfdf5);
+  border-bottom: 2rpx dashed rgba(82, 196, 26, 0.15);
 }
 
 .ai-header-left {

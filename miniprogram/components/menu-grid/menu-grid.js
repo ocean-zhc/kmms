@@ -1,4 +1,4 @@
-const { WEEKDAY_NAMES, WEEKDAY_EMOJIS, MEAL_MAP, parseDishes, getWeekdayDate } = require('../../utils/util');
+const { WEEKDAY_NAMES, WEEKDAY_EMOJIS, MEAL_MAP, parseDishes, getWeekdayDate, getDishEmoji } = require('../../utils/util');
 
 Component({
   properties: {
@@ -41,6 +41,7 @@ Component({
           emoji: mealInfo.emoji,
           dishes: dishes.map((name, i) => ({
             name,
+            emoji: getDishEmoji(name),
             colorIndex: i % 4,
           })),
         });
