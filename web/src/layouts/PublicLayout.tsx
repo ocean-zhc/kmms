@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'umi';
 import { Layout, Menu } from 'antd';
-import { HomeOutlined, HistoryOutlined, EyeOutlined, CalendarOutlined, TeamOutlined } from '@ant-design/icons';
+import { EyeOutlined, CalendarOutlined, TeamOutlined } from '@ant-design/icons';
 import { recordVisit, getVisitStats } from '@/services/api';
 import './PublicLayout.less';
 
@@ -19,12 +19,8 @@ const PublicLayout: React.FC = () => {
   }, [location.pathname]);
 
   const menuItems = [
-    { key: '/', icon: <HomeOutlined />, label: <Link to="/">本周食谱</Link> },
-    {
-      key: '/history',
-      icon: <HistoryOutlined />,
-      label: <Link to="/history">历史食谱</Link>,
-    },
+    { key: '/', icon: <span>🍽</span>, label: <Link to="/">本周食谱</Link> },
+    { key: '/history', icon: <span>📅</span>, label: <Link to="/history">历史食谱</Link> },
   ];
 
   return (

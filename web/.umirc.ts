@@ -42,6 +42,7 @@ export default defineConfig({
         { path: '/admin/weeks/new', component: '@/pages/admin/weeks/edit' },
         { path: '/admin/weeks/edit/:id', component: '@/pages/admin/weeks/edit' },
         { path: '/admin/dishes', component: '@/pages/admin/dishes/index' },
+        { path: '/admin/notices', component: '@/pages/admin/notices/index' },
         { path: '/admin/ai', component: '@/pages/admin/ai/index' },
         { path: '/admin/visits', component: '@/pages/admin/visits/index' },
         { path: '/admin/profile', component: '@/pages/admin/profile/index' },
