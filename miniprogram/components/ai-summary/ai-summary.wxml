@@ -18,7 +18,6 @@
       <view class="ai-header-left">
         <text class="ai-icon">🤖</text>
         <text class="ai-title">AI 营养点评</text>
-        <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
       </view>
       <view class="ai-expand-icon {{expanded ? 'expanded' : ''}}">
         <text>›</text>
