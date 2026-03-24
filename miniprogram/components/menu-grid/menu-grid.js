@@ -15,6 +15,7 @@ Component({
 
   data: {
     days: [],
+    todayWeekday: 0,
   },
 
   methods: {
@@ -27,6 +28,7 @@ Component({
           emoji: WEEKDAY_EMOJIS[wd],
           date: getWeekdayDate(startDate, wd),
           meals: [],
+          isToday: false,
         };
       }
 
@@ -53,7 +55,29 @@ Component({
         day.meals.sort((a, b) => (mealOrder[a.type] || 0) - (mealOrder[b.type] || 0));
       });
 
-      this.setData({ days: Object.values(dayMap) });
+      // 判断今天是周几
+      let todayWd = 0;
+      if (startDate) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const start = new Date(startDate);
+        start.setHours(0, 0, 0, 0);
+        const diff = Math.floor((today.getTime() - start.getTime()) / 86400000);
+        if (diff >= 0 && diff < 5) {
+          todayWd = diff + 1;
+          dayMap[todayWd].isToday = true;
+        }
+      }
+
+      // 今日排最前
+      const allDays = Object.values(dayMap);
+      if (todayWd > 0) {
+        const todayItem = allDays.find(d => d.weekday === todayWd);
+        const rest = allDays.filter(d => d.weekday !== todayWd);
+        this.setData({ days: [todayItem, ...rest], todayWeekday: todayWd });
+      } else {
+        this.setData({ days: allDays, todayWeekday: 0 });
+      }
     },
   },
 });

@@ -1,6 +1,11 @@
 <view class="menu-grid {{compact ? 'compact' : ''}}">
   <block wx:for="{{days}}" wx:key="weekday">
-    <view class="day-card fade-in" style="animation-delay: {{index * 0.06}}s">
+    <view class="day-card fade-in {{item.isToday ? 'today-card' : ''}}" style="animation-delay: {{index * 0.06}}s">
+      <!-- 今日食谱横幅 -->
+      <view class="today-banner" wx:if="{{item.isToday}}">
+        <text class="today-banner-icon">📌</text>
+        <text class="today-banner-text">今日食谱</text>
+      </view>
       <!-- 日期头部 -->
       <view class="day-header">
         <view class="day-label">
