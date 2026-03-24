@@ -80,6 +80,16 @@
   padding: 0 32rpx 24rpx;
 }
 
+.cache-pill {
+  display: inline-block;
+  background: rgba(82, 196, 26, 0.08);
+  color: #52c41a;
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
 .ai-time {
   font-size: 22rpx;
   color: var(--text-hint);
