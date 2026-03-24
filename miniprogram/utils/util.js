@@ -18,7 +18,14 @@ const formatDateRange = (start, end) => {
 
 const parseDishes = (content) => {
   if (!content) return [];
-  return content.split('|||').map(s => s.trim()).filter(Boolean);
+  if (content.includes('|||')) {
+    return content.split('|||').map(s => s.trim()).filter(Boolean);
+  }
+  // 兼容旧数据：按中文顿号分割
+  if (content.includes('、')) {
+    return content.split('、').map(s => s.trim()).filter(Boolean);
+  }
+  return [content];
 };
 
 const getWeekTitle = (data) => {
