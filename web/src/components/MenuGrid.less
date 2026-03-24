@@ -2,47 +2,60 @@
   .menu-grid-date {
     text-align: center;
     font-size: 14px;
-    color: #666;
+    color: #6b8a72;
     margin-bottom: 16px;
   }
 
   .meal-content {
-    text-align: left;
-    padding: 6px;
-    min-height: 40px;
-
     .dish-item {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 6px;
-      padding: 5px 10px;
-      font-size: 13px;
-      line-height: 1.5;
-      border-radius: 6px;
-      color: #333;
-      transition: transform 0.15s, box-shadow 0.15s;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 20px;
+      color: #2d3a2e;
+      transition: transform 0.2s, box-shadow 0.2s;
 
       &:last-child { margin-bottom: 0; }
 
+      .dish-emoji {
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 15px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      }
+
+      .dish-name {
+        flex: 1;
+        min-width: 0;
+        line-height: 1.4;
+      }
+
       &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        transform: translateX(4px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
       }
 
       &:nth-child(4n+1) {
-        background: linear-gradient(135deg, #f6ffed, #e8fce0);
-        border: 1px solid #d9f7be;
+        background: linear-gradient(135deg, #eefbdd 0%, #ddf5c8 100%);
       }
       &:nth-child(4n+2) {
-        background: linear-gradient(135deg, #fff7e6, #fff0cc);
-        border: 1px solid #ffe7ba;
+        background: linear-gradient(135deg, #fff3db 0%, #ffe8be 100%);
       }
       &:nth-child(4n+3) {
-        background: linear-gradient(135deg, #e6f7ff, #d6efff);
-        border: 1px solid #bae7ff;
+        background: linear-gradient(135deg, #e4f1ff 0%, #d0e6ff 100%);
       }
       &:nth-child(4n+4) {
-        background: linear-gradient(135deg, #fff0f6, #ffe0ee);
-        border: 1px solid #ffd6e7;
+        background: linear-gradient(135deg, #fde8ef 0%, #fbd5e2 100%);
       }
     }
   }
@@ -54,7 +67,69 @@
   }
 }
 
-// PC端表格
+// ===== Bento Grid (read-only, public) =====
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.bento-card {
+  padding: 20px;
+  border-radius: 20px;
+  animation: fadeInScale 0.5s ease-out backwards;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(82, 196, 26, 0.1);
+  }
+
+  .bento-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    .bento-icon { font-size: 24px; }
+    .bento-day { font-weight: 800; font-size: 16px; color: #1a3a2a; }
+  }
+
+  .bento-meal-group {
+    margin-bottom: 14px;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .bento-meal-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    .meal-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bento-grid { display: none; }
+  .menu-grid-mobile { display: block !important; }
+}
+
+@media screen and (min-width: 769px) {
+  .menu-grid-wrapper .menu-grid-mobile { display: none; }
+}
+
+// ===== Editable Table (admin) =====
 .menu-grid-table {
   display: block;
   overflow: hidden;
@@ -75,29 +150,15 @@
     vertical-align: middle;
   }
 
-  // 左上角
   .corner-cell {
     background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
     width: 100px;
     border-color: #52c41a;
 
-    .corner-icon {
-      display: block;
-      font-size: 24px;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
-    .corner-text {
-      display: block;
-      color: rgba(255,255,255,0.9);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 2px;
-    }
+    .corner-icon { display: block; font-size: 24px; line-height: 1; margin-bottom: 2px; }
+    .corner-text { display: block; color: rgba(255,255,255,0.9); font-size: 11px; font-weight: 500; letter-spacing: 2px; }
   }
 
-  // 星期表头
   .day-header {
     background: linear-gradient(180deg, #52c41a 0%, #46a816 100%);
     color: #fff;
@@ -106,21 +167,10 @@
     padding: 10px 6px;
     border-color: #52c41a;
 
-    .day-icon {
-      display: block;
-      font-size: 18px;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
-    .day-text {
-      display: block;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
+    .day-icon { display: block; font-size: 18px; line-height: 1; margin-bottom: 2px; }
+    .day-text { display: block; font-size: 13px; letter-spacing: 1px; }
   }
 
-  // 餐次标签
   .meal-label {
     font-weight: 600;
     font-size: 14px;
@@ -129,18 +179,8 @@
     vertical-align: middle;
     line-height: 1.6;
 
-    .meal-icon {
-      display: block;
-      font-size: 22px;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .meal-text {
-      display: block;
-      font-size: 13px;
-      letter-spacing: 1px;
-    }
+    .meal-icon { display: block; font-size: 22px; line-height: 1; margin-bottom: 4px; }
+    .meal-text { display: block; font-size: 13px; letter-spacing: 1px; }
   }
 
   .meal-cell {
@@ -149,19 +189,17 @@
     vertical-align: top;
     transition: background 0.2s;
 
-    &:hover {
-      background: #f9fff5;
-    }
+    &:hover { background: #f9fff5; }
   }
 }
 
-// 移动端卡片
+// Mobile cards
 .menu-grid-mobile {
   display: none;
 
   .day-card {
     margin-bottom: 12px;
-    border-radius: 10px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(82, 196, 26, 0.1);
 
@@ -188,7 +226,7 @@
     padding: 4px 8px;
     border-left: 3px solid;
     margin-bottom: 6px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 }
 

@@ -1,76 +1,141 @@
 .public-layout {
   min-height: 100vh;
+  background-color: #f8faf9;
+  background-image:
+    radial-gradient(rgba(82, 196, 26, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(82, 196, 26, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
 }
 
 .public-header {
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  will-change: transform;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04);
   padding: 0;
-  height: 56px;
-  line-height: 56px;
+  height: 64px;
+  line-height: 64px;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid rgba(82, 196, 26, 0.08);
 
   .header-content {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    padding: 0 16px;
+    padding: 0 20px;
   }
 
   .logo {
     display: flex;
     align-items: center;
-    margin-right: 24px;
+    gap: 12px;
+    margin-right: 48px;
     flex-shrink: 0;
 
-    .logo-icon {
-      font-size: 24px;
-      margin-right: 8px;
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(82, 196, 26, 0.25);
     }
 
-    .logo-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: #52c41a;
+    .logo-text-group {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+
+      .logo-text {
+        font-size: 18px;
+        font-weight: 800;
+        color: #1a3a2a;
+        letter-spacing: 1px;
+      }
+
+      .logo-sub {
+        font-size: 10px;
+        font-weight: 600;
+        color: #52c41a;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
     }
   }
 
   .nav-menu {
     flex: 1;
-    border-bottom: none;
-    line-height: 56px;
+    border: none;
+    background: transparent;
+    height: 42px;
+    line-height: 42px;
+
+    :global(.ant-menu-item) {
+      border-radius: 20px !important;
+      margin: 0 4px;
+      font-weight: 500;
+      border-bottom: none !important;
+
+      &::after { display: none; }
+
+      &:global(.ant-menu-item-selected) {
+        background: rgba(82, 196, 26, 0.1) !important;
+        color: #52c41a;
+      }
+
+      &:hover {
+        background: rgba(82, 196, 26, 0.06) !important;
+      }
+    }
   }
 }
 
 .public-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 32px 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
 .public-footer {
   text-align: center;
-  color: #999;
-  font-size: 13px;
-  padding: 16px;
+  padding: 0;
   background: transparent;
+  position: relative;
+
+  .footer-wave {
+    height: 48px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23ffffff' d='M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,74.7C1120,75,1280,53,1360,42.7L1440,32L1440,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: 100% 100%;
+  }
+
+  .footer-inner {
+    background: #fff;
+    padding: 20px 16px 28px;
+  }
 
   .footer-main {
-    margin-bottom: 6px;
+    color: #8c9a8e;
+    font-size: 13px;
+    margin-bottom: 8px;
   }
 
   .footer-stats {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 12px;
-    color: #bbb;
+    color: #b0bfb4;
 
     .stat-item {
       display: inline-flex;
@@ -79,23 +144,33 @@
     }
 
     .stat-divider {
-      color: #e0e0e0;
+      color: #d9e8dc;
     }
   }
 }
 
 @media screen and (max-width: 768px) {
   .public-header {
-    .header-content {
-      padding: 0 8px;
+    height: 56px;
+    line-height: 56px;
+
+    .header-content { padding: 0 12px; }
+
+    .logo {
+      margin-right: 16px;
+
+      .logo-badge { width: 34px; height: 34px; font-size: 18px; border-radius: 10px; }
+      .logo-text-group .logo-text { font-size: 16px; }
+      .logo-text-group .logo-sub { display: none; }
     }
 
-    .logo .logo-text {
-      font-size: 16px;
+    .nav-menu {
+      height: 36px;
+      line-height: 36px;
     }
   }
 
   .public-content {
-    padding: 12px 8px;
+    padding: 16px 12px;
   }
 }

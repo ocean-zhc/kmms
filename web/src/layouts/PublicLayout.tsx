@@ -12,9 +12,7 @@ const PublicLayout: React.FC = () => {
   const [stats, setStats] = useState<{ total: number; week: number; today: number } | null>(null);
 
   useEffect(() => {
-    // 记录访问
     recordVisit(location.pathname).catch(() => {});
-    // 获取统计
     getVisitStats().then((res) => {
       if (res.code === 0) setStats(res.data);
     }).catch(() => {});
@@ -34,8 +32,11 @@ const PublicLayout: React.FC = () => {
       <Header className="public-header">
         <div className="header-content">
           <div className="logo">
-            <span className="logo-icon">🍱</span>
-            <span className="logo-text">宝宝食谱</span>
+            <div className="logo-badge">🍱</div>
+            <div className="logo-text-group">
+              <span className="logo-text">宝宝食谱</span>
+              <span className="logo-sub">Kindergarten Menu</span>
+            </div>
           </div>
           <Menu
             mode="horizontal"
@@ -49,24 +50,27 @@ const PublicLayout: React.FC = () => {
         <Outlet />
       </Content>
       <Footer className="public-footer">
-        <div className="footer-main">
-          幼儿园食谱管理系统 ©{new Date().getFullYear()}
-        </div>
-        {stats && (
-          <div className="footer-stats">
-            <span className="stat-item">
-              <EyeOutlined /> 总访问 {stats.total}
-            </span>
-            <span className="stat-divider">|</span>
-            <span className="stat-item">
-              <CalendarOutlined /> 本周 {stats.week}
-            </span>
-            <span className="stat-divider">|</span>
-            <span className="stat-item">
-              <TeamOutlined /> 今日 {stats.today}
-            </span>
+        <div className="footer-wave" />
+        <div className="footer-inner">
+          <div className="footer-main">
+            幼儿园食谱管理系统 · 健康成长每一天
           </div>
-        )}
+          {stats && (
+            <div className="footer-stats">
+              <span className="stat-item">
+                <EyeOutlined /> 总访问 {stats.total}
+              </span>
+              <span className="stat-divider">·</span>
+              <span className="stat-item">
+                <CalendarOutlined /> 本周 {stats.week}
+              </span>
+              <span className="stat-divider">·</span>
+              <span className="stat-item">
+                <TeamOutlined /> 今日 {stats.today}
+              </span>
+            </div>
+          )}
+        </div>
       </Footer>
     </Layout>
   );

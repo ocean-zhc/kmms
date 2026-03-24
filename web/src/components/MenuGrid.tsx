@@ -1,16 +1,41 @@
 import React from 'react';
-import { Select, Card, Tag } from 'antd';
+import { Select, Card } from 'antd';
 import './MenuGrid.less';
 
 const WEEKDAYS = [
-  { label: '星期一', icon: '🌱' },
-  { label: '星期二', icon: '🌿' },
-  { label: '星期三', icon: '🍀' },
-  { label: '星期四', icon: '🌻' },
-  { label: '星期五', icon: '🌈' },
-  { label: '星期六', icon: '⭐' },
-  { label: '星期日', icon: '🌞' },
+  { label: '星期一', icon: '🌱', short: '周一' },
+  { label: '星期二', icon: '🌿', short: '周二' },
+  { label: '星期三', icon: '🍀', short: '周三' },
+  { label: '星期四', icon: '🌻', short: '周四' },
+  { label: '星期五', icon: '🌈', short: '周五' },
+  { label: '星期六', icon: '⭐', short: '周六' },
+  { label: '星期日', icon: '🌞', short: '周日' },
 ];
+
+const FOOD_EMOJI_RULES: [RegExp, string][] = [
+  [/饭|米/, '🍚'],
+  [/面|粉|饼/, '🍜'],
+  [/汤|羹/, '🍲'],
+  [/粥/, '🥣'],
+  [/包|馒|卷|饺|馄/, '🥟'],
+  [/鱼|虾|蟹/, '🐟'],
+  [/鸡/, '🍗'],
+  [/肉|排骨|牛|猪|鸭/, '🥩'],
+  [/蛋|卵/, '🥚'],
+  [/豆|腐/, '🫘'],
+  [/奶|酸奶|牛乳/, '🥛'],
+  [/果|苹|梨|蕉|橙|莓|桃|瓜(?!肉|鸡|骨)/, '🍎'],
+  [/菜|菠|芹|萝卜|白菜|青|蔬|藕|笋|茄|椒|花菜|木耳|香菇|蘑/, '🥬'],
+  [/糕|饼干|面包|蛋糕|琪玛/, '🍰'],
+  [/玉米/, '🌽'],
+];
+
+const getDishEmoji = (name: string): string => {
+  for (const [pattern, emoji] of FOOD_EMOJI_RULES) {
+    if (pattern.test(name)) return emoji;
+  }
+  return '🍽';
+};
 const MEAL_TYPES = [
   { key: 'lunch', label: '营养午餐', icon: '🍚', color: '#fff7e6', borderColor: '#ffa940' },
   { key: 'snack', label: '快乐午点', icon: '🧁', color: '#f0f5ff', borderColor: '#597ef7' },
@@ -34,7 +59,6 @@ interface MenuGridProps {
   onChange?: (weekday: number, mealType: string, content: string) => void;
   weekStart?: string;
   weekEnd?: string;
-  /** 菜谱库，编辑模式下用于选择 */
   dishes?: Dish[];
 }
 
@@ -55,14 +79,11 @@ const MenuGrid: React.FC<MenuGridProps> = ({
 
   const SEPARATOR = '|||';
 
-  /** 将 content 字符串拆成菜名数组 */
   const contentToValues = (content: string): string[] => {
     if (!content) return [];
-    // 优先按 ||| 分割（新格式）
     if (content.includes(SEPARATOR)) {
       return content.split(SEPARATOR).map((s) => s.trim()).filter(Boolean);
     }
-    // 兼容旧数据：按菜谱库匹配拆分
     if (dishes.length > 0) {
       const names = dishes.map((d) => d.name).sort((a, b) => b.length - a.length);
       const found: string[] = [];
@@ -75,16 +96,13 @@ const MenuGrid: React.FC<MenuGridProps> = ({
       }
       if (found.length > 0) return found;
     }
-    // 最终兜底：整段作为一项
     return [content];
   };
 
-  /** 将选中的菜名数组拼成 content 字符串 */
   const valuesToContent = (values: string[]): string => {
     return values.join(SEPARATOR);
   };
 
-  /** 获取对应 meal_type 的菜品选项 */
   const getDishOptions = (mealType: string) => {
     return dishes
       .filter((d) => d.meal_type === mealType)
@@ -124,17 +142,92 @@ const MenuGrid: React.FC<MenuGridProps> = ({
     return (
       <div className="meal-content">
         {names.map((name, i) => (
-          <div key={i} className="dish-item">{name}</div>
+          <div key={i} className="dish-item">
+            <span className="dish-emoji">{getDishEmoji(name)}</span>
+            <span className="dish-name">{name}</span>
+          </div>
         ))}
       </div>
     );
   };
 
+  // Bento card layout for read-only (public pages)
+  if (!editable) {
+    return (
+      <div className="menu-grid-wrapper">
+        {dateRange && <div className="menu-grid-date">{dateRange}</div>}
+        <div className="bento-grid">
+          {WEEKDAYS.map((day, idx) => {
+            const weekday = idx + 1;
+            const lunchContent = getContent(weekday, 'lunch');
+            const snackContent = getContent(weekday, 'snack');
+            if (!lunchContent && !snackContent) return null;
+            return (
+              <div
+                key={weekday}
+                className="bento-card glass-card"
+                style={{ animationDelay: `${idx * 0.06}s` }}
+              >
+                <div className="bento-header">
+                  <span className="bento-icon">{day.icon}</span>
+                  <span className="bento-day">{day.label}</span>
+                </div>
+                <div className="bento-meals">
+                  {MEAL_TYPES.map((meal) => {
+                    const content = getContent(weekday, meal.key);
+                    if (!content) return null;
+                    return (
+                      <div key={meal.key} className={`bento-meal-group ${meal.key}`}>
+                        <div className="bento-meal-label">
+                          <span className="meal-dot" style={{ background: meal.borderColor }} />
+                          {meal.label}
+                        </div>
+                        <div className="bento-meal-items">
+                          {renderReadCell(content)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile cards */}
+        <div className="menu-grid-mobile">
+          {[1, 2, 3, 4, 5, 6, 7].map((weekday) => (
+            <Card
+              key={weekday}
+              title={<span>{WEEKDAYS[weekday - 1].icon} {WEEKDAYS[weekday - 1].label}</span>}
+              size="small"
+              className="day-card"
+            >
+              {MEAL_TYPES.map((meal) => (
+                <div key={meal.key} className="mobile-meal-section">
+                  <div
+                    className="mobile-meal-label"
+                    style={{
+                      backgroundColor: meal.color,
+                      borderLeftColor: meal.borderColor,
+                    }}
+                  >
+                    {meal.icon} {meal.label}
+                  </div>
+                  {renderReadCell(getContent(weekday, meal.key))}
+                </div>
+              ))}
+            </Card>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Editable table layout (admin)
   return (
     <div className="menu-grid-wrapper">
       {dateRange && <div className="menu-grid-date">{dateRange}</div>}
-
-      {/* PC端表格布局 */}
       <div className="menu-grid-table">
         <table>
           <thead>
@@ -166,9 +259,7 @@ const MenuGrid: React.FC<MenuGridProps> = ({
                 </td>
                 {[1, 2, 3, 4, 5, 6, 7].map((weekday) => (
                   <td key={weekday} className="meal-cell">
-                    {editable
-                      ? renderEditCell(weekday, meal.key)
-                      : renderReadCell(getContent(weekday, meal.key))}
+                    {renderEditCell(weekday, meal.key)}
                   </td>
                 ))}
               </tr>
@@ -177,7 +268,7 @@ const MenuGrid: React.FC<MenuGridProps> = ({
         </table>
       </div>
 
-      {/* 移动端卡片布局 */}
+      {/* Mobile editable */}
       <div className="menu-grid-mobile">
         {[1, 2, 3, 4, 5, 6, 7].map((weekday) => (
           <Card
@@ -197,9 +288,7 @@ const MenuGrid: React.FC<MenuGridProps> = ({
                 >
                   {meal.icon} {meal.label}
                 </div>
-                {editable
-                  ? renderEditCell(weekday, meal.key)
-                  : renderReadCell(getContent(weekday, meal.key))}
+                {renderEditCell(weekday, meal.key)}
               </div>
             ))}
           </Card>
