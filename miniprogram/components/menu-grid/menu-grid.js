@@ -70,7 +70,7 @@ Component({
       }
 
       // 过滤无食谱的天，今日排最前
-      const allDays = Object.values(dayMap).filter(d => d.meals.length > 0);
+      const allDays = Object.values(dayMap).filter(d => d.meals.some(m => m.dishes.length > 0));
       if (todayWd > 0) {
         const todayItem = allDays.find(d => d.weekday === todayWd);
         const rest = allDays.filter(d => d.weekday !== todayWd);
