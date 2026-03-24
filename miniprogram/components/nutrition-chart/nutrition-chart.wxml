@@ -14,7 +14,6 @@
       <view class="nutrition-header-left">
         <text class="nutrition-icon">📊</text>
         <text class="nutrition-title">营养分析</text>
-        <view class="tag tag-green" wx:if="{{cached}}">已缓存</view>
       </view>
       <view class="nutrition-expand-icon {{expanded ? 'expanded' : ''}}">
         <text>›</text>

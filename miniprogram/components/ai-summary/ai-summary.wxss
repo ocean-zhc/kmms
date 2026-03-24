@@ -74,8 +74,10 @@
 }
 
 .ai-footer {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
   padding: 0 32rpx 24rpx;
-  text-align: right;
 }
 
 .ai-time {
