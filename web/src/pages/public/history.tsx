@@ -134,22 +134,21 @@ const HistoryPage: React.FC = () => {
       )}
 
       {selectedWeek && !detailLoading && (
-        <>
-          <Card
-            className="detail-card"
-            title={`${selectedWeek.year}年 第${selectedWeek.week_number}周`}
-            style={{ marginBottom: 16 }}
-          >
-            <MenuGrid
-              items={selectedWeek.items || []}
-              weekStart={selectedWeek.week_start}
-              weekEnd={selectedWeek.week_end}
-              dishes={dishes}
-            />
-          </Card>
-          <NutritionAnalysis weekId={selectedWeek.id} />
-          <AiSummary weekId={selectedWeek.id} />
-        </>
+        <div className="detail-section">
+          <h3 className="detail-title">
+            {selectedWeek.year}年 第{selectedWeek.week_number}周
+          </h3>
+          <MenuGrid
+            items={selectedWeek.items || []}
+            weekStart={selectedWeek.week_start}
+            weekEnd={selectedWeek.week_end}
+            dishes={dishes}
+          />
+          <div className="analysis-grid">
+            <NutritionAnalysis weekId={selectedWeek.id} />
+            <AiSummary weekId={selectedWeek.id} />
+          </div>
+        </div>
       )}
 
       {/* 周列表 */}
