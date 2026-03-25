@@ -212,6 +212,29 @@ try {
         VisitController::overview();
     }
 
+    // 公告 - 公共
+    elseif ($path === '/public/notices' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/NoticeController.php';
+        NoticeController::publicList();
+    }
+    // 公告 - 管理端
+    elseif ($path === '/admin/notices' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/NoticeController.php';
+        NoticeController::list();
+    }
+    elseif ($path === '/admin/notices' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/NoticeController.php';
+        NoticeController::create();
+    }
+    elseif (preg_match('#^/admin/notices/(\d+)$#', $path, $m) && $method === 'PUT') {
+        require_once __DIR__ . '/controllers/NoticeController.php';
+        NoticeController::update((int)$m[1]);
+    }
+    elseif (preg_match('#^/admin/notices/(\d+)$#', $path, $m) && $method === 'DELETE') {
+        require_once __DIR__ . '/controllers/NoticeController.php';
+        NoticeController::delete((int)$m[1]);
+    }
+
     // 工作日接口
     elseif (preg_match('#^/workdays/(\d{4})/(\d{1,2})$#', $path, $m) && $method === 'GET') {
         require_once __DIR__ . '/controllers/WorkdayController.php';

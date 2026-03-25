@@ -93,6 +93,26 @@
 
     .bento-icon { font-size: 24px; }
     .bento-day { font-weight: 800; font-size: 16px; color: #1a3a2a; }
+    .today-badge {
+      margin-left: auto;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      padding: 4px 12px;
+      border-radius: 12px;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(238, 90, 36, 0.35);
+      animation: float 2.5s ease-in-out infinite;
+    }
+  }
+
+  &.bento-today {
+    border: 2.5px solid #52c41a;
+    box-shadow: 0 12px 36px rgba(82, 196, 26, 0.25), 0 0 0 4px rgba(82, 196, 26, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+    transform: scale(1.02);
+    z-index: 2;
   }
 
   .bento-meal-group {

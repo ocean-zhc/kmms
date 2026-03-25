@@ -205,6 +205,23 @@ export async function getVisitOverview() {
   return req('/admin/visits/overview');
 }
 
+// ============ 公告 ============
+export async function getPublicNotices() {
+  return req('/public/notices');
+}
+export async function getAdminNotices() {
+  return req('/admin/notices');
+}
+export async function createNotice(data: { title: string; content: string; sort_order?: number }) {
+  return req('/admin/notices', { method: 'POST', body: JSON.stringify(data) });
+}
+export async function updateNotice(id: number, data: any) {
+  return req(`/admin/notices/${id}`, { method: 'PUT', body: JSON.stringify(data) });
+}
+export async function deleteNotice(id: number) {
+  return req(`/admin/notices/${id}`, { method: 'DELETE' });
+}
+
 // ============ 工作日 ============
 export async function getWorkdays(year: number, month: number) {
   return req(`/workdays/${year}/${month}`);

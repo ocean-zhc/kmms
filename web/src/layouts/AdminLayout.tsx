@@ -10,6 +10,7 @@ import {
   LogoutOutlined,
   SettingOutlined,
   BarChartOutlined,
+  NotificationOutlined,
 } from '@ant-design/icons';
 import './AdminLayout.less';
 
@@ -45,6 +46,7 @@ const AdminLayout: React.FC = () => {
     if (location.pathname.startsWith('/admin/dishes')) return '/admin/dishes';
     if (location.pathname.startsWith('/admin/weeks')) return '/admin/weeks';
     if (location.pathname.startsWith('/admin/ai')) return '/admin/ai';
+    if (location.pathname.startsWith('/admin/notices')) return '/admin/notices';
     if (location.pathname.startsWith('/admin/visits')) return '/admin/visits';
     return location.pathname;
   };
@@ -60,6 +62,11 @@ const AdminLayout: React.FC = () => {
       key: '/admin/dishes',
       icon: <CoffeeOutlined />,
       label: <Link to="/admin/dishes">菜谱管理</Link>,
+    },
+    {
+      key: '/admin/notices',
+      icon: <NotificationOutlined />,
+      label: <Link to="/admin/notices">公告管理</Link>,
     },
     {
       key: '/admin/ai',
