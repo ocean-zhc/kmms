@@ -104,6 +104,18 @@ export async function getCurrentWeek() {
   return req('/public/weeks/current');
 }
 
+export async function getTodayMenu() {
+  return req('/public/today/menu');
+}
+
+export async function getDailyAiSummary(weekId: number, weekday: number) {
+  return req(`/public/ai/daily-summary/${weekId}/${weekday}`);
+}
+
+export async function getDailyNutritionAnalysis(weekId: number, weekday: number) {
+  return req(`/public/ai/daily-nutrition/${weekId}/${weekday}`);
+}
+
 export async function getPublicWeeks(params?: Record<string, any>) {
   const qs = params ? '?' + new URLSearchParams(params as any).toString() : '';
   return req(`/public/weeks${qs}`);

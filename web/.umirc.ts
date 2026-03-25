@@ -29,6 +29,7 @@ export default defineConfig({
       component: '@/layouts/PublicLayout',
       routes: [
         { path: '/', component: '@/pages/public/index' },
+        { path: '/today', component: '@/pages/public/today' },
         { path: '/history', component: '@/pages/public/history' },
       ],
     },

@@ -415,6 +415,221 @@ class AiController
         return ['ok' => true, 'latency' => $latency, 'model' => $model];
     }
 
+    // ============ 今日食谱 AI 分析 ============
+
+    /**
+     * 获取今日食谱AI总结（公共接口，带缓存）
+     */
+    public static function getDailySummary(int $weekId, int $weekday): void
+    {
+        $db = DB::getInstance();
+
+        $configStmt = $db->query('SELECT api_url, api_key, model, prompt, enabled FROM ai_config WHERE id = 1');
+        $config = $configStmt->fetch();
+        if (!$config || !$config['enabled'] || $config['api_url'] === '' || $config['api_key'] === '') {
+            json_error('AI总结功能未配置或未启用', 400, -2);
+        }
+
+        // 查缓存
+        $cacheStmt = $db->prepare('SELECT summary, created_at FROM ai_daily_summaries WHERE week_id = :week_id AND weekday = :weekday AND summary IS NOT NULL');
+        $cacheStmt->execute([':week_id' => $weekId, ':weekday' => $weekday]);
+        $cached = $cacheStmt->fetch();
+
+        if ($cached && $cached['summary']) {
+            json_success([
+                'summary' => $cached['summary'],
+                'cached' => true,
+                'generated_at' => $cached['created_at'],
+            ]);
+        }
+
+        // 获取当日食谱
+        $menuText = self::buildDailyMenuText($db, $weekId, $weekday);
+        if (!$menuText) {
+            json_error('今日食谱不存在或为空', 404);
+        }
+
+        $summary = self::callAI($config, $menuText);
+        if ($summary === null) {
+            json_error('AI总结生成失败，请稍后重试', 500);
+        }
+
+        // 缓存
+        $upsertStmt = $db->prepare('INSERT INTO ai_daily_summaries (week_id, weekday, summary) VALUES (:week_id, :weekday, :summary) ON CONFLICT (week_id, weekday) DO UPDATE SET summary = :summary2, created_at = NOW()');
+        $upsertStmt->execute([
+            ':week_id' => $weekId,
+            ':weekday' => $weekday,
+            ':summary' => $summary,
+            ':summary2' => $summary,
+        ]);
+
+        json_success([
+            'summary' => $summary,
+            'cached' => false,
+            'generated_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
+
+    /**
+     * 获取今日食谱营养分析（公共接口，带缓存）
+     */
+    public static function getDailyNutrition(int $weekId, int $weekday): void
+    {
+        $db = DB::getInstance();
+
+        $configStmt = $db->query('SELECT api_url, api_key, model, enabled FROM ai_config WHERE id = 1');
+        $config = $configStmt->fetch();
+        if (!$config || !$config['enabled'] || $config['api_url'] === '' || $config['api_key'] === '') {
+            json_error('AI功能未配置或未启用', 400, -2);
+        }
+
+        // 查缓存
+        $cacheStmt = $db->prepare('SELECT nutrition_data, created_at FROM ai_daily_summaries WHERE week_id = :week_id AND weekday = :weekday AND nutrition_data IS NOT NULL');
+        $cacheStmt->execute([':week_id' => $weekId, ':weekday' => $weekday]);
+        $cached = $cacheStmt->fetch();
+
+        if ($cached) {
+            $data = json_decode($cached['nutrition_data'], true);
+            if ($data) {
+                $data['cached'] = true;
+                $data['generated_at'] = $cached['created_at'];
+                json_success($data);
+            }
+        }
+
+        // 获取当日食谱
+        $menuText = self::buildDailyMenuText($db, $weekId, $weekday);
+        if (!$menuText) {
+            json_error('今日食谱不存在或为空', 404);
+        }
+
+        $nutritionJson = self::callDailyNutritionAI($config, $menuText);
+        if ($nutritionJson === null) {
+            json_error('营养分析生成失败，请稍后重试', 500);
+        }
+
+        // 缓存
+        $upsertStmt = $db->prepare('INSERT INTO ai_daily_summaries (week_id, weekday, nutrition_data) VALUES (:week_id, :weekday, :data) ON CONFLICT (week_id, weekday) DO UPDATE SET nutrition_data = :data2, created_at = NOW()');
+        $upsertStmt->execute([
+            ':week_id' => $weekId,
+            ':weekday' => $weekday,
+            ':data' => $nutritionJson,
+            ':data2' => $nutritionJson,
+        ]);
+
+        $data = json_decode($nutritionJson, true);
+        $data['cached'] = false;
+        $data['generated_at'] = date('Y-m-d H:i:s');
+        json_success($data);
+    }
+
+    /**
+     * 构建单日食谱文本
+     */
+    private static function buildDailyMenuText(PDO $db, int $weekId, int $weekday): ?string
+    {
+        $weekdays = ['', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $mealNames = ['lunch' => '营养午餐', 'snack' => '快乐午点'];
+
+        $weekStmt = $db->prepare("SELECT * FROM menu_weeks WHERE id = :id AND status IN ('published', 'archived')");
+        $weekStmt->execute([':id' => $weekId]);
+        $week = $weekStmt->fetch();
+        if (!$week) return null;
+
+        $itemStmt = $db->prepare('SELECT meal_type, content FROM menu_items WHERE week_id = :week_id AND weekday = :weekday ORDER BY meal_type');
+        $itemStmt->execute([':week_id' => $weekId, ':weekday' => $weekday]);
+        $items = $itemStmt->fetchAll();
+
+        $hasContent = false;
+        $text = "幼儿园今日食谱（{$weekdays[$weekday]}）：\n\n";
+        foreach (['lunch', 'snack'] as $type) {
+            $content = '';
+            foreach ($items as $item) {
+                if ($item['meal_type'] === $type) {
+                    $content = $item['content'];
+                    break;
+                }
+            }
+            if ($content) $hasContent = true;
+            $text .= "{$mealNames[$type]}：" . ($content ?: '未配置') . "\n";
+        }
+
+        return $hasContent ? $text : null;
+    }
+
+    /**
+     * 调用AI获取单日营养分析
+     */
+    private static function callDailyNutritionAI(array $config, string $menuText): ?string
+    {
+        $prompt = '你是一位专业的幼儿园营养师。请分析以下今日食谱的营养构成，返回严格的JSON格式数据，不要返回其他任何文字。
+
+JSON格式要求：
+{
+  "macronutrients": {"protein": 22, "carbs": 53, "fat": 25},
+  "micronutrients": {"fiber": 75, "vitamins": 80, "minerals": 70},
+  "categories": {"staple": 1, "meat": 2, "veg": 2, "soup": 1, "dairy": 0, "fruit": 0},
+  "score": 85,
+  "summary": "一句话营养点评和建议"
+}
+
+字段说明：
+- macronutrients: 三大营养素估算百分比（protein+carbs+fat=100）
+- micronutrients: 膳食纤维/维生素/矿物质的充足度评分（0-100）
+- categories: 食材品类出现次数统计（staple主食/meat肉蛋/veg蔬菜/soup汤羹/dairy奶制品/fruit水果）
+- score: 综合营养均衡评分（0-100）
+- summary: 不超过50字的简短点评，口吻亲切友好，针对今天一天的食谱
+
+只返回JSON，不要返回markdown代码块或其他文字。';
+
+        $url = rtrim($config['api_url'], '/') . '/chat/completions';
+        $body = json_encode([
+            'model' => $config['model'],
+            'messages' => [
+                ['role' => 'system', 'content' => $prompt],
+                ['role' => 'user', 'content' => $menuText],
+            ],
+            'temperature' => 0.3,
+            'max_tokens' => 800,
+        ], JSON_UNESCAPED_UNICODE);
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $config['api_key'],
+            ],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => false,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        if ($error || $httpCode !== 200) {
+            error_log("Daily Nutrition AI error: $error, HTTP: $httpCode, Response: $response");
+            return null;
+        }
+
+        $data = json_decode($response, true);
+        $content = $data['choices'][0]['message']['content'] ?? '';
+
+        if (preg_match('/\{[\s\S]*\}/u', $content, $matches)) {
+            $parsed = json_decode($matches[0], true);
+            if ($parsed && isset($parsed['macronutrients']) && isset($parsed['score'])) {
+                return json_encode($parsed, JSON_UNESCAPED_UNICODE);
+            }
+        }
+
+        error_log('Daily Nutrition AI parse failed: ' . $content);
+        return null;
+    }
+
     // ============ 营养分析 ============
 
     /**

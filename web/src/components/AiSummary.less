@@ -5,10 +5,22 @@
   background: linear-gradient(135deg, #fff 0%, #f7fee7 100%);
   box-shadow: 0 8px 24px rgba(82, 196, 26, 0.06);
   animation: fadeInUp 0.5s ease-out 0.1s backwards;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   :global(.ant-card-head) {
     border-bottom: 1px dashed rgba(82, 196, 26, 0.18);
     background: transparent;
+    flex-shrink: 0;
+  }
+
+  :global(.ant-card-body) {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
   .ai-title {
@@ -31,6 +43,21 @@
   }
 
   .ai-content {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(82, 196, 26, 0.2);
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
     .summary-text {
       font-size: 14px;
       line-height: 2;
@@ -45,6 +72,10 @@
       gap: 12px;
       font-size: 12px;
       color: #aaa;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(82, 196, 26, 0.12);
+      margin-top: auto;
+      flex-shrink: 0;
 
       .cache-tag {
         background: rgba(82, 196, 26, 0.08);

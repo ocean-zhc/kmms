@@ -5,10 +5,21 @@
   background: linear-gradient(135deg, #fff 0%, #ecfdf5 100%);
   box-shadow: 0 8px 24px rgba(82, 196, 26, 0.06);
   animation: fadeInUp 0.5s ease-out backwards;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   :global(.ant-card-head) {
     border-bottom: 1px dashed rgba(82, 196, 26, 0.18);
     background: transparent;
+    flex-shrink: 0;
+  }
+
+  :global(.ant-card-body) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
   }
 
   .nutrition-title {
@@ -33,7 +44,8 @@
 
 .nutrition-body {
   display: flex;
-  gap: 32px;
+  gap: 36px;
+  flex: 1;
 
   @media (max-width: 640px) {
     flex-direction: column;
@@ -45,12 +57,15 @@
   font-size: 13px;
   font-weight: 700;
   color: #3f6212;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .donut-section {
   flex: 0 0 200px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   @media (max-width: 640px) {
     flex: none;
@@ -63,9 +78,9 @@
 }
 
 .donut-wrapper {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 12px;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 16px;
 
   @media (max-width: 640px) {
     width: 120px;
@@ -125,6 +140,9 @@
 .detail-section {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .progress-group {
@@ -132,7 +150,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 14px;
 
     > span:first-child {
       flex: 0 0 60px;
@@ -152,22 +170,36 @@
 }
 
 .nutrition-footer {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(82, 196, 26, 0.18);
+  margin-top: auto;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-  }
+  flex-direction: column;
+  gap: 8px;
 
   .summary-text {
     font-size: 13px;
     color: #555;
     line-height: 1.6;
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+
+  .nutrition-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(82, 196, 26, 0.18);
+  }
+
+  .cache-tag {
+    font-size: 11px;
+    color: #52c41a;
+    background: #f6ffed;
+    border: 1px solid #b7eb8f;
+    border-radius: 10px;
+    padding: 1px 8px;
+    white-space: nowrap;
   }
 
   .gen-time {

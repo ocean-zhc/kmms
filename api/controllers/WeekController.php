@@ -326,6 +326,44 @@ class WeekController
     }
 
     /**
+     * 公共接口：获取今日食谱
+     */
+    public static function todayMenu(): void
+    {
+        $db = DB::getInstance();
+
+        $now = new DateTime();
+        $year = (int)$now->format('o');
+        $week = (int)$now->format('W');
+        $weekday = (int)$now->format('N'); // 1=周一 ... 7=周日
+
+        $weekdays = ['', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+
+        $stmt = $db->prepare("SELECT * FROM menu_weeks WHERE year = :year AND week_number = :week AND status IN ('published', 'archived')");
+        $stmt->execute([':year' => $year, ':week' => $week]);
+        $weekData = $stmt->fetch();
+
+        if (!$weekData) {
+            json_success(null, '本周食谱尚未发布');
+            return;
+        }
+
+        $itemStmt = $db->prepare('SELECT meal_type, content FROM menu_items WHERE week_id = :week_id AND weekday = :weekday ORDER BY meal_type');
+        $itemStmt->execute([':week_id' => $weekData['id'], ':weekday' => $weekday]);
+        $items = $itemStmt->fetchAll();
+
+        json_success([
+            'week_id' => (int)$weekData['id'],
+            'weekday' => $weekday,
+            'weekday_name' => $weekdays[$weekday],
+            'date' => $now->format('Y-m-d'),
+            'week_start' => $weekData['week_start'],
+            'week_end' => $weekData['week_end'],
+            'items' => $items,
+        ]);
+    }
+
+    /**
      * 公共接口：获取当前周食谱
      */
     public static function currentWeek(): void

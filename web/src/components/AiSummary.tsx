@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Card, Spin, Button, Typography } from 'antd';
 import { RobotOutlined, ReloadOutlined } from '@ant-design/icons';
-import { getAiSummary } from '@/services/api';
+import { getAiSummary, getDailyAiSummary } from '@/services/api';
 import './AiSummary.less';
 
 const { Paragraph } = Typography;
@@ -19,7 +19,6 @@ const HIGHLIGHT_RULES: { pattern: RegExp; className: string }[] = [
 ];
 
 function highlightText(text: string): React.ReactNode[] {
-  // Build a combined regex
   const allPatterns = HIGHLIGHT_RULES.map((r) => `(${r.pattern.source})`).join('|');
   const combined = new RegExp(allPatterns, 'g');
   const parts: React.ReactNode[] = [];
@@ -30,7 +29,6 @@ function highlightText(text: string): React.ReactNode[] {
     if (match.index > lastIndex) {
       parts.push(text.slice(lastIndex, match.index));
     }
-    // Find which group matched
     const matched = match[0];
     let cls = 'hl-balance';
     for (let i = 0; i < HIGHLIGHT_RULES.length; i++) {
@@ -52,9 +50,10 @@ function highlightText(text: string): React.ReactNode[] {
 
 interface AiSummaryProps {
   weekId: number;
+  weekday?: number;
 }
 
-const AiSummary: React.FC<AiSummaryProps> = ({ weekId }) => {
+const AiSummary: React.FC<AiSummaryProps> = ({ weekId, weekday }) => {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string>('');
   const [cached, setCached] = useState(false);
@@ -63,14 +62,16 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId }) => {
 
   useEffect(() => {
     if (weekId) fetchSummary();
-  }, [weekId]);
+  }, [weekId, weekday]);
 
   const fetchSummary = async () => {
     setLoading(true);
     setError('');
     setSummary('');
     try {
-      const res = await getAiSummary(weekId);
+      const res = weekday
+        ? await getDailyAiSummary(weekId, weekday)
+        : await getAiSummary(weekId);
       if (res.code === 0) {
         setSummary(res.data.summary);
         setCached(res.data.cached);
@@ -117,7 +118,7 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId }) => {
       {loading ? (
         <div className="ai-loading">
           <Spin />
-          <span>AI正在分析本周食谱...</span>
+          <span>AI正在分析{weekday ? '今日' : '本周'}食谱...</span>
         </div>
       ) : summary ? (
         <div className="ai-content">
@@ -125,7 +126,7 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId }) => {
           <div className="ai-footer">
             {cached && <span className="cache-tag">已缓存</span>}
             {generatedAt && (
-              <span className="gen-time">生成于 {generatedAt}</span>
+              <span className="gen-time">生成于 {generatedAt.replace(/\.\d+$/, '')}</span>
             )}
           </div>
         </div>

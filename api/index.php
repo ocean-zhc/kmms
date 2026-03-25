@@ -166,6 +166,20 @@ try {
         DishController::publicNames();
     }
 
+    // 公共接口 - 今日食谱
+    elseif ($path === '/public/today/menu' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/WeekController.php';
+        WeekController::todayMenu();
+    }
+    elseif (preg_match('#^/public/ai/daily-summary/(\d+)/(\d+)$#', $path, $m) && $method === 'GET') {
+        require_once __DIR__ . '/controllers/AiController.php';
+        AiController::getDailySummary((int)$m[1], (int)$m[2]);
+    }
+    elseif (preg_match('#^/public/ai/daily-nutrition/(\d+)/(\d+)$#', $path, $m) && $method === 'GET') {
+        require_once __DIR__ . '/controllers/AiController.php';
+        AiController::getDailyNutrition((int)$m[1], (int)$m[2]);
+    }
+
     // 公共接口 - 家长端
     elseif ($path === '/public/weeks/current' && $method === 'GET') {
         require_once __DIR__ . '/controllers/WeekController.php';

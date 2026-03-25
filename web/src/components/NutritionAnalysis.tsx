@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Spin, Button, Progress, Tag } from 'antd';
 import { ExperimentOutlined, ReloadOutlined } from '@ant-design/icons';
-import { getNutritionAnalysis } from '@/services/api';
+import { getNutritionAnalysis, getDailyNutritionAnalysis } from '@/services/api';
 import './NutritionAnalysis.less';
 
 interface NutritionData {
@@ -26,7 +26,7 @@ const CATEGORY_CONFIG: { key: string; label: string; color: string }[] = [
   { key: 'fruit', label: '水果', color: 'magenta' },
 ];
 
-const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
+const NutritionAnalysis: React.FC<{ weekId: number; weekday?: number }> = ({ weekId, weekday }) => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<NutritionData | null>(null);
   const [error, setError] = useState('');
@@ -35,7 +35,9 @@ const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await getNutritionAnalysis(weekId);
+      const res = weekday
+        ? await getDailyNutritionAnalysis(weekId, weekday)
+        : await getNutritionAnalysis(weekId);
       if (res.code === 0) {
         setData(res.data);
       } else {
@@ -50,7 +52,7 @@ const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
 
   useEffect(() => {
     if (weekId) fetchData();
-  }, [weekId]);
+  }, [weekId, weekday]);
 
   if (error) return null;
 
@@ -151,7 +153,7 @@ const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
                 </div>
               </div>
 
-              <div className="section-label" style={{ marginTop: 16 }}>食材品类分布</div>
+              <div className="section-label" style={{ marginTop: 20 }}>食材品类分布</div>
               <div className="category-tags">
                 {CATEGORY_CONFIG.map((c) => {
                   const count = (data.categories as any)[c.key] || 0;
@@ -166,9 +168,12 @@ const NutritionAnalysis: React.FC<{ weekId: number }> = ({ weekId }) => {
           {data.summary && (
             <div className="nutrition-footer">
               <span className="summary-text">💡 {data.summary}</span>
-              {data.generated_at && (
-                <span className="gen-time">生成于 {data.generated_at}</span>
-              )}
+              <div className="nutrition-meta">
+                {data.cached && <span className="cache-tag">已缓存</span>}
+                {data.generated_at && (
+                  <span className="gen-time">生成于 {data.generated_at.replace(/\.\d+$/, '')}</span>
+                )}
+              </div>
             </div>
           )}
         </>
