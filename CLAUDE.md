@@ -12,7 +12,7 @@ KMMS (幼儿园食谱管理系统) - A kindergarten weekly meal menu management 
 - `index.php` — single entry point with manual regex-based routing dispatching to controllers
 - `config.php` — config with env var overrides (DB, JWT, CORS, workday API)
 - `db.php` — PDO singleton (`DB::getInstance()`)
-- `controllers/` — static-method controllers: Auth, Week, Dish, Ai, Workday
+- `controllers/` — static-method controllers: Auth, Week, Dish, Ai, Notice, Visit, Workday
 - `middleware/auth.php` — JWT auth (manual HMAC-SHA256, no library)
 - `middleware/cors.php` — CORS handling
 - `helpers/response.php` — `json_success()` / `json_error()` helpers
@@ -21,13 +21,15 @@ KMMS (幼儿园食谱管理系统) - A kindergarten weekly meal menu management 
 - `.umirc.ts` — routes, proxy config, antd plugin
 - `src/services/api.ts` — all API calls via a single `req()` wrapper using fetch
 - `src/layouts/` — `AdminLayout` (sidebar nav) and `PublicLayout` (parent-facing)
-- `src/pages/admin/` — admin pages: weeks, dishes, AI config, profile
-- `src/pages/public/` — parent-facing: current week menu, history
-- `src/components/` — `MenuGrid` (week grid display), `AiSummary` (AI nutrition summary)
+- `src/pages/admin/` — admin pages: weeks, dishes, notices, AI config, visits, profile
+- `src/pages/public/` — parent-facing: today menu, current week menu, history
+- `src/components/` — `MenuGrid` (week grid), `AiSummary` (AI nutrition summary), `NutritionAnalysis` (nutrition charts), `NoticeBar` (announcements)
 
-**Database** (`database/`): PostgreSQL. Core tables: `menu_weeks`, `menu_items`, `admin_users`, `dishes`, `ai_config`, `ai_summaries`, `workday_cache`, `operation_logs`. Run `init.sql` then `add_dishes.sql` and `add_ai.sql` for full schema.
+**Database** (`database/`): PostgreSQL. Core tables: `menu_weeks`, `menu_items`, `admin_users`, `dishes`, `ai_config`, `ai_summaries`, `ai_daily_summaries`, `notices`, `visit_logs`, `workday_cache`, `operation_logs`. Run `init.sql` then `add_dishes.sql`, `add_ai.sql`, `add_nutrition.sql`, `add_notices.sql`, `add_daily_summaries.sql` for full schema.
 
-**Two-user model**: Admin (manages menus behind JWT auth at `/admin/*`) and Parents (public read-only at `/` and `/history`).
+**Mini Program** (`miniprogram/`): Native WeChat mini program with same public features. Pages: today, index, history, detail, about. Components: menu-grid, ai-summary, nutrition-chart.
+
+**Two-user model**: Admin (manages menus behind JWT auth at `/admin/*`) and Parents (public read-only at `/today`, `/`, `/history`).
 
 ## Common Commands
 
