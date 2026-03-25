@@ -23,6 +23,9 @@ const request = (url, options = {}) => {
 };
 
 module.exports = {
+  getTodayMenu: () => request('/public/today/menu'),
+  getDailyAiSummary: (weekId, weekday) => request(`/public/ai/daily-summary/${weekId}/${weekday}`),
+  getDailyNutrition: (weekId, weekday) => request(`/public/ai/daily-nutrition/${weekId}/${weekday}`),
   getCurrentWeek: () => request('/public/weeks/current'),
   getPublicWeeks: (page = 1, pageSize = 10) =>
     request(`/public/weeks?page=${page}&page_size=${pageSize}`),

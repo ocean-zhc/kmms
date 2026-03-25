@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/today/index",
     "pages/index/index",
     "pages/history/index",
     "pages/detail/index",
@@ -19,6 +20,12 @@
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
+      {
+        "pagePath": "pages/today/index",
+        "text": "今日食谱",
+        "iconPath": "images/tab-today.png",
+        "selectedIconPath": "images/tab-today-active.png"
+      },
       {
         "pagePath": "pages/index/index",
         "text": "本周食谱",

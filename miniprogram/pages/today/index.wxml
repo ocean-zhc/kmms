@@ -1,0 +1,64 @@
+<view class="page-today">
+  <!-- Loading -->
+  <view class="container" wx:if="{{loading}}">
+    <view class="skeleton skeleton-card" style="height: 200rpx;"></view>
+    <view class="skeleton skeleton-card" style="height: 300rpx;"></view>
+    <view class="skeleton skeleton-card" style="height: 160rpx;"></view>
+  </view>
+
+  <!-- Empty -->
+  <view class="empty-state" wx:elif="{{!hasData}}">
+    <text class="empty-emoji">☀️</text>
+    <text class="empty-title">今日食谱暂未发布</text>
+    <text class="empty-desc">园所正在精心准备中，请稍后查看</text>
+  </view>
+
+  <!-- Content -->
+  <view class="container fade-in" wx:else>
+    <!-- Hero Card -->
+    <view class="hero-card card">
+      <view class="hero-bg"></view>
+      <view class="hero-decor decor-1">🥗</view>
+      <view class="hero-decor decor-2">🍳</view>
+      <view class="hero-decor decor-3">🥤</view>
+      <view class="hero-content">
+        <view class="hero-badge">
+          <text>☀️</text>
+          <text class="hero-badge-text">今日食谱</text>
+        </view>
+        <view class="hero-title">{{weekdayEmoji}} {{weekdayName}}</view>
+        <view class="hero-date">{{date}}</view>
+      </view>
+    </view>
+
+    <!-- Today's Meals -->
+    <view class="meals-section">
+      <block wx:for="{{meals}}" wx:key="type">
+        <view class="today-meal-card card meal-{{item.type}}">
+          <view class="meal-header">
+            <text class="meal-emoji">{{item.emoji}}</text>
+            <text class="meal-label">{{item.label}}</text>
+          </view>
+          <view class="dish-list">
+            <block wx:for="{{item.dishes}}" wx:for-item="dish" wx:key="name">
+              <view class="dish-pill dish-color-{{dish.colorIndex}}" style="animation-delay: {{index * 0.06}}s">
+                <view class="dish-emoji-badge">{{dish.emoji}}</view>
+                <text class="dish-name">{{dish.name}}</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- Nutrition -->
+    <view class="section">
+      <nutrition-chart week-id="{{weekId}}" weekday="{{weekday}}" />
+    </view>
+
+    <!-- AI Summary -->
+    <view class="section">
+      <ai-summary week-id="{{weekId}}" weekday="{{weekday}}" />
+    </view>
+  </view>
+</view>

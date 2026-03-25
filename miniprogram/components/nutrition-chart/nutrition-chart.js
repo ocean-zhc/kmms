@@ -4,11 +4,12 @@ const { trimMs } = require('../../utils/util');
 Component({
   properties: {
     weekId: { type: Number, value: 0 },
+    weekday: { type: Number, value: 0 },
   },
 
   observers: {
-    weekId(id) {
-      if (id > 0) this.fetchNutrition(id);
+    'weekId, weekday'(id, wd) {
+      if (id > 0) this.fetchNutrition(id, wd);
     },
   },
 
@@ -20,25 +21,23 @@ Component({
     summary: '',
     cached: false,
     generatedAt: '',
-    // 宏量营养素
     protein: 0,
     carbs: 0,
     fat: 0,
-    // 微量营养素 (0-100)
     fiber: 0,
     vitamins: 0,
     minerals: 0,
-    // 食材分类
     categories: [],
-    // CSS 环形图角度
     conicGradient: '',
   },
 
   methods: {
-    async fetchNutrition(weekId) {
+    async fetchNutrition(weekId, weekday) {
       this.setData({ loading: true, hasData: false });
       try {
-        const data = await api.getNutrition(weekId);
+        const data = weekday > 0
+          ? await api.getDailyNutrition(weekId, weekday)
+          : await api.getNutrition(weekId);
         if (!data) {
           this.setData({ loading: false, hasData: false });
           return;
@@ -57,7 +56,6 @@ Component({
         const cPct = Math.round((carbs / total) * 100);
         const fPct = 100 - pPct - cPct;
 
-        // 构建分类标签
         const catLabels = {
           staple: { name: '主食', emoji: '🍚' },
           meat: { name: '肉类', emoji: '🥩' },

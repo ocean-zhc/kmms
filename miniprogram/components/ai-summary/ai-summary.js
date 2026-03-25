@@ -4,11 +4,12 @@ const { highlightText, trimMs } = require('../../utils/util');
 Component({
   properties: {
     weekId: { type: Number, value: 0 },
+    weekday: { type: Number, value: 0 },
   },
 
   observers: {
-    weekId(id) {
-      if (id > 0) this.fetchSummary(id);
+    'weekId, weekday'(id, wd) {
+      if (id > 0) this.fetchSummary(id, wd);
     },
   },
 
@@ -23,10 +24,12 @@ Component({
   },
 
   methods: {
-    async fetchSummary(weekId) {
+    async fetchSummary(weekId, weekday) {
       this.setData({ loading: true, hasData: false });
       try {
-        const data = await api.getAiSummary(weekId);
+        const data = weekday > 0
+          ? await api.getDailyAiSummary(weekId, weekday)
+          : await api.getAiSummary(weekId);
         if (!data || !data.summary || data.content) {
           this.setData({ loading: false, hasData: false });
           return;
