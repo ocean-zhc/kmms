@@ -8,23 +8,14 @@ Page({
     weekTitle: '',
     weekId: 0,
     hasData: false,
-    notices: [],
-    currentNotice: 0,
   },
-
-  _noticeTimer: null,
 
   onLoad() {
     this.loadCurrentWeek();
-    this.loadNotices();
   },
 
   onShow() {
     api.recordVisit('/pages/index').catch(() => {});
-  },
-
-  onUnload() {
-    if (this._noticeTimer) clearInterval(this._noticeTimer);
   },
 
   onPullDownRefresh() {
@@ -60,21 +51,5 @@ Page({
     } catch (e) {
       this.setData({ loading: false, hasData: false });
     }
-  },
-
-  async loadNotices() {
-    try {
-      const list = await api.getNotices();
-      if (list && list.length) {
-        this.setData({ notices: list, currentNotice: 0 });
-        if (list.length > 1) {
-          this._noticeTimer = setInterval(() => {
-            this.setData({
-              currentNotice: (this.data.currentNotice + 1) % this.data.notices.length,
-            });
-          }, 5000);
-        }
-      }
-    } catch (e) {}
   },
 });
