@@ -36,4 +36,7 @@ return [
 
     // 工作日API
     'workday_api' => 'https://timor.tech/api/holiday/info',
+
+    // 今日所学推送密钥（Automate调用时需携带）
+    'daily_learning_secret' => env('DAILY_LEARNING_SECRET', 'kmms-learning-2026'),
 ];

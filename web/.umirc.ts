@@ -30,6 +30,7 @@ export default defineConfig({
       routes: [
         { path: '/', component: '@/pages/public/index' },
         { path: '/today', component: '@/pages/public/today' },
+        { path: '/learning', component: '@/pages/public/learning' },
         { path: '/history', component: '@/pages/public/history' },
       ],
     },

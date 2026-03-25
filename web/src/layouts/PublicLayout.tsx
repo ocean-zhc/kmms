@@ -21,6 +21,7 @@ const PublicLayout: React.FC = () => {
   const menuItems = [
     { key: '/today', icon: <span>☀️</span>, label: <Link to="/today">今日食谱</Link> },
     { key: '/', icon: <HomeOutlined />, label: <Link to="/">本周食谱</Link> },
+    { key: '/learning', icon: <span>📖</span>, label: <Link to="/learning">今日所学</Link> },
     { key: '/history', icon: <HistoryOutlined />, label: <Link to="/history">历史食谱</Link> },
   ];
 

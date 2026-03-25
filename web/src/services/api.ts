@@ -222,6 +222,15 @@ export async function deleteNotice(id: number) {
   return req(`/admin/notices/${id}`, { method: 'DELETE' });
 }
 
+// ============ 今日所学 ============
+export async function getDailyLearningToday() {
+  return req('/public/daily-learning/today');
+}
+
+export async function getDailyLearnings(limit = 10) {
+  return req(`/public/daily-learnings?limit=${limit}`);
+}
+
 // ============ 工作日 ============
 export async function getWorkdays(year: number, month: number) {
   return req(`/workdays/${year}/${month}`);

@@ -235,6 +235,21 @@ try {
         NoticeController::delete((int)$m[1]);
     }
 
+    // 今日所学 - 推送接口
+    elseif ($path === '/public/daily-learning' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::receive();
+    }
+    // 今日所学 - 家长端
+    elseif ($path === '/public/daily-learnings' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::publicList();
+    }
+    elseif ($path === '/public/daily-learning/today' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::today();
+    }
+
     // 工作日接口
     elseif (preg_match('#^/workdays/(\d{4})/(\d{1,2})$#', $path, $m) && $method === 'GET') {
         require_once __DIR__ . '/controllers/WorkdayController.php';
