@@ -231,6 +231,10 @@ export async function getDailyLearnings(limit = 10) {
   return req(`/public/daily-learnings?limit=${limit}`);
 }
 
+export async function getDailyLearningsByMonth(year: number, month: number) {
+  return req(`/public/daily-learnings/month?year=${year}&month=${month}`);
+}
+
 // ============ 工作日 ============
 export async function getWorkdays(year: number, month: number) {
   return req(`/workdays/${year}/${month}`);

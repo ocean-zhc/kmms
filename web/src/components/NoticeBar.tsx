@@ -43,12 +43,15 @@ const NoticeBar: React.FC = () => {
         <span className="notice-text">{notice.content}</span>
       </div>
       {notices.length > 1 && (
-        <div className="notice-dots">
-          {notices.map((_, i) => (
-            <span
+        <div className="notice-dots" role="tablist" aria-label="公告切换">
+          {notices.map((n, i) => (
+            <button
               key={i}
               className={`dot ${i === current ? 'active' : ''}`}
               onClick={() => setCurrent(i)}
+              aria-label={`第${i + 1}条公告`}
+              aria-selected={i === current}
+              role="tab"
             />
           ))}
         </div>

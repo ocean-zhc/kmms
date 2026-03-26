@@ -235,6 +235,16 @@ try {
         NoticeController::delete((int)$m[1]);
     }
 
+    // 管理端 - 今日所学
+    elseif ($path === '/admin/daily-learning' && $method === 'POST') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::adminCreate();
+    }
+    elseif (preg_match('#^/admin/daily-learning/(\d+)$#', $path, $m) && $method === 'DELETE') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::adminDelete((int)$m[1]);
+    }
+
     // 今日所学 - 推送接口
     elseif ($path === '/public/daily-learning' && $method === 'POST') {
         require_once __DIR__ . '/controllers/DailyLearningController.php';
@@ -244,6 +254,10 @@ try {
     elseif ($path === '/public/daily-learnings' && $method === 'GET') {
         require_once __DIR__ . '/controllers/DailyLearningController.php';
         DailyLearningController::publicList();
+    }
+    elseif ($path === '/public/daily-learnings/month' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/DailyLearningController.php';
+        DailyLearningController::byMonth();
     }
     elseif ($path === '/public/daily-learning/today' && $method === 'GET') {
         require_once __DIR__ . '/controllers/DailyLearningController.php';

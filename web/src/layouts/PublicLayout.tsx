@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, Link, useLocation } from 'umi';
 import { Layout, Menu } from 'antd';
-import { HomeOutlined, HistoryOutlined, EyeOutlined, CalendarOutlined, TeamOutlined } from '@ant-design/icons';
+import { HomeOutlined, HistoryOutlined, EyeOutlined, CalendarOutlined, TeamOutlined, RightOutlined } from '@ant-design/icons';
 import { recordVisit, getVisitStats } from '@/services/api';
 import './PublicLayout.less';
 
@@ -21,9 +21,10 @@ const PublicLayout: React.FC = () => {
   const menuItems = [
     { key: '/today', icon: <span>☀️</span>, label: <Link to="/today">今日食谱</Link> },
     { key: '/', icon: <HomeOutlined />, label: <Link to="/">本周食谱</Link> },
-    { key: '/learning', icon: <span>📖</span>, label: <Link to="/learning">今日所学</Link> },
     { key: '/history', icon: <HistoryOutlined />, label: <Link to="/history">历史食谱</Link> },
   ];
+
+  const isLearningPage = location.pathname === '/learning';
 
   return (
     <Layout className="public-layout">
@@ -38,7 +39,7 @@ const PublicLayout: React.FC = () => {
           </div>
           <Menu
             mode="horizontal"
-            selectedKeys={[location.pathname]}
+            selectedKeys={[isLearningPage ? '' : location.pathname]}
             items={menuItems}
             className="nav-menu"
           />
@@ -47,6 +48,22 @@ const PublicLayout: React.FC = () => {
       <Content className="public-content">
         <Outlet />
       </Content>
+
+      {!isLearningPage && (
+        <div className="footer-services">
+          <div className="footer-services-inner">
+            <Link to="/learning" className="service-card">
+              <div className="service-icon">📖</div>
+              <div className="service-info">
+                <div className="service-title">今日所学</div>
+                <div className="service-desc">查看宝贝今天学了什么</div>
+              </div>
+              <RightOutlined className="service-arrow" />
+            </Link>
+          </div>
+        </div>
+      )}
+
       <Footer className="public-footer">
         <div className="footer-wave" />
         <div className="footer-inner">

@@ -71,7 +71,7 @@ const NutritionAnalysis: React.FC<{ weekId: number; weekday?: number }> = ({ wee
 
     let offset = 0;
     return (
-      <svg viewBox="0 0 100 100" className="donut-svg">
+      <svg viewBox="0 0 100 100" className="donut-svg" role="img" aria-label={`营养评分${data.score}分，蛋白质${data.macronutrients.protein}%，碳水${data.macronutrients.carbs}%，脂肪${data.macronutrients.fat}%`}>
         {segments.map((seg, i) => {
           const dash = (seg.value / total) * circumference;
           const el = (
@@ -167,7 +167,7 @@ const NutritionAnalysis: React.FC<{ weekId: number; weekday?: number }> = ({ wee
 
           {data.summary && (
             <div className="nutrition-footer">
-              <span className="summary-text">💡 {data.summary}</span>
+              <span className="summary-text">{data.summary}</span>
               <div className="nutrition-meta">
                 {data.cached && <span className="cache-tag">已缓存</span>}
                 {data.generated_at && (

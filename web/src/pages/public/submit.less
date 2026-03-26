@@ -1,0 +1,185 @@
+.submit-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+
+  .submit-hero {
+    text-align: center;
+    padding: 40px 0 24px;
+    animation: fadeInUp 0.5s ease-out;
+
+    .submit-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      background: rgba(82, 196, 26, 0.1);
+      color: #52c41a;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .submit-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1a3a2a;
+      margin: 0 0 6px;
+    }
+
+    .submit-sub {
+      color: #8c8c8c;
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+
+  .submit-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #f6ffed;
+    border: 1px solid #b7eb8f;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    color: #52c41a;
+    font-weight: 600;
+    font-size: 16px;
+    animation: fadeInUp 0.3s ease-out;
+
+    .anticon { font-size: 20px; }
+  }
+
+  .submit-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+
+    .submit-textarea {
+      border-radius: 14px;
+      font-size: 16px;
+      padding: 14px;
+      border-color: #e8e8e8;
+      resize: none;
+
+      &:focus {
+        border-color: #52c41a;
+        box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.15);
+      }
+    }
+
+    .submit-preview {
+      margin-top: 16px;
+      padding: 16px;
+      background: #f6ffed;
+      border-radius: 14px;
+      border: 1px solid #d9f7be;
+      animation: fadeInUp 0.3s ease-out;
+
+      .preview-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #52c41a;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+
+      .preview-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 6px;
+        font-size: 14px;
+        line-height: 1.6;
+
+        &:last-child { margin-bottom: 0; }
+
+        .preview-label {
+          color: #8c8c8c;
+          flex-shrink: 0;
+          min-width: 32px;
+        }
+
+        .preview-value {
+          color: #1a3a2a;
+          font-weight: 600;
+        }
+
+        .preview-goals {
+          white-space: pre-line;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .submit-secret {
+      margin-top: 16px;
+      border-radius: 14px;
+      height: 44px;
+      font-size: 15px;
+    }
+
+    .submit-btn {
+      margin-top: 16px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .submit-hint {
+      text-align: center;
+      margin-top: 12px;
+      color: #bfbfbf;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover { color: #52c41a; }
+    }
+  }
+
+  .submit-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 28px;
+    animation: fadeInUp 0.5s ease-out 0.2s both;
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .step-num {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #52c41a;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .step-text {
+        font-size: 12px;
+        color: #8c8c8c;
+        white-space: nowrap;
+      }
+    }
+
+    .step-arrow {
+      color: #d9d9d9;
+      font-size: 14px;
+    }
+  }
+}}

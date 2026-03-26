@@ -27,12 +27,12 @@
     min-width: 0;
     font-size: 13px;
     line-height: 1.6;
-    color: #8c6e00;
+    color: #6b5900;
 
     .notice-title {
       font-weight: 700;
       margin-right: 8px;
-      color: #ad6800;
+      color: #874d00;
 
       &::after {
         content: '丨';
@@ -42,27 +42,47 @@
     }
 
     .notice-text {
-      color: #876800;
+      color: #6b5900;
     }
   }
 
   .notice-dots {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     flex-shrink: 0;
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #ffe58f;
+      border: none;
+      padding: 0;
+      background: transparent;
       cursor: pointer;
-      transition: all 0.3s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      &.active {
+      &::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ffe58f;
+        transition: all 0.2s;
+      }
+
+      &.active::after {
         background: #faad14;
         width: 16px;
         border-radius: 3px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #faad14;
+        outline-offset: 2px;
+        border-radius: 50%;
       }
     }
   }
