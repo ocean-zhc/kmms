@@ -23,6 +23,10 @@ Page({
     if (this._noticeTimer) clearInterval(this._noticeTimer);
   },
 
+  goLearning() {
+    wx.navigateTo({ url: '/pages/learning/index' });
+  },
+
   async loadStats() {
     try {
       const stats = await api.getVisitStats();

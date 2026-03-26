@@ -72,6 +72,16 @@
       </view>
     </view>
 
+    <!-- Learning Entry -->
+    <view class="service-card" bindtap="goLearning">
+      <view class="service-icon">📖</view>
+      <view class="service-info">
+        <view class="service-title">今日所学</view>
+        <view class="service-desc">查看宝贝今天学了什么</view>
+      </view>
+      <view class="service-arrow">›</view>
+    </view>
+
     <!-- Visit Stats -->
     <view class="about-card card">
       <view class="card-body">

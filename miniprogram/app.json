@@ -4,6 +4,7 @@
     "pages/index/index",
     "pages/history/index",
     "pages/detail/index",
+    "pages/learning/index",
     "pages/about/index"
   ],
   "window": {

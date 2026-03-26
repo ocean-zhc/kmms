@@ -81,14 +81,26 @@
 }
 
 .notice-dot {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  background: transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notice-dot::after {
+  content: '';
   width: 10rpx;
   height: 10rpx;
   border-radius: 50%;
   background: #ffe58f;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
-.notice-dot.active {
+.notice-dot.active::after {
   background: #faad14;
   width: 24rpx;
   border-radius: 5rpx;
@@ -155,6 +167,58 @@
 .feature-desc {
   font-size: 24rpx;
   color: var(--text-hint);
+}
+
+/* ===== Service Card ===== */
+.service-card {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 32rpx;
+  background: #fff;
+  border: 2rpx solid #f0f0f0;
+  border-radius: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.service-card:active {
+  transform: scale(0.98);
+  border-color: #52c41a;
+}
+
+.service-icon {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0fff0, #e6ffe6);
+  border-radius: 20rpx;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.service-info {
+  flex: 1;
+}
+
+.service-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1a3a2a;
+}
+
+.service-desc {
+  font-size: 22rpx;
+  color: #8c8c8c;
+  margin-top: 4rpx;
+}
+
+.service-arrow {
+  font-size: 36rpx;
+  color: #bfbfbf;
+  font-weight: 300;
 }
 
 /* ===== Stats ===== */

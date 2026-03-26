@@ -37,4 +37,7 @@ module.exports = {
     request('/public/visit', { method: 'POST', data: { path } }),
   getVisitStats: () => request('/public/visit/stats'),
   getNotices: () => request('/public/notices'),
+  getDailyLearningToday: () => request('/public/daily-learning/today'),
+  getDailyLearningsByMonth: (year, month) =>
+    request(`/public/daily-learnings/month?year=${year}&month=${month}`),
 };
