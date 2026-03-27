@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button, Modal, Form, Input, Switch, InputNumber, message, Popconfirm, Space, Tag } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Button, Modal, Form, Input, Switch, InputNumber, message, Popconfirm, Space, Tag, Tabs } from 'antd';
+import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { getAdminNotices, createNotice, updateNotice, deleteNotice } from '@/services/api';
+import { marked } from 'marked';
 
 const { TextArea } = Input;
 
@@ -66,7 +67,12 @@ const NoticesPage: React.FC = () => {
     {
       title: '内容',
       dataIndex: 'content',
-      ellipsis: true,
+      render: (v: string) => (
+        <div
+          style={{ fontSize: 13, lineHeight: 1.6 }}
+          dangerouslySetInnerHTML={{ __html: marked.parse(v || '', { async: false }) as string }}
+        />
+      ),
     },
     {
       title: '排序',
@@ -142,8 +148,8 @@ const NoticesPage: React.FC = () => {
           <Form.Item name="title" label="标题">
             <Input placeholder="可选，如：温馨提示" />
           </Form.Item>
-          <Form.Item name="content" label="内容" rules={[{ required: true, message: '请输入公告内容' }]}>
-            <TextArea rows={4} placeholder="公告内容" />
+          <Form.Item name="content" label="内容（支持 Markdown）" rules={[{ required: true, message: '请输入公告内容' }]}>
+            <TextArea rows={6} placeholder="支持 Markdown 语法，如 **加粗**、*斜体*、- 列表" />
           </Form.Item>
           <Form.Item name="sort_order" label="排序（越小越前）">
             <InputNumber min={0} style={{ width: 120 }} />
