@@ -13,7 +13,7 @@
       <view class="notice-icon">📢</view>
       <view class="notice-body">
         <text class="notice-title" wx:if="{{notices[currentNotice].title}}">{{notices[currentNotice].title}}</text>
-        <text class="notice-text">{{notices[currentNotice].content}}</text>
+        <rich-text class="notice-text" nodes="{{notices[currentNotice].htmlContent}}"></rich-text>
       </view>
       <view class="notice-dots" wx:if="{{notices.length > 1}}">
         <view wx:for="{{notices}}" wx:key="id" class="notice-dot {{index === currentNotice ? 'active' : ''}}"></view>

@@ -1,5 +1,14 @@
 const api = require('../../utils/api');
 
+function simpleMd(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code style="background:#f5f5f5;padding:0 4px;border-radius:3px;font-size:0.9em;">$1</code>')
+    .replace(/\n/g, '<br/>');
+}
+
 Page({
   data: {
     version: '1.0.0',
@@ -38,6 +47,7 @@ Page({
     try {
       const list = await api.getNotices();
       if (list && list.length) {
+        list.forEach(n => { n.htmlContent = simpleMd(n.content); });
         this.setData({ notices: list, currentNotice: 0 });
         if (list.length > 1) {
           this._noticeTimer = setInterval(() => {
