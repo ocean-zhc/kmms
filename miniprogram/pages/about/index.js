@@ -18,6 +18,8 @@ function getReadIds() {
 Page({
   data: {
     version: '1.0.0',
+    aboutText: '',
+    features: [],
     stats: { total: 0, week: 0, today: 0 },
     notices: [],
     unreadCount: 0,
@@ -25,6 +27,7 @@ Page({
   },
 
   onLoad() {
+    this.loadSiteConfig();
     this.loadStats();
     this.loadNotices();
   },
@@ -62,6 +65,22 @@ Page({
     } else {
       wx.removeTabBarBadge({ index: 3 });
     }
+  },
+
+  async loadSiteConfig() {
+    try {
+      const config = await api.getSiteConfig();
+      if (config) {
+        const aboutText = simpleMd(config.about_text || '');
+        let features = [];
+        try { features = JSON.parse(config.features || '[]'); } catch {}
+        this.setData({
+          aboutText,
+          features,
+          version: config.app_version || '1.0.0',
+        });
+      }
+    } catch (e) {}
   },
 
   async loadStats() {
