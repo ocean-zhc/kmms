@@ -47,6 +47,7 @@ export default defineConfig({
         { path: '/admin/notices', component: '@/pages/admin/notices/index' },
         { path: '/admin/ai', component: '@/pages/admin/ai/index' },
         { path: '/admin/learning', component: '@/pages/admin/learning/index' },
+        { path: '/admin/config', component: '@/pages/admin/config/index' },
         { path: '/admin/visits', component: '@/pages/admin/visits/index' },
         { path: '/admin/profile', component: '@/pages/admin/profile/index' },
       ],

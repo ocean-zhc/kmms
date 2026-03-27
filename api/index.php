@@ -264,6 +264,21 @@ try {
         DailyLearningController::today();
     }
 
+    // 站点配置 - 公共
+    elseif ($path === '/public/site-config' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/SiteConfigController.php';
+        SiteConfigController::publicGet();
+    }
+    // 站点配置 - 管理端
+    elseif ($path === '/admin/site-config' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/SiteConfigController.php';
+        SiteConfigController::list();
+    }
+    elseif ($path === '/admin/site-config' && $method === 'PUT') {
+        require_once __DIR__ . '/controllers/SiteConfigController.php';
+        SiteConfigController::update();
+    }
+
     // 工作日接口
     elseif (preg_match('#^/workdays/(\d{4})/(\d{1,2})$#', $path, $m) && $method === 'GET') {
         require_once __DIR__ . '/controllers/WorkdayController.php';

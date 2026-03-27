@@ -235,6 +235,17 @@ export async function getDailyLearningsByMonth(year: number, month: number) {
   return req(`/public/daily-learnings/month?year=${year}&month=${month}`);
 }
 
+// ============ 站点配置 ============
+export async function getSiteConfig() {
+  return req('/public/site-config');
+}
+export async function getAdminSiteConfig() {
+  return req('/admin/site-config');
+}
+export async function updateSiteConfig(data: Record<string, string>) {
+  return req('/admin/site-config', { method: 'PUT', body: JSON.stringify(data) });
+}
+
 // ============ 工作日 ============
 export async function getWorkdays(year: number, month: number) {
   return req(`/workdays/${year}/${month}`);

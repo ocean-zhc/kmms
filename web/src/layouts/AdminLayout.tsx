@@ -50,6 +50,7 @@ const AdminLayout: React.FC = () => {
     if (location.pathname.startsWith('/admin/notices')) return '/admin/notices';
     if (location.pathname.startsWith('/admin/visits')) return '/admin/visits';
     if (location.pathname.startsWith('/admin/learning')) return '/admin/learning';
+    if (location.pathname.startsWith('/admin/config')) return '/admin/config';
     return location.pathname;
   };
   const selectedKey = getSelectedKey();
@@ -79,6 +80,11 @@ const AdminLayout: React.FC = () => {
       key: '/admin/learning',
       icon: <EditOutlined />,
       label: <Link to="/admin/learning">今日所学</Link>,
+    },
+    {
+      key: '/admin/config',
+      icon: <SettingOutlined />,
+      label: <Link to="/admin/config">站点配置</Link>,
     },
     {
       key: '/admin/visits',
