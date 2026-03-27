@@ -43,67 +43,106 @@
   border-radius: 16rpx;
 }
 
-/* ===== Notice Bar ===== */
-.notice-bar {
+/* ===== Notices ===== */
+.notice-section {
+  background: #fff;
+  border-radius: var(--radius);
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.notice-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 28rpx;
+}
+
+.notice-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.notice-bell-icon {
+  font-size: 32rpx;
+}
+
+.notice-header-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1a3a2a;
+}
+
+.notice-unread-badge {
+  min-width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  font-size: 20rpx;
+  font-weight: 700;
+  color: #fff;
+  background: #ff4d4f;
+  border-radius: 16rpx;
+  padding: 0 8rpx;
+}
+
+.notice-arrow {
+  font-size: 32rpx;
+  color: #bfbfbf;
+  transition: transform 0.2s;
+  font-weight: 300;
+}
+
+.notice-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.notice-list {
+  border-top: 2rpx solid #f5f5f5;
+}
+
+.notice-item {
+  display: flex;
+  align-items: flex-start;
   gap: 16rpx;
-  padding: 20rpx 24rpx;
-  margin-bottom: 24rpx;
-  background: linear-gradient(135deg, #fffbe6, #fff7e0);
-  border: 2rpx solid #ffe58f;
-  border-radius: var(--radius);
+  padding: 20rpx 28rpx;
+  border-bottom: 2rpx solid #fafafa;
 }
 
-.notice-icon {
-  font-size: 36rpx;
-  flex-shrink: 0;
+.notice-item:last-child {
+  border-bottom: none;
 }
 
-.notice-body {
+.notice-item.read {
+  opacity: 0.4;
+}
+
+.notice-item-body {
   flex: 1;
   min-width: 0;
+}
+
+.notice-item-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a3a2a;
+  margin-bottom: 4rpx;
+}
+
+.notice-item-content {
   font-size: 24rpx;
+  color: #666;
   line-height: 1.6;
-  color: #8c6e00;
 }
 
-.notice-title {
-  font-weight: 700;
-  color: #ad6800;
-  margin-right: 12rpx;
-}
-
-.notice-dots {
-  display: flex;
-  gap: 8rpx;
+.notice-mark-read {
   flex-shrink: 0;
-}
-
-.notice-dot {
-  width: 44rpx;
-  height: 44rpx;
-  border-radius: 50%;
-  background: transparent;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notice-dot::after {
-  content: '';
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background: #ffe58f;
-  transition: all 0.2s;
-}
-
-.notice-dot.active::after {
-  background: #faad14;
-  width: 24rpx;
-  border-radius: 5rpx;
+  font-size: 22rpx;
+  color: #bfbfbf;
+  margin-top: 4rpx;
 }
 
 /* ===== Cards ===== */
