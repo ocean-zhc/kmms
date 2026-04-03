@@ -1,4 +1,4 @@
-<view class="page-index">
+<view class="page-index" style="{{themeStyle}}">
   <!-- Loading -->
   <view class="container" wx:if="{{loading}}">
     <view class="skeleton skeleton-card"></view>

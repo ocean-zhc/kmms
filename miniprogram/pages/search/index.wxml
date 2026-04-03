@@ -1,0 +1,43 @@
+<view class="page-search" style="{{themeStyle}}">
+  <view class="container">
+    <!-- Search Bar -->
+    <view class="search-bar">
+      <text class="search-bar-icon">🔍</text>
+      <input class="search-input" placeholder="输入菜品名称搜索" value="{{keyword}}" bindinput="onInput" bindconfirm="doSearch" focus="true" />
+      <text class="search-clear" wx:if="{{keyword}}" bindtap="onClear">✕</text>
+    </view>
+
+    <!-- Loading -->
+    <view class="search-loading" wx:if="{{loading}}">
+      <text>搜索中...</text>
+    </view>
+
+    <!-- Results -->
+    <view class="search-results" wx:elif="{{results.length > 0}}">
+      <view class="result-count">找到 {{results.length}} 条结果</view>
+      <view class="result-item card" wx:for="{{results}}" wx:key="index" data-id="{{item.weekId}}" bindtap="goDetail">
+        <view class="result-header">
+          <text class="result-week">{{item.year}}年第{{item.weekNumber}}周</text>
+          <text class="result-date">{{item.weekStart}}</text>
+        </view>
+        <view class="result-meta">
+          <text class="result-tag">{{item.weekdayName}}</text>
+          <text class="result-tag">{{item.mealLabel}}</text>
+        </view>
+        <view class="result-dishes">{{item.allDishes}}</view>
+      </view>
+    </view>
+
+    <!-- Empty -->
+    <view class="search-empty" wx:elif="{{searched && results.length === 0}}">
+      <text class="empty-emoji">🔍</text>
+      <text class="empty-text">未找到含有"{{keyword}}"的菜品</text>
+    </view>
+
+    <!-- Initial -->
+    <view class="search-hint" wx:elif="{{!searched}}">
+      <text class="hint-emoji">💡</text>
+      <text class="hint-text">输入菜品名称，搜索历史食谱</text>
+    </view>
+  </view>
+</view>

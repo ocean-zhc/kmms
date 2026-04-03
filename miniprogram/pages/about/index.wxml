@@ -1,4 +1,4 @@
-<view class="page-about">
+<view class="page-about" style="{{themeStyle}}">
   <view class="container">
     <!-- Logo Section -->
     <view class="about-hero">
@@ -89,6 +89,65 @@
           <view class="stat-item">
             <text class="stat-num">{{stats.today}}</text>
             <text class="stat-label">今日访问</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Theme Picker -->
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">🎨</text>
+          <text>主题配色</text>
+        </view>
+        <view class="theme-grid">
+          <view
+            wx:for="{{themes}}" wx:key="id"
+            class="theme-item {{currentTheme === item.id ? 'active' : ''}}"
+            data-id="{{item.id}}" bindtap="switchTheme"
+          >
+            <view class="theme-dot" style="background:{{item.primary}};"></view>
+            <text class="theme-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Allergen Settings -->
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">⚠️</text>
+          <text>过敏原提醒</text>
+        </view>
+        <view class="allergen-input-row">
+          <input class="allergen-input" placeholder="输入过敏食材，如花生" value="{{allergenInput}}" bindinput="onAllergenInput" bindconfirm="addAllergen" />
+          <view class="allergen-add-btn" bindtap="addAllergen">添加</view>
+        </view>
+        <view class="allergen-tags" wx:if="{{allergens.length > 0}}">
+          <view class="allergen-tag" wx:for="{{allergens}}" wx:key="*this">
+            <text>{{item}}</text>
+            <text class="allergen-tag-x" data-index="{{index}}" catchtap="removeAllergen">✕</text>
+          </view>
+        </view>
+        <view class="allergen-hint" wx:if="{{allergens.length === 0}}">
+          <text>添加过敏食材后，食谱中含有该食材的菜品将标红提醒</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Favorites -->
+    <view class="about-card card" wx:if="{{favorites.length > 0}}">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">❤️</text>
+          <text>我的收藏 ({{favorites.length}})</text>
+        </view>
+        <view class="fav-list">
+          <view class="fav-item" wx:for="{{favorites}}" wx:key="*this">
+            <text class="fav-dish-name">{{item}}</text>
+            <text class="fav-remove" data-index="{{index}}" catchtap="removeFavorite">✕</text>
           </view>
         </view>
       </view>

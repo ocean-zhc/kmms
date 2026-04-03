@@ -713,6 +713,114 @@ JSON格式要求：
     }
 
     /**
+     * 公共接口：AI晚餐推荐
+     */
+    public static function getDinnerRecommendation(int $weekId, int $weekday): void
+    {
+        $db = DB::getInstance();
+
+        $configStmt = $db->query('SELECT api_url, api_key, model, enabled FROM ai_config WHERE id = 1');
+        $config = $configStmt->fetch();
+        if (!$config || !$config['enabled'] || $config['api_url'] === '' || $config['api_key'] === '') {
+            json_error('AI功能未配置或未启用', 400, -2);
+        }
+
+        // 文件缓存
+        $cacheDir = sys_get_temp_dir() . '/kmms_dinner_cache';
+        $cacheFile = "$cacheDir/{$weekId}_{$weekday}.json";
+        if (file_exists($cacheFile)) {
+            $cached = json_decode(file_get_contents($cacheFile), true);
+            if ($cached && (time() - ($cached['ts'] ?? 0)) < 86400) {
+                json_success([
+                    'recommendation' => $cached['text'],
+                    'cached' => true,
+                    'generated_at' => date('Y-m-d H:i:s', $cached['ts']),
+                ]);
+            }
+        }
+
+        // 获取当天午餐和午点
+        $lunchStmt = $db->prepare("SELECT content FROM menu_items WHERE week_id = :wid AND weekday = :wd AND meal_type = 'lunch'");
+        $lunchStmt->execute([':wid' => $weekId, ':wd' => $weekday]);
+        $lunch = $lunchStmt->fetchColumn();
+        if (!$lunch) {
+            json_error('今日午餐数据不存在', 404);
+        }
+
+        $snackStmt = $db->prepare("SELECT content FROM menu_items WHERE week_id = :wid AND weekday = :wd AND meal_type = 'snack'");
+        $snackStmt->execute([':wid' => $weekId, ':wd' => $weekday]);
+        $snack = $snackStmt->fetchColumn();
+
+        $weekdayNames = ['', '星期一', '星期二', '星期三', '星期四', '星期五'];
+        $menuInfo = ($weekdayNames[$weekday] ?? '') . " 幼儿园午餐：" . str_replace('|||', '、', $lunch);
+        if ($snack) {
+            $menuInfo .= "\n午点：" . str_replace('|||', '、', $snack);
+        }
+
+        $systemPrompt = '你是一位专业的幼儿营养师。根据孩子今天在幼儿园吃的午餐和午点，推荐3道适合3-6岁幼儿的晚餐菜品，要求营养互补、口味清淡、家庭容易制作。回复控制在150字以内，语气亲切温馨，用简洁的列表形式呈现。';
+
+        $result = self::callAICustom($config, $systemPrompt, $menuInfo);
+        if ($result === null) {
+            json_error('推荐生成失败，请稍后重试', 500);
+        }
+
+        // 缓存
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0755, true);
+        }
+        file_put_contents($cacheFile, json_encode(['text' => $result, 'ts' => time()], JSON_UNESCAPED_UNICODE));
+
+        json_success([
+            'recommendation' => $result,
+            'cached' => false,
+            'generated_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
+
+    /**
+     * 自定义prompt调用AI
+     */
+    private static function callAICustom(array $config, string $systemPrompt, string $userMessage): ?string
+    {
+        $url = rtrim($config['api_url'], '/') . '/chat/completions';
+        $body = json_encode([
+            'model' => $config['model'],
+            'messages' => [
+                ['role' => 'system', 'content' => $systemPrompt],
+                ['role' => 'user', 'content' => $userMessage],
+            ],
+            'temperature' => 0.7,
+            'max_tokens' => 500,
+        ], JSON_UNESCAPED_UNICODE);
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $config['api_key'],
+            ],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYPEER => false,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+        curl_close($ch);
+
+        if ($error || $httpCode !== 200) {
+            error_log("AI dinner error: $error, HTTP: $httpCode, Response: $response");
+            return null;
+        }
+
+        $data = json_decode($response, true);
+        return $data['choices'][0]['message']['content'] ?? null;
+    }
+
+    /**
      * 脱敏API Key
      */
     private static function maskKey(string $key): string

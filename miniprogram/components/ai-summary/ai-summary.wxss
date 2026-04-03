@@ -82,8 +82,8 @@
 
 .cache-pill {
   display: inline-block;
-  background: rgba(82, 196, 26, 0.08);
-  color: #52c41a;
+  background: var(--primary-light);
+  color: var(--primary);
   font-size: 22rpx;
   font-weight: 600;
   padding: 4rpx 16rpx;

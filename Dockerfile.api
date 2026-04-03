@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# 使用国内镜像源(HTTPS)
+RUN sed -i 's|http://deb.debian.org|https://mirrors.ustc.edu.cn|g' /etc/apt/sources.list.d/debian.sources
+
 # 安装 PostgreSQL 和 cURL 扩展
 RUN apt-get update && apt-get install -y \
     libpq-dev \

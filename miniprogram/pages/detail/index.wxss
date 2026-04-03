@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #f0faf0 0%, #e8f5e9 40%, #fffde7 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-bg) 40%, var(--bg) 100%);
 }
 
 .detail-header-content {
@@ -44,4 +44,88 @@
 
 .section {
   margin-bottom: 8rpx;
+}
+
+/* ===== Poster ===== */
+.poster-btn {
+  text-align: center;
+  padding: 20rpx;
+  margin: 16rpx 0 32rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: var(--radius);
+  border: 2rpx solid var(--primary-bg);
+}
+
+.poster-btn:active {
+  opacity: 0.8;
+}
+
+.poster-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.poster-preview {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  max-width: 600rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.poster-img {
+  width: 100%;
+  border-radius: 16rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.3);
+}
+
+.poster-actions {
+  display: flex;
+  gap: 24rpx;
+  width: 100%;
+}
+
+.poster-save-btn {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 40rpx;
+}
+
+.poster-close-btn {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 40rpx;
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
 }

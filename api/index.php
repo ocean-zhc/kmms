@@ -160,6 +160,18 @@ try {
         AiController::getNutrition((int)$m[1]);
     }
 
+    // 公共接口 - AI晚餐推荐
+    elseif (preg_match('#^/public/ai/dinner/(\d+)/(\d+)$#', $path, $m) && $method === 'GET') {
+        require_once __DIR__ . '/controllers/AiController.php';
+        AiController::getDinnerRecommendation((int)$m[1], (int)$m[2]);
+    }
+
+    // 公共接口 - 搜索
+    elseif ($path === '/public/search' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/WeekController.php';
+        WeekController::search();
+    }
+
     // 公共接口 - 菜谱名称
     elseif ($path === '/public/dishes' && $method === 'GET') {
         require_once __DIR__ . '/controllers/DishController.php';

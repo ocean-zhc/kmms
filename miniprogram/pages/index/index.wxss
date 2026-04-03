@@ -18,7 +18,8 @@
   width: 280rpx;
   height: 280rpx;
   border-radius: 50%;
-  background: rgba(82, 196, 26, 0.08);
+  background: var(--primary-light);
+  opacity: 0.5;
   z-index: 1;
 }
 
@@ -40,7 +41,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #f0faf0 0%, #e8f5e9 40%, #fffde7 100%);
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-bg) 40%, var(--bg) 100%);
 }
 
 .hero-content {
@@ -59,7 +60,7 @@
   border-radius: 30rpx;
   font-size: 24rpx;
   margin-bottom: 20rpx;
-  border: 1px solid rgba(82, 196, 26, 0.15);
+  border: 1px solid var(--primary-bg);
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
 }
 

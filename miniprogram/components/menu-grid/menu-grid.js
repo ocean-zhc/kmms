@@ -19,6 +19,17 @@ Component({
   },
 
   methods: {
+    toggleFav(e) {
+      const { dayIdx, mealIdx, dishIdx } = e.currentTarget.dataset;
+      const dish = this.data.days[dayIdx].meals[mealIdx].dishes[dishIdx];
+      let favs = [];
+      try { favs = JSON.parse(wx.getStorageSync('kmms_favorites') || '[]'); } catch (e) {}
+      const idx = favs.indexOf(dish.name);
+      if (idx > -1) { favs.splice(idx, 1); } else { favs.push(dish.name); }
+      wx.setStorageSync('kmms_favorites', JSON.stringify(favs));
+      this.setData({ [`days[${dayIdx}].meals[${mealIdx}].dishes[${dishIdx}].isFavorite`]: favs.includes(dish.name) });
+    },
+
     buildGrid(items, startDate) {
       const dayMap = {};
       for (let wd = 1; wd <= 5; wd++) {
@@ -31,6 +42,11 @@ Component({
           isToday: false,
         };
       }
+
+      let allergens = [];
+      try { allergens = JSON.parse(wx.getStorageSync('kmms_allergens') || '[]'); } catch (e) {}
+      let favorites = [];
+      try { favorites = JSON.parse(wx.getStorageSync('kmms_favorites') || '[]'); } catch (e) {}
 
       (items || []).forEach(item => {
         const wd = item.weekday;
@@ -45,6 +61,8 @@ Component({
             name,
             emoji: getDishEmoji(name),
             colorIndex: i % 4,
+            isAllergen: allergens.some(a => name.includes(a)),
+            isFavorite: favorites.includes(name),
           })),
         });
       });

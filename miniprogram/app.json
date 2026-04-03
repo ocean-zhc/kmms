@@ -5,7 +5,8 @@
     "pages/history/index",
     "pages/detail/index",
     "pages/learning/index",
-    "pages/about/index"
+    "pages/about/index",
+    "pages/search/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f0faf0",

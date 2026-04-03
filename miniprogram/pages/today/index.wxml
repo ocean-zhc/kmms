@@ -1,4 +1,4 @@
-<view class="page-today">
+<view class="page-today" style="{{themeStyle}}">
   <!-- Loading -->
   <view class="container" wx:if="{{loading}}">
     <view class="skeleton skeleton-card" style="height: 200rpx;"></view>
@@ -21,6 +21,7 @@
       <view class="hero-decor decor-1">🥗</view>
       <view class="hero-decor decor-2">🍳</view>
       <view class="hero-decor decor-3">🥤</view>
+      <view class="search-btn" bindtap="goSearch">🔍</view>
       <view class="hero-content">
         <view class="hero-badge">
           <text>☀️</text>
@@ -31,24 +32,60 @@
       </view>
     </view>
 
+    <!-- Daily Tip -->
+    <view class="tip-card card" wx:if="{{tip}}">
+      <view class="tip-content">
+        <text class="tip-emoji">{{tip.emoji}}</text>
+        <view class="tip-body">
+          <text class="tip-label">💡 每日小贴士</text>
+          <text class="tip-text">{{tip.text}}</text>
+        </view>
+      </view>
+    </view>
+
     <!-- Today's Meals -->
     <view class="meals-section">
-      <block wx:for="{{meals}}" wx:key="type">
+      <block wx:for="{{meals}}" wx:key="type" wx:for-index="mealIdx">
         <view class="today-meal-card card meal-{{item.type}}">
           <view class="meal-header">
             <text class="meal-emoji">{{item.emoji}}</text>
             <text class="meal-label">{{item.label}}</text>
           </view>
           <view class="dish-list">
-            <block wx:for="{{item.dishes}}" wx:for-item="dish" wx:key="name">
-              <view class="dish-pill dish-color-{{dish.colorIndex}}" style="animation-delay: {{index * 0.06}}s">
+            <block wx:for="{{item.dishes}}" wx:for-item="dish" wx:key="name" wx:for-index="dishIdx">
+              <view class="dish-pill dish-color-{{dish.colorIndex}} {{dish.isAllergen ? 'dish-allergen' : ''}}" style="animation-delay: {{dishIdx * 0.06}}s">
                 <view class="dish-emoji-badge">{{dish.emoji}}</view>
                 <text class="dish-name">{{dish.name}}</text>
+                <text wx:if="{{dish.isAllergen}}" class="allergen-icon">⚠️</text>
+                <text class="fav-icon" catchtap="toggleFav" data-meal-idx="{{mealIdx}}" data-dish-idx="{{dishIdx}}">{{dish.isFavorite ? '❤️' : '🤍'}}</text>
               </view>
             </block>
           </view>
         </view>
       </block>
+    </view>
+
+    <!-- Dinner Recommendation -->
+    <view class="dinner-card card" wx:if="{{hasData}}">
+      <view class="dinner-header" bindtap="toggleDinner">
+        <view class="dinner-header-left">
+          <text class="dinner-icon">🍽</text>
+          <text class="dinner-title">晚餐推荐</text>
+        </view>
+        <text class="dinner-btn" wx:if="{{!dinnerData && !dinnerLoading}}">获取推荐 ›</text>
+        <text class="dinner-arrow {{dinnerExpanded ? 'expanded' : ''}}" wx:else>›</text>
+      </view>
+      <view class="dinner-body" wx:if="{{dinnerExpanded}}">
+        <view class="dinner-loading" wx:if="{{dinnerLoading}}">
+          <text>🤖 AI正在根据今日午餐搭配晚餐...</text>
+        </view>
+        <view class="dinner-content" wx:elif="{{dinnerData}}">
+          <text class="dinner-text">{{dinnerData.recommendation}}</text>
+          <view class="dinner-footer">
+            <view class="cache-pill" wx:if="{{dinnerData.cached}}">已缓存</view>
+          </view>
+        </view>
+      </view>
     </view>
 
     <!-- Nutrition -->
@@ -59,6 +96,24 @@
     <!-- AI Summary -->
     <view class="section">
       <ai-summary week-id="{{weekId}}" weekday="{{weekday}}" />
+    </view>
+
+    <!-- Poster Button -->
+    <view class="poster-btn" bindtap="generatePoster" wx:if="{{hasData}}">📸 生成海报</view>
+  </view>
+
+  <!-- Hidden Canvas -->
+  <canvas type="2d" id="posterCanvas" style="position:fixed;left:-9999px;top:0;width:375px;height:560px;"></canvas>
+
+  <!-- Poster Modal -->
+  <view class="poster-modal" wx:if="{{showPoster}}">
+    <view class="poster-overlay" bindtap="closePoster"></view>
+    <view class="poster-preview">
+      <image src="{{posterPath}}" mode="widthFix" class="poster-img" />
+      <view class="poster-actions">
+        <view class="poster-save-btn" bindtap="savePoster">保存到相册</view>
+        <view class="poster-close-btn" bindtap="closePoster">关闭</view>
+      </view>
     </view>
   </view>
 </view>

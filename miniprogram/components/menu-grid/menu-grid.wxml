@@ -1,6 +1,6 @@
 <view class="menu-grid {{compact ? 'compact' : ''}}">
-  <block wx:for="{{days}}" wx:key="weekday">
-    <view class="day-card fade-in {{item.isToday ? 'today-card' : ''}}" style="animation-delay: {{index * 0.06}}s">
+  <block wx:for="{{days}}" wx:key="weekday" wx:for-index="dayIdx">
+    <view class="day-card fade-in {{item.isToday ? 'today-card' : ''}}" style="animation-delay: {{dayIdx * 0.06}}s">
       <!-- 今日食谱横幅 -->
       <view class="today-banner" wx:if="{{item.isToday}}">
         <text class="today-banner-icon">📌</text>
@@ -17,17 +17,19 @@
 
       <!-- 餐次列表 -->
       <view class="meals-wrap" wx:if="{{item.meals.length > 0}}">
-        <block wx:for="{{item.meals}}" wx:for-item="meal" wx:key="type">
+        <block wx:for="{{item.meals}}" wx:for-item="meal" wx:key="type" wx:for-index="mealIdx">
           <view class="meal-section meal-{{meal.type}}">
             <view class="meal-label">
               <view class="meal-dot"></view>
               <text class="meal-name">{{meal.label}}</text>
             </view>
             <view class="dish-list">
-              <block wx:for="{{meal.dishes}}" wx:for-item="dish" wx:key="name">
-                <view class="dish-pill dish-color-{{dish.colorIndex}}">
+              <block wx:for="{{meal.dishes}}" wx:for-item="dish" wx:key="name" wx:for-index="dishIdx">
+                <view class="dish-pill dish-color-{{dish.colorIndex}} {{dish.isAllergen ? 'dish-allergen' : ''}}">
                   <view class="dish-emoji-badge">{{dish.emoji}}</view>
                   <text class="dish-name">{{dish.name}}</text>
+                  <text wx:if="{{dish.isAllergen}}" class="allergen-icon">⚠️</text>
+                  <text class="fav-icon" catchtap="toggleFav" data-day-idx="{{dayIdx}}" data-meal-idx="{{mealIdx}}" data-dish-idx="{{dishIdx}}">{{dish.isFavorite ? '❤️' : '🤍'}}</text>
                 </view>
               </block>
             </view>
