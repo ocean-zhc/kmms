@@ -1,4 +1,5 @@
 const api = require('../../utils/api');
+const { applyTheme } = require('../../utils/theme');
 
 const SUBJECT_MAP = {
   '美术': { icon: '🎨', color: '#fa8c16' },
@@ -50,6 +51,7 @@ Page({
   },
 
   onShow() {
+    applyTheme(this);
     api.recordVisit('/pages/learning').catch(() => {});
   },
 

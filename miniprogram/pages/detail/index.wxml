@@ -1,4 +1,4 @@
-<view class="page-detail">
+<view class="page-detail" style="{{themeStyle}}">
   <!-- Loading -->
   <view class="container" wx:if="{{loading}}">
     <view class="skeleton skeleton-card" style="height: 140rpx;"></view>
@@ -43,6 +43,24 @@
     <!-- AI Summary -->
     <view class="section">
       <ai-summary week-id="{{weekId}}" />
+    </view>
+
+    <!-- Poster Button -->
+    <view class="poster-btn" bindtap="generatePoster">📸 生成海报</view>
+  </view>
+
+  <!-- Hidden Canvas -->
+  <canvas type="2d" id="posterCanvas" style="position:fixed;left:-9999px;top:0;width:375px;height:660px;"></canvas>
+
+  <!-- Poster Modal -->
+  <view class="poster-modal" wx:if="{{showPoster}}">
+    <view class="poster-overlay" bindtap="closePoster"></view>
+    <view class="poster-preview">
+      <image src="{{posterPath}}" mode="widthFix" class="poster-img" />
+      <view class="poster-actions">
+        <view class="poster-save-btn" bindtap="savePoster">保存到相册</view>
+        <view class="poster-close-btn" bindtap="closePoster">关闭</view>
+      </view>
     </view>
   </view>
 </view>

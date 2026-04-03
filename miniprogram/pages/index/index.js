@@ -1,5 +1,6 @@
 const api = require('../../utils/api');
 const { getWeekTitle } = require('../../utils/util');
+const { applyTheme } = require('../../utils/theme');
 
 Page({
   data: {
@@ -15,6 +16,7 @@ Page({
   },
 
   onShow() {
+    applyTheme(this);
     api.recordVisit('/pages/index').catch(() => {});
   },
 

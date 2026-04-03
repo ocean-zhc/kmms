@@ -35,6 +35,8 @@ module.exports = {
   getAiSummary: (weekId) => request(`/public/ai/summary/${weekId}`),
   getNutrition: (weekId) => request(`/public/ai/nutrition/${weekId}`),
   getPublicDishes: () => request('/public/dishes'),
+  searchDishes: (keyword) => request(`/public/search?keyword=${encodeURIComponent(keyword)}`),
+  getDinnerRecommendation: (weekId, weekday) => request(`/public/ai/dinner/${weekId}/${weekday}`),
   recordVisit: (path) =>
     request('/public/visit', { method: 'POST', data: { path } }),
   getVisitStats: () => request('/public/visit/stats'),

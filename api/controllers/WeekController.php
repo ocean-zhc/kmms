@@ -460,6 +460,40 @@ class WeekController
     }
 
     /**
+     * 公共接口：搜索菜品
+     */
+    public static function search(): void
+    {
+        $keyword = trim($_GET['keyword'] ?? '');
+        if ($keyword === '') {
+            json_error('请输入搜索关键词');
+        }
+
+        $db = DB::getInstance();
+        $weekdayNames = ['', '周一', '周二', '周三', '周四', '周五'];
+        $mealLabels = ['lunch' => '午餐', 'snack' => '午点'];
+
+        $stmt = $db->prepare("SELECT mi.week_id, mi.weekday, mi.meal_type, mi.content,
+                mw.year, mw.week_number, mw.week_start, mw.week_end
+            FROM menu_items mi
+            JOIN menu_weeks mw ON mi.week_id = mw.id
+            WHERE mw.status IN ('published', 'archived')
+              AND mi.content ILIKE :kw
+            ORDER BY mw.year DESC, mw.week_number DESC, mi.weekday, mi.meal_type
+            LIMIT 50");
+        $stmt->execute([':kw' => '%' . $keyword . '%']);
+        $results = $stmt->fetchAll();
+
+        foreach ($results as &$r) {
+            $wd = (int)$r['weekday'];
+            $r['weekday_name'] = $weekdayNames[$wd] ?? '';
+            $r['meal_label'] = $mealLabels[$r['meal_type']] ?? $r['meal_type'];
+        }
+
+        json_success($results);
+    }
+
+    /**
      * 记录操作日志
      */
     private static function log(int $adminId, string $action, string $targetType = '', int $targetId = 0, string $detail = ''): void

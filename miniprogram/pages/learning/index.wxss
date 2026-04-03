@@ -1,6 +1,6 @@
 .page-learning {
   min-height: 100vh;
-  background: #f0faf0;
+  background: var(--bg);
 }
 
 .learning-hero {
@@ -11,8 +11,8 @@
 .hero-badge {
   display: inline-block;
   padding: 6rpx 24rpx;
-  background: rgba(82, 196, 26, 0.1);
-  color: #52c41a;
+  background: var(--primary-light);
+  color: var(--primary);
   border-radius: 30rpx;
   font-weight: 700;
   font-size: 20rpx;
@@ -47,7 +47,7 @@
   position: absolute;
   top: 20rpx;
   right: 24rpx;
-  background: #52c41a;
+  background: var(--primary);
   color: #fff;
   padding: 4rpx 20rpx;
   border-radius: 30rpx;
@@ -195,7 +195,7 @@
   width: 14rpx;
   height: 14rpx;
   border-radius: 50%;
-  background: #52c41a;
+  background: var(--primary);
   animation: dotBounce 1.2s infinite;
 }
 

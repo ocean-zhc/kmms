@@ -155,6 +155,24 @@
   color: #2d3a2e;
 }
 
+/* ===== Allergen ===== */
+.dish-allergen {
+  background: linear-gradient(135deg, #fff1f0, #ffccc7) !important;
+  border: 2rpx solid #ffa39e;
+}
+
+.allergen-icon {
+  font-size: 24rpx;
+  flex-shrink: 0;
+}
+
+/* ===== Favorite ===== */
+.fav-icon {
+  font-size: 24rpx;
+  flex-shrink: 0;
+  padding: 4rpx;
+}
+
 /* ===== Empty ===== */
 .day-empty {
   padding: 32rpx 28rpx;

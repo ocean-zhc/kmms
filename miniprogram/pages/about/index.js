@@ -1,4 +1,5 @@
 const api = require('../../utils/api');
+const { THEMES, applyTheme, getSavedThemeId, saveThemeId } = require('../../utils/theme');
 
 function simpleMd(text) {
   if (!text) return '';
@@ -24,21 +25,70 @@ Page({
     notices: [],
     unreadCount: 0,
     noticeExpanded: false,
+    themes: THEMES,
+    currentTheme: getSavedThemeId(),
+    themeStyle: '',
+    allergenInput: '',
+    allergens: [],
+    favorites: [],
   },
 
   onLoad() {
+    this.setData({ allergens: JSON.parse(wx.getStorageSync('kmms_allergens') || '[]') });
     this.loadSiteConfig();
     this.loadStats();
     this.loadNotices();
   },
 
   onShow() {
+    applyTheme(this);
     api.recordVisit('/pages/about').catch(() => {});
     this.updateBadge();
+    this.setData({ favorites: JSON.parse(wx.getStorageSync('kmms_favorites') || '[]') });
+  },
+
+  switchTheme(e) {
+    const id = e.currentTarget.dataset.id;
+    saveThemeId(id);
+    this.setData({ currentTheme: id });
+    applyTheme(this, id);
   },
 
   goLearning() {
     wx.navigateTo({ url: '/pages/learning/index' });
+  },
+
+  onAllergenInput(e) {
+    this.setData({ allergenInput: e.detail.value });
+  },
+
+  addAllergen() {
+    const name = this.data.allergenInput.trim();
+    if (!name) return;
+    const allergens = this.data.allergens;
+    if (allergens.includes(name)) {
+      wx.showToast({ title: '已存在', icon: 'none' });
+      return;
+    }
+    allergens.push(name);
+    wx.setStorageSync('kmms_allergens', JSON.stringify(allergens));
+    this.setData({ allergens, allergenInput: '' });
+  },
+
+  removeAllergen(e) {
+    const idx = e.currentTarget.dataset.index;
+    const allergens = this.data.allergens;
+    allergens.splice(idx, 1);
+    wx.setStorageSync('kmms_allergens', JSON.stringify(allergens));
+    this.setData({ allergens });
+  },
+
+  removeFavorite(e) {
+    const idx = e.currentTarget.dataset.index;
+    const favorites = this.data.favorites;
+    favorites.splice(idx, 1);
+    wx.setStorageSync('kmms_favorites', JSON.stringify(favorites));
+    this.setData({ favorites });
   },
 
   toggleNotice() {

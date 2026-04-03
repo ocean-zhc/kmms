@@ -1,5 +1,6 @@
 const api = require('../../utils/api');
 const { formatDateRange } = require('../../utils/util');
+const { applyTheme } = require('../../utils/theme');
 
 const MONTHS = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
 const WEEKDAYS = ['日','一','二','三','四','五','六'];
@@ -34,6 +35,7 @@ Page({
   },
 
   onShow() {
+    applyTheme(this);
     api.recordVisit('/pages/history').catch(() => {});
   },
 

@@ -223,7 +223,7 @@
 
 .service-card:active {
   transform: scale(0.98);
-  border-color: #52c41a;
+  border-color: var(--primary);
 }
 
 .service-icon {
@@ -232,7 +232,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f0fff0, #e6ffe6);
+  background: var(--primary-light);
   border-radius: 20rpx;
   font-size: 36rpx;
   flex-shrink: 0;
@@ -292,6 +292,148 @@
   width: 2rpx;
   height: 60rpx;
   background: var(--border);
+}
+
+/* ===== Theme Picker ===== */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12rpx 0;
+}
+
+.theme-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  padding: 14rpx 0;
+  border-radius: 14rpx;
+  transition: all 0.2s;
+}
+
+.theme-item:active {
+  transform: scale(0.92);
+}
+
+.theme-item.active {
+  background: var(--primary-light);
+}
+
+.theme-dot {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  box-shadow: 0 3rpx 10rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  position: relative;
+}
+
+.theme-item.active .theme-dot {
+  box-shadow: 0 0 0 4rpx #fff, 0 0 0 7rpx var(--primary);
+}
+
+.theme-name {
+  font-size: 20rpx;
+  color: var(--text-hint);
+  white-space: nowrap;
+}
+
+.theme-item.active .theme-name {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ===== Allergen Settings ===== */
+.allergen-input-row {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.allergen-input {
+  flex: 1;
+  height: 64rpx;
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  border: 2rpx solid #e8e8e8;
+  border-radius: 12rpx;
+  background: #fafafa;
+}
+
+.allergen-add-btn {
+  flex-shrink: 0;
+  height: 64rpx;
+  line-height: 64rpx;
+  padding: 0 28rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border-radius: 12rpx;
+}
+
+.allergen-add-btn:active {
+  opacity: 0.8;
+}
+
+.allergen-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.allergen-tag {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 8rpx 16rpx;
+  font-size: 24rpx;
+  color: #cf1322;
+  background: #fff1f0;
+  border: 1rpx solid #ffa39e;
+  border-radius: 8rpx;
+}
+
+.allergen-tag-x {
+  font-size: 20rpx;
+  color: #ff4d4f;
+  font-weight: 700;
+}
+
+.allergen-hint {
+  font-size: 22rpx;
+  color: var(--text-hint);
+  line-height: 1.6;
+}
+
+/* ===== Favorites ===== */
+.fav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.fav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 20rpx;
+  background: #fff7f7;
+  border-radius: 12rpx;
+  border: 1rpx solid #ffe4e4;
+}
+
+.fav-dish-name {
+  font-size: 26rpx;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.fav-remove {
+  font-size: 22rpx;
+  color: #ff4d4f;
+  font-weight: 700;
+  padding: 8rpx;
 }
 
 /* ===== Footer ===== */

@@ -1,4 +1,4 @@
-<view class="page-learning">
+<view class="page-learning" style="{{themeStyle}}">
   <view class="container">
     <!-- Hero -->
     <view class="learning-hero">

@@ -1,3 +1,5 @@
+const { getSavedThemeId, getTheme } = require('./utils/theme');
+
 App({
   onLaunch() {
     const sysInfo = wx.getSystemInfoSync();
@@ -5,6 +7,9 @@ App({
     this.globalData.screenWidth = sysInfo.screenWidth;
     this.globalData.screenHeight = sysInfo.screenHeight;
     this.globalData.pixelRatio = sysInfo.pixelRatio;
+
+    const theme = getTheme(getSavedThemeId());
+    wx.setTabBarStyle({ selectedColor: theme.tabSelected });
   },
   globalData: {
     statusBarHeight: 0,
