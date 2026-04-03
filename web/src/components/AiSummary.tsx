@@ -64,13 +64,13 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId, weekday }) => {
     if (weekId) fetchSummary();
   }, [weekId, weekday]);
 
-  const fetchSummary = async () => {
+  const fetchSummary = async (refresh = false) => {
     setLoading(true);
     setError('');
     setSummary('');
     try {
       const res = weekday
-        ? await getDailyAiSummary(weekId, weekday)
+        ? await getDailyAiSummary(weekId, weekday, refresh)
         : await getAiSummary(weekId);
       if (res.code === 0) {
         setSummary(res.data.summary);
@@ -107,7 +107,7 @@ const AiSummary: React.FC<AiSummaryProps> = ({ weekId, weekday }) => {
             type="text"
             size="small"
             icon={<ReloadOutlined />}
-            onClick={fetchSummary}
+            onClick={() => fetchSummary(true)}
             className="refresh-btn"
           >
             刷新

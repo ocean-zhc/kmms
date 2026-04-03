@@ -108,12 +108,12 @@ export async function getTodayMenu() {
   return req('/public/today/menu');
 }
 
-export async function getDailyAiSummary(weekId: number, weekday: number) {
-  return req(`/public/ai/daily-summary/${weekId}/${weekday}`);
+export async function getDailyAiSummary(weekId: number, weekday: number, refresh?: boolean) {
+  return req(`/public/ai/daily-summary/${weekId}/${weekday}${refresh ? '?refresh=1' : ''}`);
 }
 
-export async function getDailyNutritionAnalysis(weekId: number, weekday: number) {
-  return req(`/public/ai/daily-nutrition/${weekId}/${weekday}`);
+export async function getDailyNutritionAnalysis(weekId: number, weekday: number, refresh?: boolean) {
+  return req(`/public/ai/daily-nutrition/${weekId}/${weekday}${refresh ? '?refresh=1' : ''}`);
 }
 
 export async function getPublicWeeks(params?: Record<string, any>) {

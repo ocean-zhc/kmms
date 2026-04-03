@@ -423,11 +423,17 @@ class AiController
     public static function getDailySummary(int $weekId, int $weekday): void
     {
         $db = DB::getInstance();
+        $refresh = isset($_GET['refresh']) && $_GET['refresh'] === '1';
 
         $configStmt = $db->query('SELECT api_url, api_key, model, prompt, enabled FROM ai_config WHERE id = 1');
         $config = $configStmt->fetch();
         if (!$config || !$config['enabled'] || $config['api_url'] === '' || $config['api_key'] === '') {
             json_error('AI总结功能未配置或未启用', 400, -2);
+        }
+
+        if ($refresh) {
+            $db->prepare('DELETE FROM ai_daily_summaries WHERE week_id = :week_id AND weekday = :weekday')
+                ->execute([':week_id' => $weekId, ':weekday' => $weekday]);
         }
 
         // 查缓存
@@ -449,7 +455,9 @@ class AiController
             json_error('今日食谱不存在或为空', 404);
         }
 
-        $summary = self::callAI($config, $menuText);
+        $dailyConfig = $config;
+        $dailyConfig['prompt'] = '你是一位专业的幼儿园营养师。请对今日食谱进行简短的营养点评（150字以内），包括营养搭配亮点和1-2条温馨小建议。语气亲切温暖，适合家长阅读。注意：只评价当天的食谱，不要提及"这周"或"本周"。';
+        $summary = self::callAI($dailyConfig, $menuText);
         if ($summary === null) {
             json_error('AI总结生成失败，请稍后重试', 500);
         }
@@ -476,11 +484,17 @@ class AiController
     public static function getDailyNutrition(int $weekId, int $weekday): void
     {
         $db = DB::getInstance();
+        $refresh = isset($_GET['refresh']) && $_GET['refresh'] === '1';
 
         $configStmt = $db->query('SELECT api_url, api_key, model, enabled FROM ai_config WHERE id = 1');
         $config = $configStmt->fetch();
         if (!$config || !$config['enabled'] || $config['api_url'] === '' || $config['api_key'] === '') {
             json_error('AI功能未配置或未启用', 400, -2);
+        }
+
+        if ($refresh) {
+            $db->prepare('UPDATE ai_daily_summaries SET nutrition_data = NULL WHERE week_id = :week_id AND weekday = :weekday')
+                ->execute([':week_id' => $weekId, ':weekday' => $weekday]);
         }
 
         // 查缓存

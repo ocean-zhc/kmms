@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+  mfsu: false,
   hash: true,
   title: '幼儿园食谱管理系统',
   favicons: ['/favicon.svg'],
@@ -11,6 +12,7 @@ export default defineConfig({
         token: {
           colorPrimary: '#52c41a',
           borderRadius: 14,
+          motion: false,
         },
       },
     },

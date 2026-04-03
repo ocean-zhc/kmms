@@ -31,12 +31,12 @@ const NutritionAnalysis: React.FC<{ weekId: number; weekday?: number }> = ({ wee
   const [data, setData] = useState<NutritionData | null>(null);
   const [error, setError] = useState('');
 
-  const fetchData = async () => {
+  const fetchData = async (refresh = false) => {
     setLoading(true);
     setError('');
     try {
       const res = weekday
-        ? await getDailyNutritionAnalysis(weekId, weekday)
+        ? await getDailyNutritionAnalysis(weekId, weekday, refresh)
         : await getNutritionAnalysis(weekId);
       if (res.code === 0) {
         setData(res.data);
@@ -105,7 +105,7 @@ const NutritionAnalysis: React.FC<{ weekId: number; weekday?: number }> = ({ wee
       }
       extra={
         !loading && data ? (
-          <Button type="text" size="small" icon={<ReloadOutlined />} onClick={fetchData} className="refresh-btn">
+          <Button type="text" size="small" icon={<ReloadOutlined />} onClick={() => fetchData(true)} className="refresh-btn">
             刷新
           </Button>
         ) : null

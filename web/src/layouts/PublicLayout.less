@@ -12,7 +12,7 @@
   background: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  will-change: transform;
+  /* will-change: transform 会创建新的包含块，导致 antd 弹出层定位异常 */
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04);
   padding: 0;
   height: 64px;
