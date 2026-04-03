@@ -29,6 +29,8 @@ module.exports = {
   getCurrentWeek: () => request('/public/weeks/current'),
   getPublicWeeks: (page = 1, pageSize = 10) =>
     request(`/public/weeks?page=${page}&page_size=${pageSize}`),
+  getPublicWeeksByMonth: (year, month) =>
+    request(`/public/weeks/month?year=${year}&month=${month}`),
   getWeekDetail: (id) => request(`/public/weeks/${id}`),
   getAiSummary: (weekId) => request(`/public/ai/summary/${weekId}`),
   getNutrition: (weekId) => request(`/public/ai/nutrition/${weekId}`),

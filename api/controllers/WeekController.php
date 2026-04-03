@@ -380,6 +380,26 @@ class WeekController
     }
 
     /**
+     * 公共接口：按月获取已发布的周列表
+     */
+    public static function publicListByMonth(): void
+    {
+        $db = DB::getInstance();
+
+        $year = intval($_GET['year'] ?? 0);
+        $month = intval($_GET['month'] ?? 0);
+
+        if ($year < 2020 || $year > 2100 || $month < 1 || $month > 12) {
+            json_error('年份或月份无效');
+        }
+
+        $stmt = $db->prepare("SELECT * FROM menu_weeks WHERE status IN ('published', 'archived') AND EXTRACT(YEAR FROM week_start) = :year AND EXTRACT(MONTH FROM week_start) = :month ORDER BY week_number ASC");
+        $stmt->execute([':year' => $year, ':month' => $month]);
+
+        json_success($stmt->fetchAll());
+    }
+
+    /**
      * 公共接口：获取单个已发布周详情
      */
     public static function publicDetail(int $id): void

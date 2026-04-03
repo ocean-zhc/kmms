@@ -1,19 +1,36 @@
 const api = require('../../utils/api');
 const { formatDateRange } = require('../../utils/util');
 
+const MONTHS = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+const WEEKDAYS = ['日','一','二','三','四','五','六'];
+
+function formatWeekItem(item) {
+  const ws = item.week_start || '';
+  const we = item.week_end || '';
+  const startDate = ws ? new Date(ws) : null;
+  return {
+    ...item,
+    dateRange: formatDateRange(ws, we),
+    startDay: startDate ? startDate.getDate() : '',
+    startMonth: startDate ? (startDate.getMonth() + 1) + '月' : '',
+    weekdayRange: startDate ? `周${WEEKDAYS[startDate.getDay()]}起` : '',
+  };
+}
+
 Page({
   data: {
     loading: true,
-    weeks: [],
-    page: 1,
-    pageSize: 10,
-    total: 0,
-    hasMore: true,
-    loadingMore: false,
+    monthData: [],
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    monthLabel: '',
+    monthLoading: false,
+    isCurrentMonth: true,
   },
 
   onLoad() {
-    this.loadWeeks(1);
+    this.updateMonthLabel();
+    this.loadMonth();
   },
 
   onShow() {
@@ -21,49 +38,52 @@ Page({
   },
 
   onPullDownRefresh() {
-    this.loadWeeks(1).then(() => {
-      wx.stopPullDownRefresh();
+    this.loadMonth().finally(() => wx.stopPullDownRefresh());
+  },
+
+  onShareAppMessage() {
+    return { title: '历史食谱', path: '/pages/history/index' };
+  },
+
+  async loadMonth() {
+    const { year, month } = this.data;
+    this.setData({ monthLoading: true, loading: false });
+    try {
+      const list = await api.getPublicWeeksByMonth(year, month);
+      this.setData({ monthData: (list || []).map(formatWeekItem) });
+    } catch (e) {
+      this.setData({ monthData: [] });
+    } finally {
+      this.setData({ monthLoading: false });
+    }
+  },
+
+  updateMonthLabel() {
+    const { year, month } = this.data;
+    const now = new Date();
+    this.setData({
+      monthLabel: `${year}年${MONTHS[month - 1]}`,
+      isCurrentMonth: year === now.getFullYear() && month === now.getMonth() + 1,
     });
   },
 
-  onReachBottom() {
-    if (this.data.hasMore && !this.data.loadingMore) {
-      this.loadMore();
-    }
+  prevMonth() {
+    let { year, month } = this.data;
+    if (month === 1) { year--; month = 12; } else { month--; }
+    this.setData({ year, month }, () => {
+      this.updateMonthLabel();
+      this.loadMonth();
+    });
   },
 
-  async loadWeeks(page) {
-    if (page === 1) this.setData({ loading: true });
-    try {
-      const res = await api.getPublicWeeks(page, this.data.pageSize);
-      const list = (res.list || []).map(item => {
-        const ws = item.week_start || item.start_date || '';
-        const we = item.week_end || item.end_date || '';
-        const startDay = ws ? new Date(ws).getDate() : '';
-        const startMonth = ws ? (new Date(ws).getMonth() + 1) + '月' : '';
-        return {
-          ...item,
-          dateRange: formatDateRange(ws, we),
-          startDay,
-          startMonth,
-        };
-      });
-      this.setData({
-        loading: false,
-        weeks: page === 1 ? list : this.data.weeks.concat(list),
-        page,
-        total: res.total || 0,
-        hasMore: page * this.data.pageSize < (res.total || 0),
-        loadingMore: false,
-      });
-    } catch (e) {
-      this.setData({ loading: false, loadingMore: false });
-    }
-  },
-
-  async loadMore() {
-    this.setData({ loadingMore: true });
-    await this.loadWeeks(this.data.page + 1);
+  nextMonth() {
+    if (this.data.isCurrentMonth) return;
+    let { year, month } = this.data;
+    if (month === 12) { year++; month = 1; } else { month++; }
+    this.setData({ year, month }, () => {
+      this.updateMonthLabel();
+      this.loadMonth();
+    });
   },
 
   goDetail(e) {
