@@ -1,0 +1,103 @@
+<view class="nutrition" wx:if="{{hasData || loading}}">
+  <!-- Loading -->
+  <view wx:if="{{loading}}" class="card">
+    <view class="card-body">
+      <view class="skeleton skeleton-title"></view>
+      <view class="skeleton" style="width: 240rpx; height: 240rpx; border-radius: 50%; margin: 20rpx auto;"></view>
+      <view class="skeleton skeleton-text"></view>
+    </view>
+  </view>
+
+  <!-- Content -->
+  <view class="nutrition-card card fade-in" wx:elif="{{hasData}}">
+    <view class="nutrition-header" bindtap="toggleExpand">
+      <view class="nutrition-header-left">
+        <text class="nutrition-icon">📊</text>
+        <text class="nutrition-title">营养分析</text>
+      </view>
+      <view class="nutrition-expand-icon {{expanded ? 'expanded' : ''}}">
+        <text>›</text>
+      </view>
+    </view>
+
+    <view class="nutrition-body {{expanded ? 'show' : 'collapsed'}}">
+      <!-- 环形图 + 评分 -->
+      <view class="chart-row">
+        <view class="donut-wrap">
+          <view class="donut" style="background: conic-gradient(var(--primary) 0deg {{protein * 3.6}}deg, var(--blue) {{protein * 3.6}}deg {{(protein + carbs) * 3.6}}deg, var(--orange) {{(protein + carbs) * 3.6}}deg 360deg);">
+            <view class="donut-center">
+              <text class="score-num">{{score}}</text>
+              <text class="score-label">综合评分</text>
+            </view>
+          </view>
+          <!-- 图例 -->
+          <view class="legend">
+            <view class="legend-item">
+              <view class="legend-dot" style="background: var(--primary);"></view>
+              <text>蛋白质 {{protein}}%</text>
+            </view>
+            <view class="legend-item">
+              <view class="legend-dot" style="background: var(--blue);"></view>
+              <text>碳水 {{carbs}}%</text>
+            </view>
+            <view class="legend-item">
+              <view class="legend-dot" style="background: var(--orange);"></view>
+              <text>脂肪 {{fat}}%</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 微量元素进度条 -->
+        <view class="micro-bars">
+          <view class="micro-item">
+            <view class="micro-label">
+              <text>🥦 纤维素</text>
+              <text class="micro-val">{{fiber}}%</text>
+            </view>
+            <view class="progress-track">
+              <view class="progress-fill fill-cyan" style="width: {{fiber}}%;"></view>
+            </view>
+          </view>
+          <view class="micro-item">
+            <view class="micro-label">
+              <text>💊 维生素</text>
+              <text class="micro-val">{{vitamins}}%</text>
+            </view>
+            <view class="progress-track">
+              <view class="progress-fill fill-purple" style="width: {{vitamins}}%;"></view>
+            </view>
+          </view>
+          <view class="micro-item">
+            <view class="micro-label">
+              <text>⚡ 矿物质</text>
+              <text class="micro-val">{{minerals}}%</text>
+            </view>
+            <view class="progress-track">
+              <view class="progress-fill fill-pink" style="width: {{minerals}}%;"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 食材分类 -->
+      <view class="category-section" wx:if="{{categories.length > 0}}">
+        <view class="category-tags">
+          <view class="category-tag" wx:for="{{categories}}" wx:key="key">
+            <text class="cat-emoji">{{item.emoji}}</text>
+            <text class="cat-name">{{item.name}}</text>
+            <text class="cat-count">{{item.count}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 总结 -->
+      <view class="nutrition-summary" wx:if="{{summary}}">
+        <text>{{summary}}</text>
+      </view>
+      <view class="nutrition-footer" wx:if="{{generatedAt || cached}}">
+        <view class="cache-pill" wx:if="{{cached}}">已缓存</view>
+        <text class="gen-time" wx:if="{{generatedAt}}">生成于 {{generatedAt}}</text>
+      </view>
+    </view>
+  </view>
+</view>

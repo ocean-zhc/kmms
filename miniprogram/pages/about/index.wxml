@@ -1,0 +1,102 @@
+<view class="page-about">
+  <view class="container">
+    <!-- Logo Section -->
+    <view class="about-hero">
+      <view class="about-logo">🍱</view>
+      <view class="about-name">宝宝食谱</view>
+      <view class="about-subtitle">幼儿园每周食谱管理系统</view>
+      <view class="about-version">v{{version}}</view>
+    </view>
+
+    <!-- Notices -->
+    <view class="notice-section" wx:if="{{notices.length > 0}}">
+      <view class="notice-header" bindtap="toggleNotice">
+        <view class="notice-header-left">
+          <text class="notice-bell-icon">🔔</text>
+          <text class="notice-header-title">公告通知</text>
+          <view class="notice-unread-badge" wx:if="{{unreadCount > 0}}">{{unreadCount}}</view>
+        </view>
+        <text class="notice-arrow {{noticeExpanded ? 'expanded' : ''}}">›</text>
+      </view>
+      <view class="notice-list" wx:if="{{noticeExpanded}}">
+        <view wx:for="{{notices}}" wx:key="id" class="notice-item {{item.isRead ? 'read' : ''}}">
+          <view class="notice-item-body">
+            <text class="notice-item-title" wx:if="{{item.title}}">{{item.title}}</text>
+            <rich-text class="notice-item-content" nodes="{{item.htmlContent}}"></rich-text>
+          </view>
+          <text class="notice-mark-read" wx:if="{{!item.isRead}}" data-id="{{item.id}}" catchtap="markRead">已读</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Info Cards -->
+    <view class="about-card card" wx:if="{{aboutText}}">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">🏫</text>
+          <text>关于我们</text>
+        </view>
+        <rich-text class="about-text" nodes="{{aboutText}}"></rich-text>
+      </view>
+    </view>
+
+    <view class="about-card card" wx:if="{{features.length > 0}}">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">✨</text>
+          <text>功能特色</text>
+        </view>
+        <view class="feature-list">
+          <view class="feature-item" wx:for="{{features}}" wx:key="name">
+            <text class="feature-icon">{{item.icon}}</text>
+            <view class="feature-info">
+              <text class="feature-name">{{item.name}}</text>
+              <text class="feature-desc">{{item.desc}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Learning Entry -->
+    <view class="service-card" bindtap="goLearning">
+      <view class="service-icon">📖</view>
+      <view class="service-info">
+        <view class="service-title">今日所学</view>
+        <view class="service-desc">查看宝贝今天学了什么</view>
+      </view>
+      <view class="service-arrow">›</view>
+    </view>
+
+    <!-- Visit Stats -->
+    <view class="about-card card">
+      <view class="card-body">
+        <view class="about-section-title">
+          <text class="emoji">👀</text>
+          <text>访问统计</text>
+        </view>
+        <view class="stats-row">
+          <view class="stat-item">
+            <text class="stat-num">{{stats.total}}</text>
+            <text class="stat-label">累计访问</text>
+          </view>
+          <view class="stat-divider"></view>
+          <view class="stat-item">
+            <text class="stat-num">{{stats.week}}</text>
+            <text class="stat-label">本周访问</text>
+          </view>
+          <view class="stat-divider"></view>
+          <view class="stat-item">
+            <text class="stat-num">{{stats.today}}</text>
+            <text class="stat-label">今日访问</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Footer -->
+    <view class="about-footer">
+      <text class="footer-text">用心呵护每一餐 ❤️</text>
+    </view>
+  </view>
+</view>

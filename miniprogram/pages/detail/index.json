@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "食谱详情",
+  "usingComponents": {
+    "menu-grid": "/components/menu-grid/menu-grid",
+    "ai-summary": "/components/ai-summary/ai-summary",
+    "nutrition-chart": "/components/nutrition-chart/nutrition-chart"
+  }
+}

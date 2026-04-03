@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "今日食谱",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "menu-grid": "../../components/menu-grid/menu-grid",
+    "nutrition-chart": "../../components/nutrition-chart/nutrition-chart",
+    "ai-summary": "../../components/ai-summary/ai-summary"
+  }
+}

@@ -3,6 +3,7 @@ import { Spin, Empty } from 'antd';
 import MenuGrid from '@/components/MenuGrid';
 import AiSummary from '@/components/AiSummary';
 import NutritionAnalysis from '@/components/NutritionAnalysis';
+import NoticeBar from '@/components/NoticeBar';
 import { getCurrentWeek, getPublicDishes } from '@/services/api';
 import './index.less';
 
@@ -67,6 +68,7 @@ const PublicIndex: React.FC = () => {
         <div className="hero-decor decor-2">🥦</div>
         <div className="hero-decor decor-3">🥕</div>
       </section>
+      <NoticeBar />
       <MenuGrid
         items={weekData.items || []}
         weekStart={weekData.week_start}

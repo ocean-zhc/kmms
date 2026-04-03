@@ -185,6 +185,10 @@ try {
         require_once __DIR__ . '/controllers/WeekController.php';
         WeekController::currentWeek();
     }
+    elseif ($path === '/public/weeks/month' && $method === 'GET') {
+        require_once __DIR__ . '/controllers/WeekController.php';
+        WeekController::publicListByMonth();
+    }
     elseif ($path === '/public/weeks' && $method === 'GET') {
         require_once __DIR__ . '/controllers/WeekController.php';
         WeekController::publicList();

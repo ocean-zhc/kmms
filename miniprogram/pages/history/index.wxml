@@ -1,0 +1,62 @@
+<view class="page-history">
+  <view class="container">
+    <!-- Hero -->
+    <view class="history-hero">
+      <view class="hero-badge">Menu Archive</view>
+      <view class="hero-title">历史食谱</view>
+      <view class="hero-sub">按月浏览宝贝的每周营养食谱</view>
+    </view>
+
+    <!-- Month Navigator -->
+    <view class="month-nav">
+      <view class="month-btn" bindtap="prevMonth">
+        <text class="arrow">‹</text>
+      </view>
+      <view class="month-label">{{monthLabel}}</view>
+      <view class="month-btn {{isCurrentMonth ? 'disabled' : ''}}" bindtap="nextMonth">
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- Month Loading -->
+    <view class="month-loading" wx:if="{{monthLoading}}">
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+      <view class="loading-dot"></view>
+    </view>
+
+    <!-- Timeline -->
+    <view class="timeline" wx:elif="{{monthData.length > 0}}">
+      <view class="timeline-line"></view>
+      <view
+        class="timeline-item"
+        wx:for="{{monthData}}"
+        wx:key="id"
+        style="animation-delay: {{index * 0.08}}s"
+        bindtap="goDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="timeline-dot"></view>
+        <view class="timeline-card card">
+          <view class="timeline-header">
+            <view class="calendar-icon">
+              <view class="calendar-month">{{item.startMonth}}</view>
+              <view class="calendar-day">{{item.startDay}}</view>
+            </view>
+            <view class="timeline-info">
+              <view class="timeline-title">第{{item.week_number}}周</view>
+              <view class="timeline-date">{{item.dateRange}}</view>
+            </view>
+            <view class="timeline-arrow">›</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Empty Month -->
+    <view class="empty-month" wx:elif="{{!monthLoading}}">
+      <view class="empty-icon-sm">📅</view>
+      <text class="empty-text">本月暂无食谱记录</text>
+    </view>
+  </view>
+</view>

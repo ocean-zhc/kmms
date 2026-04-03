@@ -164,6 +164,20 @@ const MenuGrid: React.FC<MenuGridProps> = ({
     );
   };
 
+  // 计算今天是本周第几天（ISO: 周一=1）
+  const getTodayWeekday = (): number => {
+    if (!weekStart || !weekEnd) return 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = new Date(weekStart);
+    start.setHours(0, 0, 0, 0);
+    const end = new Date(weekEnd);
+    end.setHours(0, 0, 0, 0);
+    if (today < start || today > end) return 0;
+    const diff = Math.floor((today.getTime() - start.getTime()) / 86400000);
+    return diff + 1; // 1=周一 ... 7=周日
+  };
+
   // Bento card layout for read-only (public pages)
   if (!editable) {
     const todayWeekday = getTodayWeekday();

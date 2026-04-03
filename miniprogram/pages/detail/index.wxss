@@ -1,0 +1,47 @@
+.page-detail {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* ===== Detail Header ===== */
+.detail-header {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32rpx;
+}
+
+.detail-header-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #f0faf0 0%, #e8f5e9 40%, #fffde7 100%);
+}
+
+.detail-header-content {
+  position: relative;
+  padding: 36rpx;
+  color: var(--text);
+}
+
+.detail-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 12rpx;
+}
+
+.detail-meta .tag-green {
+  background: rgba(82, 196, 26, 0.12);
+  color: var(--primary-dark);
+}
+
+.section {
+  margin-bottom: 8rpx;
+}

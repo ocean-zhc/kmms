@@ -1,0 +1,41 @@
+<view class="ai-summary" wx:if="{{hasData || loading}}">
+  <!-- Loading -->
+  <view class="ai-loading" wx:if="{{loading}}">
+    <view class="card">
+      <view class="card-body">
+        <view class="skeleton skeleton-title"></view>
+        <view class="skeleton skeleton-text"></view>
+        <view class="skeleton skeleton-text"></view>
+        <view class="skeleton skeleton-text-short"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Content -->
+  <view class="ai-card card fade-in" wx:elif="{{hasData}}">
+    <!-- Header -->
+    <view class="ai-header" bindtap="toggleExpand">
+      <view class="ai-header-left">
+        <text class="ai-icon">🤖</text>
+        <text class="ai-title">AI 营养点评</text>
+      </view>
+      <view class="ai-expand-icon {{expanded ? 'expanded' : ''}}">
+        <text>›</text>
+      </view>
+    </view>
+
+    <!-- Body -->
+    <view class="ai-body {{expanded ? 'show' : 'collapsed'}}">
+      <view class="ai-content">
+        <block wx:for="{{nodes}}" wx:key="index">
+          <text wx:if="{{item.type === 'text'}}">{{item.text}}</text>
+          <text wx:else class="ai-highlight" style="color: {{item.color}}; background: {{item.bg}}">{{item.text}}</text>
+        </block>
+      </view>
+      <view class="ai-footer" wx:if="{{generatedAt || cached}}">
+        <view class="cache-pill" wx:if="{{cached}}">已缓存</view>
+        <text class="ai-time" wx:if="{{generatedAt}}">生成于 {{generatedAt}}</text>
+      </view>
+    </view>
+  </view>
+</view>

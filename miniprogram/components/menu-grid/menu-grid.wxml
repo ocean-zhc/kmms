@@ -1,0 +1,50 @@
+<view class="menu-grid {{compact ? 'compact' : ''}}">
+  <block wx:for="{{days}}" wx:key="weekday">
+    <view class="day-card fade-in {{item.isToday ? 'today-card' : ''}}" style="animation-delay: {{index * 0.06}}s">
+      <!-- 今日食谱横幅 -->
+      <view class="today-banner" wx:if="{{item.isToday}}">
+        <text class="today-banner-icon">📌</text>
+        <text class="today-banner-text">今日食谱</text>
+      </view>
+      <!-- 日期头部 -->
+      <view class="day-header">
+        <view class="day-label">
+          <text class="day-emoji">{{item.emoji}}</text>
+          <text class="day-name">{{item.name}}</text>
+        </view>
+        <text class="day-date" wx:if="{{item.date}}">{{item.date}}</text>
+      </view>
+
+      <!-- 餐次列表 -->
+      <view class="meals-wrap" wx:if="{{item.meals.length > 0}}">
+        <block wx:for="{{item.meals}}" wx:for-item="meal" wx:key="type">
+          <view class="meal-section meal-{{meal.type}}">
+            <view class="meal-label">
+              <view class="meal-dot"></view>
+              <text class="meal-name">{{meal.label}}</text>
+            </view>
+            <view class="dish-list">
+              <block wx:for="{{meal.dishes}}" wx:for-item="dish" wx:key="name">
+                <view class="dish-pill dish-color-{{dish.colorIndex}}">
+                  <view class="dish-emoji-badge">{{dish.emoji}}</view>
+                  <text class="dish-name">{{dish.name}}</text>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <!-- 无数据 -->
+      <view class="day-empty" wx:else>
+        <text class="day-empty-text">暂无安排</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 无任何数据 -->
+  <view class="empty-state" wx:if="{{days.length === 0}}">
+    <text class="empty-emoji">🍽</text>
+    <text class="empty-desc">暂无食谱数据</text>
+  </view>
+</view>
