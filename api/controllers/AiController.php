@@ -888,7 +888,6 @@ JSON格式要求：
             ],
             'temperature' => 0.1,
             'max_tokens' => 4096,
-            'thinking' => ['type' => 'disabled'],
         ], JSON_UNESCAPED_UNICODE);
 
         $url = rtrim($config['ocr_api_url'], '/') . '/chat/completions';
@@ -921,7 +920,10 @@ JSON格式要求：
         }
         if ($httpCode !== 200) {
             error_log("OCR API HTTP $httpCode: $response");
-            json_error('OCR服务返回错误 (HTTP ' . $httpCode . ')', 500);
+            $errData = json_decode($response, true);
+            $errMsg = $errData['error']['message'] ?? $errData['message'] ?? '';
+            $detail = $errMsg ? "：$errMsg" : '';
+            json_error('OCR服务返回错误 (HTTP ' . $httpCode . ')' . $detail, 500);
         }
 
         $data = json_decode($response, true);
