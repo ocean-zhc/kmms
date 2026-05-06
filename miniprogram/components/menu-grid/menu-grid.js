@@ -32,7 +32,7 @@ Component({
 
     buildGrid(items, startDate) {
       const dayMap = {};
-      for (let wd = 1; wd <= 5; wd++) {
+      for (let wd = 1; wd <= 7; wd++) {
         dayMap[wd] = {
           weekday: wd,
           name: WEEKDAY_NAMES[wd],
@@ -50,7 +50,7 @@ Component({
 
       (items || []).forEach(item => {
         const wd = item.weekday;
-        if (wd < 1 || wd > 5 || !dayMap[wd]) return;
+        if (wd < 1 || wd > 7 || !dayMap[wd]) return;
         const mealInfo = MEAL_MAP[item.meal_type] || { label: item.meal_type, emoji: '🍽' };
         const dishes = parseDishes(item.content);
         dayMap[wd].meals.push({
@@ -81,7 +81,7 @@ Component({
         const start = new Date(startDate);
         start.setHours(0, 0, 0, 0);
         const diff = Math.floor((today.getTime() - start.getTime()) / 86400000);
-        if (diff >= 0 && diff < 5) {
+        if (diff >= 0 && diff < 7) {
           todayWd = diff + 1;
           dayMap[todayWd].isToday = true;
         }

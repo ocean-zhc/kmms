@@ -1,5 +1,5 @@
 const api = require('../../utils/api');
-const { getWeekTitle, parseDishes, MEAL_MAP } = require('../../utils/util');
+const { getWeekTitle, parseDishes, MEAL_MAP, WEEKDAY_NAMES } = require('../../utils/util');
 const { applyTheme } = require('../../utils/theme');
 const { drawPoster } = require('../../utils/poster');
 
@@ -44,14 +44,13 @@ Page({
 
       const items = this.data.weekData.items || [];
       const meals = [];
-      for (let wd = 1; wd <= 5; wd++) {
+      for (let wd = 1; wd <= 7; wd++) {
         const dayItems = items.filter(i => i.weekday === wd || i.weekday === String(wd));
         if (dayItems.length === 0) continue;
-        const weekdayNames = ['', '周一', '周二', '周三', '周四', '周五'];
         dayItems.forEach(item => {
           const mealInfo = MEAL_MAP[item.meal_type] || { label: item.meal_type, emoji: '🍽' };
           meals.push({
-            label: weekdayNames[wd] + ' ' + mealInfo.label,
+            label: WEEKDAY_NAMES[wd] + ' ' + mealInfo.label,
             emoji: mealInfo.emoji,
             dishes: parseDishes(item.content),
           });

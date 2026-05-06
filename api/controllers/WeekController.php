@@ -432,7 +432,7 @@ class WeekController
         }
 
         $db = DB::getInstance();
-        $weekdayNames = ['', '周一', '周二', '周三', '周四', '周五'];
+        $weekdayNames = ['', '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
         $mealLabels = ['lunch' => '午餐', 'snack' => '午点'];
 
         $stmt = $db->prepare("SELECT mi.week_id, mi.weekday, mi.meal_type, mi.content,
